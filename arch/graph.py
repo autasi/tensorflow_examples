@@ -5,7 +5,7 @@ import tensorflow as tf
 from arch.layers import conv2d, max_pool, flatten, dense
 
 
-def mnist_sequential(x):
+def mnist_sequential_c2d2(x):
     """Creates sequential convolutional neural network for MNIST. The network
         uses 2 convolutional+pooling layers to create the representation part
         of the network, and 2 fully-connected dense layers to create the
