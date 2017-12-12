@@ -3,7 +3,7 @@
 
 import tensorflow as tf
 from arch.layers import conv2d, conv2d_bn, max_pool, flatten, dense, dense_bn
-from arch.layers import variance_s_seeded, residual_layer, conv2d_fix_padding
+from arch.layers import variance_s_seeded, residual_layer
 from arch.layers import batch_norm_activation
 
 
