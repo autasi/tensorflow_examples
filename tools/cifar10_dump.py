@@ -4,20 +4,25 @@
 import numpy as np
 import pickle
 import os
-import cv2
-import urllib.parse
-import urllib.request
+import sys
+if sys.version_info >= (3,):
+    import urllib.request as urllib2
+    import urllib.parse as urlparse
+else:
+    import urllib as urllib2
+    import urlparse
 import tarfile
 
 def get_cifar10_data(folder, data_url = "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"):
-    scheme, netloc, path, query, fragment = urllib.parse.urlsplit(data_url)
+    scheme, netloc, path, query, fragment = urlparse.urlsplit(data_url)
     filename = os.path.basename(path)
     if folder is not None:
         filename = os.path.join(folder, filename)
-    urllib.request.urlretrieve(data_url, filename)
-    tar = tarfile.open(filename, 'r')
-    tar.extractall(path=folder)
-    tar.close()
+    if not os.path.isfile(filename):
+        urllib2.urlretrieve(data_url, filename)
+        tar = tarfile.open(filename, 'r')
+        tar.extractall(path=folder)
+        tar.close()
     cifar_folder = os.path.join(folder, "cifar-10-batches-py")
     return cifar_folder
 
@@ -29,37 +34,34 @@ def one_hot(arr, size, dtype=np.float32):
     return arr_out
 
 
-def convert(imgs, img_size, data_format="channels_first"):
-    imgs = imgs.reshape([len(imgs),img_size,img_size,3])
-    if data_format == "channels_first":
-        data = np.zeros([len(imgs), 1, img_size, img_size], dtype=np.float32)
-    else:
-        data = np.zeros([len(imgs), img_size, img_size, 1], dtype=np.float32)
-    for i in range(len(imgs)):
-        img = cv2.cvtColor(imgs[i], cv2.COLOR_RGB2GRAY)
-        if data_format == "channels_first":
-            data[i,0,:,:] = (img/255.0).astype(data.dtype)
+def convert(imgs, img_size=32, n_chans=3, data_format="channels_first"):
+    imgs = imgs.astype(float) / 255.0
+    imgs = imgs.reshape([-1, n_chans, img_size, img_size]) # NCHW
+    if data_format == "channels_last":
+        imgs = imgs.transpose([0, 2, 3, 1])    
+    return imgs
+
+
+def unpickle(f):
+    with open(f, 'rb') as fo:
+        if sys.version_info >= (3,):        
+            d = pickle.load(fo, encoding="bytes")
         else:
-            data[i,:,:,0] = (img/255.0).astype(data.dtype)
-    return data
-
-
-def unpickle(file):
-    with open(file, 'rb') as fo:
-        d = pickle.load(fo, encoding="bytes")
+            d = pickle.load(fo)
     return d
 
 
-def main(out_folder = "/home/ucu/Work/git/cifar10/data/", 
+def main(out_folder = "/home/autasi/Work/gitTF/cifar10/data/", 
          data_format = "channels_first"):    
     cifar_folder = get_cifar10_data(out_folder)
+    n_chans = 3
     img_size = 32
     tr_x = []
     tr_y = []
     for i in range(5):
         path = os.path.join(cifar_folder, "data_batch_" + str(i+1))
         d = unpickle(path)
-        data = convert(d[b'data'], img_size=img_size, data_format=data_format)
+        data = convert(d[b'data'], img_size=img_size, n_chans=n_chans, data_format=data_format)
         labels = one_hot(np.array(d[b'labels']), size=10)
         tr_x.append(data)
         tr_y.append(labels)
@@ -68,7 +70,7 @@ def main(out_folder = "/home/ucu/Work/git/cifar10/data/",
     
     path = os.path.join(cifar_folder, "test_batch")
     d = unpickle(path)
-    te_x = convert(d[b'data'], img_size=img_size, data_format=data_format)
+    te_x = convert(d[b'data'], img_size=img_size, n_chans=n_chans, data_format=data_format)
     te_y = one_hot(np.array(d[b'labels']), size=10)
     
     data = {'train': (tr_x, tr_y), 'test': (te_x, te_y)}
