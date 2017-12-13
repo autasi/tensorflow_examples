@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pickle
+import cPickle
 import numpy as np
 import tensorflow as tf
-from arch.graph import mnist_sequential_c2d2
+from arch.graph import cifar10_sequential_c2d2
 from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
@@ -15,7 +15,7 @@ from util.batch import random_batch_generator, batch_generator
 # trains MNIST sequential network using learning rate of exponential decay
 def main():
     # input data is in NHWC format
-    data = pickle.load(open("/home/ucu/Work/git/cifar10/data/data_nhwc.pkl", "rb"))
+    data = cPickle.load(open("/home/autasi/Work/gitTF/cifar10/data/data_nhwc.pkl", "rb"))
     tr = data['train']
     tr_x = tr[0]
     tr_y = tr[1]
@@ -38,13 +38,13 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = mnist_sequential_c2d2(x)
+    layers, variables = cifar10_sequential_c2d2(x)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
     
     # logit output required for optimization
-    logit = tuple_list_find(layers, "fc2")[1]
+    logit = tuple_list_find(layers, "fc3")[1]
         
     n_epochs = 40
     
@@ -94,12 +94,9 @@ def main():
             print("Epoch: ", i)
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))    
-        save_variables(session, "/home/ucu/Work/git/cifar10/network/mnist_c2d2_expdecay.pkl")
+        save_variables(session, "/home/autasi/Work/gitTF/cifar10/network/cifar10_c2d2_expdecay.pkl")
     session.close()
     session = None
-#Epoch:  39
-#Learning rate:  0.00027542287033381673
-#Test accuracy:  0.984237    
 
 
 if __name__ == "__main__":
