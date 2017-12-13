@@ -27,6 +27,9 @@ class ExponentialDecay(object):
         # Method required for iterator objects. Returns itself.
         return self
     
+    def next(self):
+        return self.__next__()
+    
     def __next__(self):
         """Returns the next rate item.
 
