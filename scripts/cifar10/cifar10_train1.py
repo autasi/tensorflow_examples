@@ -5,7 +5,7 @@ import os
 import cPickle
 import numpy as np
 import tensorflow as tf
-from arch.graph import cifar10_sequential_c2d2
+from arch.graph import cifar10_sequential_cn2c2cnd3
 from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
@@ -38,7 +38,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_sequential_c2d2(x)
+    layers, variables = cifar10_sequential_cn2c2cnd3(x)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -94,9 +94,12 @@ def main():
             print("Epoch: ", i)
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))    
-        save_variables(session, "/home/autasi/Work/gitTF/cifar10/network/cifar10_c2d2_expdecay.pkl")
+        save_variables(session, "/home/autasi/Work/gitTF/cifar10/network/cifar10_cn2c2cnd3_expdecay.pkl")
     session.close()
     session = None
+#('Epoch: ', 39)
+#('Learning rate: ', 0.00027542287033381673)
+#('Test accuracy: ', 0.57795268)
 
 
 if __name__ == "__main__":

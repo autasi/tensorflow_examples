@@ -5,6 +5,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 import numpy as np
 import pickle
 import os
+from config import mnist_data_folder
 
 def convert(imgs, img_size, data_format="channels_first"):
     if data_format == "channels_first":
@@ -35,4 +36,4 @@ def main(out_folder = "/home/ucu/Work/git/mnist/data/",
     
 
 if __name__ == "__main__":
-    main(data_format="channels_last")
+    main(out_folder=mnist_data_folder, data_format="channels_last")

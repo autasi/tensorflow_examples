@@ -12,6 +12,7 @@ else:
     import urllib as urllib2
     import urlparse
 import tarfile
+from config import cifar10_data_folder
 
 def get_cifar10_data(folder, data_url = "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"):
     scheme, netloc, path, query, fragment = urlparse.urlsplit(data_url)
@@ -36,10 +37,24 @@ def one_hot(arr, size, dtype=np.float32):
 
 def convert(imgs, img_size=32, n_chans=3, data_format="channels_first"):
     imgs = imgs.astype(float) / 255.0
-    imgs = imgs.reshape([-1, n_chans, img_size, img_size]) # NCHW
     if data_format == "channels_last":
-        imgs = imgs.transpose([0, 2, 3, 1])    
-    return imgs
+        conv_imgs = np.zeros(shape=(len(imgs), 32, 32, 3), dtype=float)
+    else:
+        conv_imgs = np.zeros(shape=(len(imgs), 3, 32, 32), dtype=float)
+    for n in range(len(imgs)):
+        data = imgs[n]
+        r = data[0:1024].reshape(32, 32)
+        g = data[1024:2048].reshape(32, 32)
+        b = data[2048:].reshape(32, 32)
+        if data_format == "channels_last":
+            conv_imgs[n,:,:,0] = r
+            conv_imgs[n,:,:,1] = g
+            conv_imgs[n,:,:,2] = b
+        else:
+            conv_imgs[n,0,:,:] = r
+            conv_imgs[n,1,:,:] = g
+            conv_imgs[n,2,:,:] = b
+    return conv_imgs
 
 
 def unpickle(f):
@@ -84,4 +99,4 @@ def main(out_folder = "/home/autasi/Work/gitTF/cifar10/data/",
     
 
 if __name__ == "__main__":
-    main(data_format="channels_last")
+    main(out_folder=cifar10_data_folder, data_format="channels_last")

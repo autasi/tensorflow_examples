@@ -5,19 +5,17 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.graph import mnist_resnet_cbn1r3d1
+from arch.graph import cifar10_sequential_c3d3
 from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
-from config import mnist_data_folder, mnist_net_folder
 
 
-# trains MNIST residual network using learning rate of exponential decay
+# trains MNIST sequential network using learning rate of exponential decay
 def main():
     # input data is in NHWC format
-    data_path = os.path.join(mnist_data_folder, "data_nhwc.pkl")
-    data = pickle.load(open(data_path, "rb"))
+    data = pickle.load(open("/home/autasi/Work/gitTF/cifar10/data/data_nhwc.pkl", "rb"))
     tr = data['train']
     tr_x = tr[0]
     tr_y = tr[1]
@@ -40,13 +38,13 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = mnist_resnet_cbn1r3d1(x)
+    layers, variables = cifar10_sequential_c3d3(x)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
     
     # logit output required for optimization
-    logit = tuple_list_find(layers, "fc2")[1]
+    logit = tuple_list_find(layers, "fc3")[1]
         
     n_epochs = 40
     
@@ -86,6 +84,16 @@ def main():
                                                    gt: yb,
                                                    training: True,
                                                    learning_rate: lr})
+    
+    
+            tr_acc = []
+            # evaluations on test set
+            for (xb, yb) in batch_generator(512, tr_x, tr_y, fixed_size=False):
+                ac = session.run(accuracy, feed_dict={x: xb,
+                                                      gt: yb,
+                                                      training: False})
+                tr_acc.append(ac)    
+    
             acc = []
             # evaluations on test set
             for (xb, yb) in batch_generator(512, te_x, te_y, fixed_size=False):
@@ -95,19 +103,21 @@ def main():
                 acc.append(ac)
             print("Epoch: ", i)
             print("Learning rate: ", lr)
-            print("Test accuracy: ", np.mean(acc))
-        net_path = os.path.join(mnist_net_folder, "mnist_resnet_cbn1r3d1_expdecay.pkl")
-        save_variables(session, net_path)            
+            print("Test accuracy: ", np.mean(acc))    
+            print("Train accuracy: ", np.mean(tr_acc))    
+        save_variables(session, "/home/autasi/Work/gitTF/cifar10/network/cifar10_normimage_c1d3_expdecay.pkl")
     session.close()
     session = None
 #('Epoch: ', 39)
 #('Learning rate: ', 0.00027542287033381673)
-#('Test accuracy: ', 0.99592143)
+#('Test accuracy: ', 0.57795268)
+
 
 if __name__ == "__main__":
     # environment variables for intel MKL
     os.environ["KMP_BLOCKTIME"] = str(0)
     os.environ["KMP_SETTINGS"] = str(1)
     os.environ["KMP_AFFINITY"] = "granularity=fine,verbose,compact,1,0"
-    os.environ["OMP_NUM_THREADS"]= str(4)    
+    os.environ["OMP_NUM_THREADS"]= str(4)
+    
     main()

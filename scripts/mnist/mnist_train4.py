@@ -10,9 +10,10 @@ from arch.graph import mnist_sequential_dbn2d1
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
 from arch.io import save_variables
+from config import mnist_data_folder, mnist_net_folder
 from gp import bayesian_optimisation
 
-
+# trains MNIST sequential network using bayesian optimization
 def eval_network(params, data, save=False):
     learning_rate = 10.0**params[0]
     dropout_rate = params[1]
@@ -92,15 +93,17 @@ def eval_network(params, data, save=False):
                 print("Drop rate: ", dropout_rate)
                 print("Test accuracy: ", mean_acc)
         if save:
-            save_variables(session, "/home/ucu/Work/git/mnist/network/mnist_dbn2d1_bayesopt.pkl")            
+            net_path = os.path.join(mnist_net_folder, "mnist_dbn2d1_bayesopt.pkl")
+            save_variables(session, net_path)            
     session.close()
     session = None
     return mean_acc
 
 
 def main():
-    data = pickle.load(open("/home/ucu/Work/git/mnist/data/data_nhwc.pkl", "rb"))
-    
+    data_path = os.path.join(mnist_data_folder, "data_nhwc.pkl")
+    data = pickle.load(open(data_path, "rb"))
+        
     bounds = np.array([[-5, -2], [0.1, 0.7]])
     np.random.seed(42)
     xp, yp = bayesian_optimisation(n_iters=30,
@@ -125,7 +128,6 @@ if __name__ == "__main__":
     os.environ["KMP_BLOCKTIME"] = str(0)
     os.environ["KMP_SETTINGS"] = str(1)
     os.environ["KMP_AFFINITY"] = "granularity=fine,verbose,compact,1,0"
-    os.environ["OMP_NUM_THREADS"]= str(4)
-    
+    os.environ["OMP_NUM_THREADS"]= str(4)    
     main()
     

@@ -10,12 +10,13 @@ from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
+from config import mnist_data_folder, mnist_net_folder
 
 
-# trains MNIST sequential network using learning rate of exponential decay
 def main():
     # input data is in NHWC format
-    data = pickle.load(open("/home/ucu/Work/git/mnist/data/data_nhwc.pkl", "rb"))
+    data_path = os.path.join(mnist_data_folder, "data_nhwc.pkl")
+    data = pickle.load(open(data_path, "rb"))
     tr = data['train']
     tr_x = tr[0]
     tr_y = tr[1]
@@ -93,13 +94,14 @@ def main():
                 acc.append(ac)
             print("Epoch: ", i)
             print("Learning rate: ", lr)
-            print("Test accuracy: ", np.mean(acc))    
-        save_variables(session, "/home/ucu/Work/git/mnist/network/mnist_c2d2_expdecay.pkl")
+            print("Test accuracy: ", np.mean(acc))
+        net_path = os.path.join(mnist_net_folder, "mnist_c2d2_expdecay.pkl")
+        save_variables(session, net_path)
     session.close()
     session = None
-#Epoch:  39
-#Learning rate:  0.00027542287033381673
-#Test accuracy:  0.984237    
+#('Epoch: ', 39)
+#('Learning rate: ', 0.00027542287033381673)
+#('Test accuracy: ', 0.99165899)
 
 
 if __name__ == "__main__":
@@ -108,5 +110,4 @@ if __name__ == "__main__":
     os.environ["KMP_SETTINGS"] = str(1)
     os.environ["KMP_AFFINITY"] = "granularity=fine,verbose,compact,1,0"
     os.environ["OMP_NUM_THREADS"]= str(4)
-    
     main()
