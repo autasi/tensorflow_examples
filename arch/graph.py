@@ -319,25 +319,35 @@ def cifar10_sequential_c5d3(x, drop_rate=0.25):
     training = tf.placeholder(tf.bool, name="training")
     variables.append(("training", training))
 
-    conv1 = conv2d(x, size=5, n_filters=64, name="conv1")
+    conv1 = conv2d(x, size=5, n_filters=64,
+                   kernel_init=Kumar_initializer(mode="FAN_AVG"),
+                   name="conv1")
     layers.append(("conv1", conv1))
                 
     pool1 = max_pool(conv1, name="pool1")
     layers.append(("pool1", pool1))
 
-    conv2 = conv2d(pool1, size=5, n_filters=64, name="conv2")
+    conv2 = conv2d(pool1, size=5, n_filters=64,
+                   kernel_init=Kumar_initializer(mode="FAN_IN"),
+                   name="conv2")
     layers.append(("conv2", conv2))
             
     pool2 = max_pool(conv2, name="pool2")
     layers.append(("pool2", pool2))
 
-    conv3 = conv2d(pool2, size=3, n_filters=128, name="conv3")
+    conv3 = conv2d(pool2, size=3, n_filters=128,
+                   kernel_init=Kumar_initializer(mode="FAN_IN"),
+                   name="conv3")
     layers.append(("conv3", conv3))
 
-    conv4 = conv2d(conv3, size=3, n_filters=128, name="conv4")
+    conv4 = conv2d(conv3, size=3, n_filters=128,
+                   kernel_init=Kumar_initializer(mode="FAN_IN"),
+                   name="conv4")
     layers.append(("conv4", conv4))
             
-    conv5 = conv2d(conv3, size=3, n_filters=128, name="conv5")
+    conv5 = conv2d(conv3, size=3, n_filters=128,
+                   kernel_init=Kumar_initializer(mode="FAN_IN"),
+                   name="conv5")
     layers.append(("conv5", conv5))
 
     pool5 = max_pool(conv5, name="pool5")
@@ -347,17 +357,21 @@ def cifar10_sequential_c5d3(x, drop_rate=0.25):
     flat = flatten(pool2, name="flatten")
     layers.append(("flatten", flat))
 
-    fc1 = dense(flat, n_units=384, name="fc1")
+    fc1 = dense(flat, n_units=384,
+                kernel_init=Kumar_initializer(mode="FAN_IN"),
+                name="fc1")
     layers.append(("fc1", fc1))
     
     dropout1 = tf.layers.dropout(fc1, rate=drop_rate, training=training, seed=42, name="dropout")
     layers.append(("dropout1", dropout1))
 
-    fc2 = dense(dropout1, n_units=192, name="fc2")
+    fc2 = dense(dropout1, n_units=192,
+                kernel_init=Kumar_initializer(mode="FAN_IN"),
+                name="fc2")
     layers.append(("fc2", fc2))
     
     fc3 = dense(fc2, n_units=10, activation=None,
-                kernel_init=Kumar_initializer(activation=None),
+                kernel_init=Kumar_initializer(activation=None, mode="FAN_IN"),
                 name="fc3")
     layers.append(("fc3", fc3))
     
@@ -387,19 +401,25 @@ def cifar10_sequential_c3d3(x, drop_rate=0.25):
     training = tf.placeholder(tf.bool, name="training")
     variables.append(("training", training))
 
-    conv1 = conv2d(x, size=5, n_filters=64, name="conv1")
+    conv1 = conv2d(x, size=5, n_filters=64,
+                   kernel_init=Kumar_initializer(mode="FAN_AVG"),
+                   name="conv1")
     layers.append(("conv1", conv1))
                 
     pool1 = max_pool(conv1, name="pool1")
     layers.append(("pool1", pool1))
 
-    conv2 = conv2d(pool1, size=5, n_filters=64, name="conv2")
+    conv2 = conv2d(pool1, size=5, n_filters=64,
+                   kernel_init=Kumar_initializer(mode="FAN_IN"),
+                   name="conv2")
     layers.append(("conv2", conv2))
             
     pool2 = max_pool(conv2, name="pool2")
     layers.append(("pool2", pool2))
 
-    conv3 = conv2d(pool2, size=3, n_filters=128, name="conv3")
+    conv3 = conv2d(pool2, size=3, n_filters=128,
+                   kernel_init=Kumar_initializer(mode="FAN_IN"),
+                   name="conv3")
     layers.append(("conv3", conv3))
 
     pool3 = max_pool(conv3, name="pool3")
@@ -408,17 +428,21 @@ def cifar10_sequential_c3d3(x, drop_rate=0.25):
     flat = flatten(pool3, name="flatten")
     layers.append(("flatten", flat))
 
-    fc1 = dense(flat, n_units=384, name="fc1")
+    fc1 = dense(flat, n_units=384,
+                kernel_init=Kumar_initializer(mode="FAN_AVG"),
+                name="fc1")
     layers.append(("fc1", fc1))
     
     dropout1 = tf.layers.dropout(fc1, rate=drop_rate, training=training, seed=42, name="dropout")
     layers.append(("dropout1", dropout1))
 
-    fc2 = dense(dropout1, n_units=192, name="fc2")
+    fc2 = dense(dropout1, n_units=192,
+                kernel_init=Kumar_initializer(mode="FAN_AVG"),
+                name="fc2")
     layers.append(("fc2", fc2))
     
     fc3 = dense(fc2, n_units=10, activation=None,
-                kernel_init=Kumar_initializer(activation=None),
+                kernel_init=Kumar_initializer(activation=None, mode="FAN_AVG"),
                 name="fc3")
     layers.append(("fc3", fc3))
     
@@ -454,13 +478,17 @@ def cifar10_sequential_cbn3dbn3(x, drop_rate=0.25):
     pool1 = max_pool(conv1, name="pool1")
     layers.append(("pool1", pool1))
 
-    conv2 = conv2d_bn(pool1, size=5, n_filters=64, name="conv2")
+    conv2 = conv2d_bn(pool1, size=5, n_filters=64,
+                      kernel_init=Kumar_initializer(mode="FAN_IN"),
+                      name="conv2")
     layers.append(("conv2", conv2))
             
     pool2 = max_pool(conv2, name="pool2")
     layers.append(("pool2", pool2))
 
-    conv3 = conv2d_bn(pool2, size=3, n_filters=128, name="conv3")
+    conv3 = conv2d_bn(pool2, size=3, n_filters=128,
+                      kernel_init=Kumar_initializer(mode="FAN_IN"),
+                      name="conv3")
     layers.append(("conv3", conv3))
 
     pool3 = max_pool(conv3, name="pool3")

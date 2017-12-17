@@ -93,8 +93,6 @@ def conv2d_bn(inputs, size, n_filters,
               kernel_init = Kumar_initializer(),
               bias_init = tf.zeros_initializer(),
               bn_order = "after",
-              bn_decay = 0.997,
-              bn_eps =  1e-5,
               is_training = False,
               name = "conv2d"):
     """Creates a 2d convolutional layer with batch normalization.
@@ -108,10 +106,6 @@ def conv2d_bn(inputs, size, n_filters,
         bias_init: A function used for initializing the bias.
         bn_order: A string indicating when to apply batch normalization. Two
             options are available: "before", or "after" the activation.
-        bn_decay: A number representing the batch normalization decay for the
-            moving average.
-        bn_eps: A number representing the batch normalization epsilon that is
-            used to avoid division by zero.
         is_training: A boolean or a TensorFlow boolean scalar tensor for
             indicating training or testing mode.
         name: A string representing the name of the layer.
@@ -125,23 +119,11 @@ def conv2d_bn(inputs, size, n_filters,
         conv = tf.nn.conv2d(inputs, weights, strides=[1,stride,stride,1], padding="SAME", name="conv")
         outputs = tf.nn.bias_add(conv, biases, name="bias_add")
         if bn_order == "before":
-            outputs = tf.contrib.layers.batch_norm(outputs,
-                                                   data_format="NHWC", 
-                                                   center=True, scale=True,
-                                                   decay=bn_decay,
-                                                   epsilon=bn_eps,
-                                                   is_training=is_training,
-                                                   )
+            outputs = tf.layers.batch_normalization(outputs, training=is_training, name="bn")
         if activation is not None:
             outputs = activation(outputs, name="activation")
         if bn_order == "after":
-            outputs = tf.contrib.layers.batch_norm(outputs,
-                                                   data_format="NHWC", 
-                                                   center=True, scale=True,
-                                                   decay=bn_decay,
-                                                   epsilon=bn_eps,
-                                                   is_training=is_training,
-                                                   )
+            outputs = tf.layers.batch_normalization(outputs, training=is_training, name="bn")
     return outputs
 
 
@@ -197,8 +179,6 @@ def dense_bn(inputs, n_units,
              kernel_init = Kumar_initializer(),
              bias_init = tf.zeros_initializer(),
              bn_order = "after",
-             bn_decay = 0.997,
-             bn_eps =  1e-5,
              is_training = False,
              name = "dense"):
     """Creates a fully-connected dense layer with batch normalization.
@@ -210,10 +190,6 @@ def dense_bn(inputs, n_units,
         bias_init: A function used for initializing the bias.
         bn_order: A string indicating when to apply batch normalization. Two
             options are available: "before", or "after" the activation.
-        bn_decay: A number representing the batch normalization decay for the
-            moving average.
-        bn_eps: A number representing the batch normalization epsilon that is
-            used to avoid division by zero.
         is_training: A boolean or a TensorFlow boolean scalar tensor for
             indicating training or testing mode.
         name: A string representing the name of the layer.
@@ -226,19 +202,11 @@ def dense_bn(inputs, n_units,
         fc = tf.matmul(inputs, weights, name="matmul")
         outputs = tf.nn.bias_add(fc, biases, name="bias_add")
         if bn_order == "before":
-            outputs = tf.contrib.layers.batch_norm(outputs,
-                                                   center=True, scale=True,
-                                                   is_training=is_training,
-                                                   decay=bn_decay,
-                                                   epsilon=bn_eps)
+            outputs = tf.layers.batch_normalization(outputs, training=is_training, name="bn")
         if activation is not None:
             outputs = activation(outputs, name="activation")
         if bn_order == "after":
-            outputs = tf.contrib.layers.batch_norm(outputs,
-                                                   center=True, scale=True,
-                                                   is_training=is_training,
-                                                   decay=bn_decay,
-                                                   epsilon=bn_eps)
+            outputs = tf.layers.batch_normalization(outputs, training=is_training, name="bn")
     return outputs
 
 
@@ -249,8 +217,6 @@ def residual_block(inputs, n_filters,
                    stride = 1,
                    activation = tf.nn.relu,
                    kernel_init = Kumar_initializer(mode="FAN_IN"),
-                   bn_decay = 0.997,
-                   bn_eps =  1e-5,
                    is_training = False,
                    name = "residual_block"):   
     with tf.variable_scope(name):        

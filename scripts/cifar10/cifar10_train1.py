@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import cPickle
+import pickle
 import numpy as np
 import tensorflow as tf
 from arch.graph import cifar10_sequential_cn2c2cnd3
@@ -10,12 +10,14 @@ from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
+from config import cifar10_data_folder, cifar10_net_folder
 
 
-# trains MNIST sequential network using learning rate of exponential decay
+# trains CIFAR10 sequential network using learning rate of exponential decay
 def main():
     # input data is in NHWC format
-    data = cPickle.load(open("/home/autasi/Work/gitTF/cifar10/data/data_nhwc.pkl", "rb"))
+    data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
+    data = pickle.load(open(data_path, "rb"))
     tr = data['train']
     tr_x = tr[0]
     tr_y = tr[1]
@@ -84,6 +86,15 @@ def main():
                                                    gt: yb,
                                                    training: True,
                                                    learning_rate: lr})
+
+            tr_acc = []
+            # evaluations on train set
+            for (xb, yb) in batch_generator(512, tr_x, tr_y, fixed_size=False):
+                ac = session.run(accuracy, feed_dict={x: xb,
+                                                      gt: yb,
+                                                      training: False})
+                tr_acc.append(ac)    
+    
             acc = []
             # evaluations on test set
             for (xb, yb) in batch_generator(512, te_x, te_y, fixed_size=False):
@@ -93,13 +104,15 @@ def main():
                 acc.append(ac)
             print("Epoch: ", i)
             print("Learning rate: ", lr)
-            print("Test accuracy: ", np.mean(acc))    
-        save_variables(session, "/home/autasi/Work/gitTF/cifar10/network/cifar10_cn2c2cnd3_expdecay.pkl")
+            print("Test accuracy: ", np.mean(acc))
+            print("Train accuracy: ", np.mean(tr_acc))            
+        net_path = os.path.join(cifar10_net_folder, "cifar10_cn2c2cnd3_expdecay.pkl")
+        save_variables(session, net_path)
     session.close()
     session = None
 #('Epoch: ', 39)
 #('Learning rate: ', 0.00027542287033381673)
-#('Test accuracy: ', 0.57795268)
+#('Test accuracy: ', 0.58619028)
 
 
 if __name__ == "__main__":

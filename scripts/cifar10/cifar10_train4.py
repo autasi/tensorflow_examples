@@ -10,12 +10,14 @@ from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
+from config import cifar10_data_folder, cifar10_net_folder
 
 
-# trains MNIST sequential network using learning rate of exponential decay
+# trains CIFAR10 sequential network using learning rate of exponential decay
 def main():
     # input data is in NHWC format
-    data = pickle.load(open("/home/autasi/Work/gitTF/cifar10/data/data_nhwc.pkl", "rb"))
+    data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
+    data = pickle.load(open(data_path, "rb"))
     tr = data['train']
     tr_x = tr[0]
     tr_y = tr[1]
@@ -104,13 +106,15 @@ def main():
             print("Epoch: ", i)
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))    
-            print("Train accuracy: ", np.mean(tr_acc))    
-        save_variables(session, "/home/autasi/Work/gitTF/cifar10/network/cifar10_normimage_c1d3_expdecay.pkl")
+            print("Train accuracy: ", np.mean(tr_acc))
+        net_path = os.path.join(cifar10_net_folder, "cifar10_cbn3dbn3_expdecay.pkl")
+        save_variables(session, net_path)
     session.close()
     session = None
-#('Epoch: ', 39)
+#('Epoch: ', 39)    
 #('Learning rate: ', 0.00027542287033381673)
-#('Test accuracy: ', 0.57795268)
+#('Test accuracy: ', 0.57630974)
+#('Train accuracy: ', 0.96494818)
 
 
 if __name__ == "__main__":
