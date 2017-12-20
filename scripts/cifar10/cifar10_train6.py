@@ -5,16 +5,15 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.graph import cifar10_sequential_c5d3
+from arch.graph import cifar10_inception_i2d2
 from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
-from util.transform import RandomizedTransformer, Affine
 from config import cifar10_data_folder, cifar10_net_folder
 
 
-# trains CIFAR10 sequential network using learning rate of exponential decay
+# trains CIFAR10 residual network using learning rate of exponential decay
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -41,13 +40,13 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_sequential_c5d3(x)
+    layers, variables = cifar10_inception_i2d2(x)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
     
     # logit output required for optimization
-    logit = tuple_list_find(layers, "fc3")[1]
+    logit = tuple_list_find(layers, "fc2")[1]
         
     n_epochs = 40
     
@@ -74,17 +73,6 @@ def main():
     
     # learning rate with exponential decay
     exp_decay = ExponentialDecay(start=0.01, stop=0.0001, max_steps=50)
-    
-    # apply random affine transformations to training images
-    transformer = RandomizedTransformer(transformer_class = Affine,
-                                        params = [('shape', (height, width, n_chans)),
-                                                  ('scale', 1.0),
-                                                  ('reflect_y', False)],
-                                        rand_params = [('r', [-2.0, 2.0]),
-                                                       ('tx', [-2.0, 2.0]),
-                                                       ('ty', [-2.0, 2.0])],
-                                        mode = 'each',
-                                        random_seed = 42)
 
     session = tf.Session()
     with session.as_default():
@@ -94,9 +82,6 @@ def main():
             lr = next(exp_decay)
             # training via random batches
             for (xb, yb) in random_batch_generator(256, tr_x, tr_y):
-                xbtr = np.zeros_like(xb)
-                for j in range(len(xb)):
-                    xbtr[j] = transformer.transform(xb[j])                
                 session.run(train_step, feed_dict={x: xb,
                                                    gt: yb,
                                                    training: True,
@@ -122,14 +107,15 @@ def main():
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))    
             print("Train accuracy: ", np.mean(tr_acc))
-        net_path = os.path.join(cifar10_net_folder, "cifar10_c5d3_expdecay_randtrans.pkl")
+        net_path = os.path.join(cifar10_net_folder, "cifar10_inception_i2d2_expdecay.pkl")
         save_variables(session, net_path)
     session.close()
     session = None
 #('Epoch: ', 39)
 #('Learning rate: ', 0.00027542287033381673)
-#('Test accuracy: ', 0.55039632)
-#('Train accuracy: ', 0.81738567)
+#('Test accuracy: ', 0.49402577)
+#('Train accuracy: ', 0.99030274)
+
 
 if __name__ == "__main__":
     # environment variables for intel MKL

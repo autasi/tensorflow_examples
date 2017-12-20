@@ -4,7 +4,7 @@
 import numpy as np
 import tensorflow as tf
 from functools import partial
-
+from arch.initializers import variance_scaling_initializer_multi
 
 
 
@@ -53,6 +53,42 @@ def Kumar_initializer(activation="relu", mode="FAN_AVG", seed=42):
                                                           mode=mode,
                                                           uniform=uniform,
                                                           seed=seed)
+
+
+def Kumar_initializer_multi(activation="relu", mode="FAN_AVG", C=[1,1], seed=42):
+    """Kumar's weight initializer, i.e. a truncated normal without scale
+       variance initialized with activation specific standard deviation. 
+       See https://arxiv.org/pdf/1704.08863.pdf
+    Args:
+        activation: A string representing the output activation of the layer 
+            the weights are used for.
+        seed: Random seed number.
+    Returns:
+        A weight initializer.
+    """    
+    
+    if activation is None:
+        factor = 1.0
+    elif activation == "relu":
+        # stdev = sqrt(2.0/N) for normal, or sqrt(1.3*2.0/N) for truncated
+        factor = 2.0
+    elif activation == "sigmoid":
+        # stdev = 3.6/sqrt(N) = sqrt(12.96/N) for normal, or sqrt(1.3*12.96/N) for truncated
+        factor = 12.96
+    elif activation == "tanh":
+        # stdev = sqrt(1/N) for normal, or sqrt(1.3/N) for truncated
+        factor = 1.0
+    else:
+        factor = 1.0
+        
+#    mode = "FAN_AVG" # should be "FAN_IN" but it fails for the first conv2d on the single-channel input, sqrt(2/(3*3)) is too large
+    uniform = False
+    return variance_scaling_initializer_multi(
+            factor=factor,
+            mode=mode,
+            C=C,
+            uniform=uniform,
+            seed=seed)
 
 
 def conv2d(inputs, size, n_filters,
@@ -271,3 +307,67 @@ def residual_layer(inputs, n_filters, n_blocks,
                                kernel_init = kernel_init,
                                name = "residual_block_" + str(n+1))
     return x
+
+
+def inception_layer(inputs,
+                    n_filters_1x1 = 32,
+                    n_filters_3x3 = 32,
+                    n_reduce_3x3 = 16,
+                    n_filters_5x5 = 32,
+                    n_reduce_5x5 = 16,
+                    n_filters_pool = 32,
+                    is_training = False,
+#                    kernel_init = Kumar_initializer(mode="FAN_IN"),
+                    mode = "FAN_IN",
+                    mode_reduce = "FAN_AVG",
+                    name = "inception_layer"
+                    ):
+    with tf.variable_scope(name):
+        x_1x1_1 = conv2d(
+                    inputs, size=1, n_filters = n_filters_1x1,
+                    stride = 1,
+                    activation = None,
+                    kernel_init = Kumar_initializer(mode=mode),
+                    name = "conv2d_1x1_1")
+        
+        x_1x1_2 = conv2d(
+                    inputs, size=1, n_filters = n_reduce_3x3,
+                    stride = 1,
+                    activation = tf.nn.relu,
+                    kernel_init = Kumar_initializer(mode=mode),
+                    name = "conv2d_1x1_2")
+        
+        x_1x1_3 = conv2d(
+                    inputs, size=1, n_filters = n_reduce_5x5,
+                    stride = 1,
+                    activation = tf.nn.relu,
+                    kernel_init = Kumar_initializer(mode=mode),
+                    name = "conv2d_1x1_3")
+        
+        x_3x3 = conv2d(
+                    x_1x1_2, size=3, n_filters = n_filters_3x3,
+                    stride = 1,
+                    activation = None,
+                    kernel_init = Kumar_initializer(mode=mode_reduce),
+                    name = "conv2d_3x3")
+        
+        x_5x5 = conv2d(
+                    x_1x1_3, size=5, n_filters = n_filters_5x5,
+                    stride = 1,
+                    activation = None,
+                    kernel_init = Kumar_initializer(mode=mode_reduce),
+                    name = "conv2d_5x5")
+        
+        maxpool1 = max_pool(inputs, size=3, stride=1, name="max_pool")
+        x_1x1_4 = conv2d(
+                    maxpool1, size=1, n_filters = n_filters_pool,
+                    stride = 1,
+                    activation = None,
+                    kernel_init = Kumar_initializer(mode=mode),
+                    name = "conv2d_1x1_4")
+        
+        inception = tf.nn.relu(tf.concat([x_1x1_1,x_3x3,x_5x5,x_1x1_4], axis=3))
+        
+    return inception
+                    
+        
