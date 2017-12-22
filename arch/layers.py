@@ -123,6 +123,89 @@ def conv2d(inputs, size, n_filters,
     return outputs
 
 
+
+
+def conv2d_1d(
+        inputs, size, dim, n_filters,
+        stride = 1,
+        activation = tf.nn.relu,
+        kernel_init = Kumar_initializer(),
+        bias_init = tf.zeros_initializer(),
+        name = "conv2d_1d"):
+    """Creates a 2d convolutional layer.
+    Args:
+        inputs: A tensor representing the inputs.
+        size: An integer representing the kernel size.
+        n_filters: An integer representing the number of filters.
+        stride: An integer representing the stride size.
+        activation: An activation function to be applied.
+        kernel_init: A function used for initializing the kernel.
+        bias_init: A function used for initializing the bias.
+        name: A string representing the name of the layer.
+    Returns:
+        A tensor representing the layer.
+    """    
+    in_filt = inputs.shape[3].value    
+    with tf.variable_scope(name):
+        shape=[1,1,in_filt,n_filters]
+        shape[dim]=size
+        weights = tf.get_variable(shape=shape, initializer=kernel_init, name="weight")
+        biases = tf.get_variable(shape=[n_filters], initializer=bias_init, name="bias")
+        conv = tf.nn.conv2d(inputs, weights, strides=[1,stride,stride,1], padding="SAME", name="conv")
+        bias_add = tf.nn.bias_add(conv, biases, name="bias_add")
+        if activation is None:
+            outputs = bias_add
+        else:
+            outputs = activation(bias_add, name="activation")
+    return outputs
+
+
+def conv2d_factorized(
+        inputs, size, n_filters,
+        n_repeat = 1,
+        stride = 1,
+        activation = tf.nn.relu,
+        kernel_init = Kumar_initializer(),
+        bias_init = tf.zeros_initializer(),
+        name = "conv2d_fact"):
+    """Creates a factorized 2d convolutional layer, i.e. nxn is factorized into
+       1xn followed by nx1, which can be repeated multiple times.
+    Args:
+        inputs: A tensor representing the inputs.
+        size: An integer representing the kernel size.
+        n_filters: An integer representing the number of filters.
+        n_repeat: An integer representing the number of repetitions.
+        stride: An integer representing the stride size.
+        activation: An activation function to be applied.
+        kernel_init: A function used for initializing the kernel.
+        bias_init: A function used for initializing the bias.
+        name: A string representing the name of the layer.
+    Returns:
+        A tensor representing the layer.
+    """    
+    with tf.variable_scope(name):
+        x = inputs
+        for r in range(n_repeat):
+            curr_filters = n_filters[r]
+            in_filt = x.shape[3].value    
+            weights1 = tf.get_variable(shape=[1,size,in_filt,curr_filters[0]], initializer=kernel_init, name="weight_"+str(r)+"_1")
+            biases1 = tf.get_variable(shape=[curr_filters[0]], initializer=bias_init, name="bias_"+str(r)+"_1")
+            conv1 = tf.nn.conv2d(x, weights1, strides=[1,stride,stride,1], padding="SAME", name="conv_"+str(r)+"_1")
+            bias_add1 = tf.nn.bias_add(conv1, biases1, name="bias_add_"+str(r)+"_1")
+            
+            weights2 = tf.get_variable(shape=[size,1,curr_filters[0],curr_filters[1]], initializer=kernel_init, name="weight_"+str(r)+"_2")
+            biases2 = tf.get_variable(shape=[curr_filters[1]], initializer=bias_init, name="bias_"+str(r)+"_2")
+            conv2 = tf.nn.conv2d(bias_add1, weights2, strides=[1,stride,stride,1], padding="SAME", name="conv_"+str(r)+"_2")
+            bias_add2 = tf.nn.bias_add(conv2, biases2, name="bias_add_"+str(r)+"_2")
+            x = bias_add2
+        
+        if activation is None:
+            outputs = x
+        else:
+            outputs = activation(x, name="activation")
+    return outputs
+
+
 def conv2d_bn(inputs, size, n_filters,
               stride = 1,
               activation = tf.nn.relu,
@@ -309,65 +392,3 @@ def residual_layer(inputs, n_filters, n_blocks,
     return x
 
 
-def inception_layer(inputs,
-                    n_filters_1x1 = 32,
-                    n_filters_3x3 = 32,
-                    n_reduce_3x3 = 16,
-                    n_filters_5x5 = 32,
-                    n_reduce_5x5 = 16,
-                    n_filters_pool = 32,
-                    is_training = False,
-#                    kernel_init = Kumar_initializer(mode="FAN_IN"),
-                    mode = "FAN_IN",
-                    mode_reduce = "FAN_AVG",
-                    name = "inception_layer"
-                    ):
-    with tf.variable_scope(name):
-        x_1x1_1 = conv2d(
-                    inputs, size=1, n_filters = n_filters_1x1,
-                    stride = 1,
-                    activation = None,
-                    kernel_init = Kumar_initializer(mode=mode),
-                    name = "conv2d_1x1_1")
-        
-        x_1x1_2 = conv2d(
-                    inputs, size=1, n_filters = n_reduce_3x3,
-                    stride = 1,
-                    activation = tf.nn.relu,
-                    kernel_init = Kumar_initializer(mode=mode),
-                    name = "conv2d_1x1_2")
-        
-        x_1x1_3 = conv2d(
-                    inputs, size=1, n_filters = n_reduce_5x5,
-                    stride = 1,
-                    activation = tf.nn.relu,
-                    kernel_init = Kumar_initializer(mode=mode),
-                    name = "conv2d_1x1_3")
-        
-        x_3x3 = conv2d(
-                    x_1x1_2, size=3, n_filters = n_filters_3x3,
-                    stride = 1,
-                    activation = None,
-                    kernel_init = Kumar_initializer(mode=mode_reduce),
-                    name = "conv2d_3x3")
-        
-        x_5x5 = conv2d(
-                    x_1x1_3, size=5, n_filters = n_filters_5x5,
-                    stride = 1,
-                    activation = None,
-                    kernel_init = Kumar_initializer(mode=mode_reduce),
-                    name = "conv2d_5x5")
-        
-        maxpool1 = max_pool(inputs, size=3, stride=1, name="max_pool")
-        x_1x1_4 = conv2d(
-                    maxpool1, size=1, n_filters = n_filters_pool,
-                    stride = 1,
-                    activation = None,
-                    kernel_init = Kumar_initializer(mode=mode),
-                    name = "conv2d_1x1_4")
-        
-        inception = tf.nn.relu(tf.concat([x_1x1_1,x_3x3,x_5x5,x_1x1_4], axis=3))
-        
-    return inception
-                    
-        
