@@ -5,7 +5,7 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.graph import cifar10_resnet_20
+from arch.graph import cifar10_resnext_20
 from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
@@ -40,7 +40,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_resnet_20(x)
+    layers, variables = cifar10_resnext_20(x)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -107,14 +107,14 @@ def main():
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))    
             print("Train accuracy: ", np.mean(tr_acc))
-        net_path = os.path.join(cifar10_net_folder, "cifar10_resnet_20_expdecay.pkl")
+        net_path = os.path.join(cifar10_net_folder, "cifar10_resnext_20_expdecay.pkl")
         save_variables(session, net_path)
     session.close()
     session = None
 #('Epoch: ', 39)
 #('Learning rate: ', 0.00027542287033381673)
-#('Test accuracy: ', 0.83771831)
-#('Train accuracy: ', 1.0)
+#('Test accuracy: ', 0.79374999)
+#('Train accuracy: ', 0.99998009)
 
 
 if __name__ == "__main__":

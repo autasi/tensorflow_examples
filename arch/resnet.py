@@ -58,7 +58,7 @@ def bottleneck_block(
     n_filters_reduce = n_filters[0]
     n_filters_conv = n_filters[1]
     with tf.variable_scope(name):        
-        if (inputs.shape[3] != n_filters) or (stride != 1):
+        if (inputs.shape[3] != n_filters_conv) or (stride != 1):
             shortcut = conv2d(
                         inputs, size=1, n_filters=n_filters_conv,
                         stride = stride, activation = None,
@@ -86,7 +86,7 @@ def bottleneck_block(
         x = activation(x, name="activation_2")
 
         x = conv2d(
-                x, size=3, n_filters = n_filters_conv,
+                x, size=1, n_filters = n_filters_conv,
                 stride = 1,
                 activation = None,
                 kernel_init = kernel_init,
@@ -98,7 +98,7 @@ def bottleneck_block(
     return x
 
 
-def residual_module(
+def residual_layer(
         inputs,
         n_filters,
         n_blocks = 3, 
