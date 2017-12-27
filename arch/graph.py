@@ -4,14 +4,15 @@
 import tensorflow as tf
 from arch.layers import conv2d, conv2d_bn, max_pool, flatten, dense, dense_bn
 from arch.layers import Kumar_initializer, truncated_n_seeded, Kumar_initializer_multi
-from arch.resnet import residual_layer, residual_block, bottleneck_block
 from arch.inception import grid_module_v1
 from arch.inception import grid_module_v2, factorized_grid_module_v2
 from arch.inception import bn_grid_module_v2
 from arch.inception import filterbank_grid_module_v2, reduction_module_v2
 from arch.inception import auxiliary_classifier_v3
 from arch.inception import filterbank_grid_module_v4, reduction_module_v4
+from arch import resnet
 from arch import resnext
+from arch import xception
 
 
 def mnist_sequential_dbn2d1(x, drop_rate=0.5):
@@ -196,16 +197,19 @@ def mnist_resnet_cbn1r3d1(x):
                       name="initial_conv")
     layers.append(("initial_conv", conv1))
             
-    res1 = residual_layer(conv1, n_filters=16, n_blocks=2, stride=1,
-                          is_training=training, name="residual1")
+    res1 = resnet.residual_layer(
+            conv1, n_filters=16, n_blocks=2, stride=1,
+            is_training=training, name="residual1")
     layers.append(("residual1", res1))
 
-    res2 = residual_layer(res1, n_filters=32, n_blocks=2, stride=2,
-                          is_training=training, name="residual2")
+    res2 = resnet.residual_layer(
+            res1, n_filters=32, n_blocks=2, stride=2,
+            is_training=training, name="residual2")
     layers.append(("residual2", res2))
 
-    res3 = residual_layer(res2, n_filters=64, n_blocks=2, stride=2,
-                          is_training=training, name="residual3")
+    res3 = resnet.residual_layer(
+            res2, n_filters=64, n_blocks=2, stride=2,
+            is_training=training, name="residual3")
     layers.append(("residual3", res3))
 
     pool1 = tf.reduce_mean(res3, [1,2]) # global average pooling
@@ -476,19 +480,22 @@ def cifar10_resnet_bottleneck_20(x):
                       name="initial_conv")
     layers.append(("initial_conv", conv1))
             
-    res1 = residual_layer(conv1, n_filters=128, n_blocks=3, stride=1,
-                          block_function = residual_block,
-                          is_training=training, name="residual1")
+    res1 = resnet.residual_layer(
+            conv1, n_filters=128, n_blocks=3, stride=1,
+            block_function = resnet.residual_block,
+            is_training=training, name="residual1")
     layers.append(("residual1", res1))
 
-    res2 = residual_layer(res1, n_filters=[64,256], n_blocks=4, stride=2,
-                          block_function = bottleneck_block,
-                          is_training=training, name="residual2")
+    res2 = resnet.residual_layer(
+            res1, n_filters=[64,256], n_blocks=4, stride=2,
+            block_function = resnet.bottleneck_block,
+            is_training=training, name="residual2")
     layers.append(("residual2", res2))
 
-    res3 = residual_layer(res2, n_filters=[128,512], n_blocks=2, stride=2,
-                          block_function = bottleneck_block,
-                          is_training=training, name="residual3")
+    res3 = resnet.residual_layer(
+            res2, n_filters=[128,512], n_blocks=2, stride=2,
+            block_function = resnet.bottleneck_block,
+            is_training=training, name="residual3")
     layers.append(("residual3", res3))
 
     pool1 = tf.reduce_mean(res3, [1,2]) # global average pooling
@@ -528,16 +535,19 @@ def cifar10_resnet_20(x):
                       name="initial_conv")
     layers.append(("initial_conv", conv1))
             
-    res1 = residual_layer(conv1, n_filters=128, n_blocks=3, stride=1,
-                          is_training=training, name="residual1")
+    res1 = resnet.residual_layer(
+            conv1, n_filters=128, n_blocks=3, stride=1,
+            is_training=training, name="residual1")
     layers.append(("residual1", res1))
 
-    res2 = residual_layer(res1, n_filters=256, n_blocks=4, stride=2,
-                          is_training=training, name="residual2")
+    res2 = resnet.residual_layer(
+            res1, n_filters=256, n_blocks=4, stride=2,
+            is_training=training, name="residual2")
     layers.append(("residual2", res2))
 
-    res3 = residual_layer(res2, n_filters=512, n_blocks=2, stride=2,
-                          is_training=training, name="residual3")
+    res3 = resnet.residual_layer(
+            res2, n_filters=512, n_blocks=2, stride=2,
+            is_training=training, name="residual3")
     layers.append(("residual3", res3))
 
     pool1 = tf.reduce_mean(res3, [1,2]) # global average pooling
@@ -1007,6 +1017,72 @@ def cifar10_inception_v4(x, drop_rate=0.5):
     layers.append(("dropout1", dropout1))
 
     fc2 = dense(dropout1, n_units=10, activation=None,
+                kernel_init=Kumar_initializer(activation=None, mode="FAN_IN"),
+                name="fc2")
+    layers.append(("fc2", fc2))
+    
+    prob = tf.nn.softmax(fc2, name="prob")
+    layers.append(("prob", prob))
+    
+    return layers, variables
+
+
+def cifar10_xception(x, drop_rate=0.5):
+    """Creates residual neural network for CIFAR10. The network uses 1 batch 
+        normalized convolutional and 3 residual layers to create the 
+        representation part of the network. The output probabilities are 
+        generated by one dense layer followed by a softmax function.
+    Args:
+        x: A tensor representing the input.
+    Returns:
+        A tuple containing the layers of the network graph and additional
+        placeholders if any. Layers are represented as list of named tuples.
+    """    
+    
+    layers = []
+    variables = []
+
+    training = tf.placeholder(tf.bool, name="training")
+    variables.append(("training", training))
+
+
+    conv1 = conv2d_bn(x, size=3, n_filters=64,
+                      kernel_init=Kumar_initializer(mode="FAN_AVG"),
+                      name="initial_conv")
+    layers.append(("initial_conv", conv1))
+    
+    entry = xception.entry_module(
+            conv1,
+            n_filters=[128],
+            is_training=training,
+            kernel_init=Kumar_initializer(mode="FAN_AVG"),
+            name="entry")
+    layers.append(("entry", entry))
+    
+    mid = xception.middle_module(
+            entry,
+            n_filters=128,
+            n_repeat=4,
+            is_training=training,
+            name="middle",
+            )
+    layers.append(("middle", mid))
+
+    exits = xception.exit_module(
+            mid,
+            n_filters_1=[128, 256],
+            n_filters_2=[384, 512],
+            is_training=training,
+            name="exit")
+    layers.append(("exit", exits))
+    
+    pool = tf.reduce_mean(exits, [1,2]) # global average pooling 8x8
+    layers.append(("pool", pool))
+             
+    dropout = tf.layers.dropout(pool, rate=drop_rate, training=training, seed=42, name="dropout")
+    layers.append(("dropout", dropout))
+
+    fc2 = dense(dropout, n_units=10, activation=None,
                 kernel_init=Kumar_initializer(activation=None, mode="FAN_IN"),
                 name="fc2")
     layers.append(("fc2", fc2))

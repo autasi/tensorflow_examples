@@ -91,6 +91,44 @@ def Kumar_initializer_multi(activation="relu", mode="FAN_AVG", C=[1,1], seed=42)
             seed=seed)
 
 
+
+def separable_conv2d(
+        inputs, size, n_filters,
+        stride = 1,
+        depth_multiplier = 1,
+        activation = tf.nn.relu,
+        depth_kernel_init = Kumar_initializer(),
+        pointwise_kernel_init = Kumar_initializer(),
+        bias_init = tf.zeros_initializer(),
+        name = "separable_conv2d"):
+    """Creates a depthwise separable 2d convolutional layer.
+    Args:
+        inputs: A tensor representing the inputs.
+        size: An integer representing the kernel size.
+        n_filters: An integer representing the number of filters.
+        stride: An integer representing the stride size.
+        activation: An activation function to be applied.
+        kernel_init: A function used for initializing the kernel.
+        bias_init: A function used for initializing the bias.
+        name: A string representing the name of the layer.
+    Returns:
+        A tensor representing the layer.
+    """    
+    in_filt = inputs.shape[3].value    
+    with tf.variable_scope(name):
+        depth_weights = tf.get_variable(shape=[size,size,in_filt,depth_multiplier], initializer=depth_kernel_init, name="depth_weight")
+        pointwise_weights = tf.get_variable(shape=[1,1,depth_multiplier*in_filt,n_filters], initializer=pointwise_kernel_init, name="pointwise_weight")
+        biases = tf.get_variable(shape=[n_filters], initializer=bias_init, name="bias")
+        conv = tf.nn.separable_conv2d(inputs, depth_weights, pointwise_weights, strides=[1,stride,stride,1], padding="SAME", name="separable_conv")
+        bias_add = tf.nn.bias_add(conv, biases, name="bias_add")
+        if activation is None:
+            outputs = bias_add
+        else:
+            outputs = activation(bias_add, name="activation")
+    return outputs
+
+
+
 def conv2d(inputs, size, n_filters,
            stride = 1,
            activation = tf.nn.relu,
