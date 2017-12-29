@@ -22,7 +22,7 @@ def group_conv2d(
                 kernel_init = kernel_init,
                 name = name)
         
-    
+            
     with tf.variable_scope(name):
         size_splits = [split_depth]*cardinality
         groups = tf.split(inputs, size_splits, axis=3)
@@ -37,6 +37,19 @@ def group_conv2d(
             conv_groups.append(conv)
             
         outputs = tf.concat(conv_groups, axis=3)    
+        
+#        sz = inputs.get_shape()[3].value // cardinality
+#        conv_groups = [
+#            conv2d(inputs[:,:,:,i*sz:i*sz+sz],
+#                   size = size,
+#                   n_filters = split_depth,
+#                   stride = stride,
+#                   kernel_init = kernel_init,
+#                   name = "conv2d_"+str(i)
+#                   ) for i in range(cardinality)]
+#        outputs = tf.concat(conv_groups, axis=3)
+        
+        
     return outputs
     
 
@@ -101,11 +114,12 @@ def residual_layer(
         n_blocks = 3, 
         stride = 1,
         is_training = False,
+        block_function = bottleneck_block,
         kernel_init = Kumar_initializer(mode="FAN_IN"),
         name = "residual"
         ):
     with tf.variable_scope(name):
-        x = bottleneck_block(
+        x = block_function(
                 inputs,
                 n_filters_reduce = n_filters_reduce,
                 n_filters = n_filters,
@@ -116,7 +130,7 @@ def residual_layer(
                 name = "block_0")
         
         for n in range(1, n_blocks):
-            x = bottleneck_block(
+            x = block_function(
                     x,
                     n_filters_reduce = n_filters_reduce,
                     n_filters = n_filters,
