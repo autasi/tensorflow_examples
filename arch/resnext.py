@@ -2,141 +2,98 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-from arch.layers import conv2d, Kumar_initializer
+from arch.layers import conv2d, conv2d_bn_act, conv2d_bn, group_conv2d_fixdepth
+from arch.initializers import He_normal
 
-
-def group_conv2d(
-        inputs, size, n_filters, split_depth,
-        stride = 1,
-        activation = tf.nn.relu,
-        kernel_init = Kumar_initializer(),
-        name = "group_conv2d"):
-    
-    cardinality = n_filters // split_depth
-    
-    if cardinality == 1:
-        return conv2d(
-                inputs, size = size, n_filters = n_filters,
-                stride = stride,
-                activation = activation,
-                kernel_init = kernel_init,
-                name = name)
-        
-            
-    with tf.variable_scope(name):
-        size_splits = [split_depth]*cardinality
-        groups = tf.split(inputs, size_splits, axis=3)
-        conv_groups = []
-        for i,group in enumerate(groups):
-            conv = conv2d(
-                    group, size = size, n_filters = split_depth,
-                    stride = stride,
-                    activation = activation,
-                    kernel_init = kernel_init,
-                    name = "conv2d_"+str(i))
-            conv_groups.append(conv)
-            
-        outputs = tf.concat(conv_groups, axis=3)    
-        
-#        sz = inputs.get_shape()[3].value // cardinality
-#        conv_groups = [
-#            conv2d(inputs[:,:,:,i*sz:i*sz+sz],
-#                   size = size,
-#                   n_filters = split_depth,
-#                   stride = stride,
-#                   kernel_init = kernel_init,
-#                   name = "conv2d_"+str(i)
-#                   ) for i in range(cardinality)]
-#        outputs = tf.concat(conv_groups, axis=3)
-        
-        
-    return outputs
-    
+#Xie et al. Aggregated Residual Transformations for Deep Neural Networks, 2017
+#https://arxiv.org/pdf/1611.05431.pdf    
 
 def bottleneck_block(
         inputs,
-        n_filters_reduce,
         n_filters,
-        split_depth = 4,
+        cardinality,
+        group_width,
+        size = 3,
         stride = 1,
         activation = tf.nn.relu,
-        kernel_init = Kumar_initializer(mode="FAN_IN"),
         is_training = False,
+        regularizer = None,
+        kernel_init = He_normal(seed = 42),
         name = "bottleneck_block"):
+    n_filters_reduce = cardinality*group_width
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
             shortcut = conv2d(
-                        inputs, size=1, n_filters=n_filters,
-                        stride = stride, activation = None,
-                        kernel_init = kernel_init,
-                        name = "shortcut_projection")
+                    inputs, size = 1, n_filters = n_filters, stride = stride,
+                    regularizer = regularizer,
+                    kernel_init = kernel_init,
+                    name = "shortcut")
         else:
-            shortcut = tf.identity(inputs, name="shortcut")
+            shortcut = tf.identity(inputs, name = "shortcut")
         
-        x = conv2d(
-                inputs, size=1, n_filters = n_filters_reduce,
-                stride = stride,
-                activation = None,
+        x = conv2d_bn_act(
+                inputs, size = 1, n_filters = n_filters_reduce, stride = stride,
+                activation = activation,
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_1")
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_1")
-        x = activation(x, name="activation_1")
-        
+                name = "conv_bn_act_1")
 
-        x = group_conv2d(
-                x, size=3, n_filters = n_filters_reduce,
-                split_depth = split_depth,
-                activation = None,
+        x = group_conv2d_fixdepth(
+                x, size = size, stride = 1,
+                cardinality = cardinality,
+                group_width = group_width,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_2"
+                name = "group_conv_2"
                 )
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_2")
-        x = activation(x, name="activation_2")
+        x = tf.layers.batch_normalization(
+                x, training = is_training, name = "batch_norm_2")
+        x = activation(x, name = "activation_2")
 
-        x = conv2d(
-                x, size=1, n_filters = n_filters,
-                stride = 1,
-                activation = None,
+        x = conv2d_bn(
+                x, size = 1, n_filters = n_filters, stride = 1,
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_3")
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_3")
+                name = "conv_bn_3")
 
-        x = tf.add(x, shortcut, name="add")
-        x = activation(x, name="activation_3")
+        x = tf.add(x, shortcut, name = "add")
+        x = activation(x, name = "activation_3")
     return x
 
 
 def residual_layer(
         inputs,
-        n_filters_reduce,
         n_filters,
-        split_depth = 4,
+        cardinality,
+        group_width,
         n_blocks = 3, 
         stride = 1,
         is_training = False,
         block_function = bottleneck_block,
-        kernel_init = Kumar_initializer(mode="FAN_IN"),
-        name = "residual"
+        kernel_init = He_normal(seed = 42),
+        name = "aggregated_residual_layer"
         ):
     with tf.variable_scope(name):
         x = block_function(
                 inputs,
-                n_filters_reduce = n_filters_reduce,
                 n_filters = n_filters,
-                split_depth = split_depth,
+                cardinality = cardinality,
+                group_width = group_width,
                 stride = stride,
                 is_training = is_training,
                 kernel_init = kernel_init,
-                name = "block_0")
+                name = "residual_block_0")
         
         for n in range(1, n_blocks):
             x = block_function(
                     x,
-                    n_filters_reduce = n_filters_reduce,
                     n_filters = n_filters,
-                    split_depth = split_depth,
+                    cardinality = cardinality,
+                    group_width = group_width,
                     stride = 1,
                     is_training = is_training,
                     kernel_init = kernel_init,
-                    name = "block_" + str(n+1))
+                    name = "residual_block_" + str(n))
     return x

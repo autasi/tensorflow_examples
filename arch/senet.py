@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-from arch.layers import conv2d, dense, Kumar_initializer
-from arch.resnext import group_conv2d
+from arch.layers import conv2d, conv2d_bn_act, conv2d_bn, group_conv2d_fixdepth
+from arch.layers import dense_relu, dense_sigmoid, global_avg_pool2d
+from arch.initializers import He_normal, Kumar_normal
 
 
 #Squeeze-and-Excitation Networks
@@ -11,25 +12,26 @@ from arch.resnext import group_conv2d
 #https://github.com/titu1994/keras-squeeze-excite-network
 #https://github.com/hujie-frank/SENet
 
-
 def squeeze_and_excite(
         inputs,
         ratio = 16,
-        kernel_init = Kumar_initializer(mode="FAN_IN"),
+        regularizer = None,
+        kernel_init_1 = He_normal(seed = 42),
+        kernel_init_2 = Kumar_normal(activation = "sigmoid", mode = "FAN_AVG", seed = 42),
         name = "squeeze_excite"):
     in_filt = inputs.shape[3].value
     with tf.variable_scope(name):
-        x = tf.reduce_mean(inputs, [1,2])        
-        x = dense(
-                x, n_units=in_filt//ratio,
-                activation=tf.nn.relu,
-                kernel_init=kernel_init,
-                name="fc1")
-        x = dense(
-                x, n_units=in_filt,
-                activation=tf.nn.sigmoid,
-                kernel_init=Kumar_initializer(activation="sigmoid", mode="FAN_AVG"),
-                name="fc2")
+        x = global_avg_pool2d(inputs)
+        x = dense_relu(
+                x, n_units = in_filt//ratio,
+                regularizer = regularizer,
+                kernel_init = kernel_init_1,
+                name = "dense_1")
+        x = dense_sigmoid(
+                x, n_units = in_filt,
+                regularizer = regularizer,
+                kernel_init = kernel_init_2,
+                name = "dense_2")
         x = tf.reshape(x, [-1, 1, 1, in_filt])
         outputs = tf.multiply(inputs, x)
     return outputs
@@ -38,105 +40,113 @@ def squeeze_and_excite(
 def se_resnet_residual_block(
         inputs,
         n_filters,
+        size = 3,
         stride = 1,
         activation = tf.nn.relu,
         ratio = 16,
-        kernel_init = Kumar_initializer(mode="FAN_IN"),
+        regularizer = None,
+        kernel_init = He_normal(seed = 42),
+        se_kernel_init_1 = He_normal(seed = 42),
+        se_kernel_init_2 = Kumar_normal(activation = "sigmoid", mode = "FAN_AVG", seed = 42),
         is_training = False,
         name = "se_resnet_residual_block"):   
     with tf.variable_scope(name):
         if (inputs.shape[3] != n_filters) or (stride != 1):
             shortcut = conv2d(
-                        inputs, size=1, n_filters=n_filters,
-                        stride = stride, activation = None,
+                        inputs, size = 1, n_filters = n_filters, stride = stride,
+                        regularizer = regularizer,
                         kernel_init = kernel_init,
-                        name = "shortcut_projection")
+                        name = "shortcut")
         else:
-            shortcut = tf.identity(inputs, name="shortcut")
+            shortcut = tf.identity(inputs, name = "shortcut")
         
-        x = conv2d(
-                inputs, size=3, n_filters = n_filters,
-                stride = stride,
-                activation = None,
+        x = conv2d_bn_act(
+                inputs, size = size, n_filters = n_filters, stride = stride,
+                activation = activation,
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_1")
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_1")
-        x = activation(x, name="activation_1")
+                name = "conv_bn_act_1")
         
-        x = conv2d(
-                x, size=3, n_filters = n_filters,
-                stride = 1,
-                activation = None,
+        x = conv2d_bn(
+                x, size = size, n_filters = n_filters, stride = 1,
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_2")
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_2")
+                name = "conv_bn_2")
 
         x = squeeze_and_excite(
-                x,
-                ratio=ratio,
-                kernel_init=kernel_init,
-                name="squeeze_excite")
+                x, ratio = ratio,
+                regularizer = regularizer,
+                kernel_init_1 = se_kernel_init_1,
+                kernel_init_2 = se_kernel_init_2,
+                name = "squeeze_excite")
         
-        x = tf.add(x, shortcut, name="add")
-        x = activation(x, name="activation_2")
+        x = tf.add(x, shortcut, name = "add")
+        x = activation(x, name = "activation_2")
     return x
 
 
 def se_resnext_bottleneck_block(
         inputs,
-        n_filters_reduce,
         n_filters,
-        split_depth = 4,
+        cardinality,
+        group_width,
+        size = 3,
         stride = 1,
         ratio = 16,
         activation = tf.nn.relu,
-        kernel_init = Kumar_initializer(mode="FAN_IN"),
         is_training = False,
+        regularizer = None,
+        kernel_init = He_normal(seed = 42),
+        se_kernel_init_1 = He_normal(seed = 42),
+        se_kernel_init_2 = Kumar_normal(activation = "sigmoid", mode = "FAN_AVG", seed = 42),
         name = "se_resnext_bottleneck_block"):
+    n_filters_reduce = cardinality*group_width
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
             shortcut = conv2d(
-                        inputs, size=1, n_filters=n_filters,
-                        stride = stride, activation = None,
+                        inputs, size = 1, n_filters = n_filters, stride = stride,
                         kernel_init = kernel_init,
-                        name = "shortcut_projection")
+                        name = "shortcut")
         else:
-            shortcut = tf.identity(inputs, name="shortcut")
+            shortcut = tf.identity(inputs, name = "shortcut")
         
-        x = conv2d(
-                inputs, size=1, n_filters = n_filters_reduce,
-                stride = stride,
-                activation = None,
+        x = conv2d_bn_act(
+                inputs, size = 1, n_filters = n_filters_reduce, stride = stride,
+                activation = activation,
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_1")
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_1")
-        x = activation(x, name="activation_1")
+                name = "conv_bn_act_1")
         
 
-        x = group_conv2d(
-                x, size=3, n_filters = n_filters_reduce,
-                split_depth = split_depth,
-                activation = None,
+        x = group_conv2d_fixdepth(
+                x, size = size, stride = 1,
+                cardinality = cardinality,
+                group_width = group_width,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_2"
+                name = "group_conv_2"
                 )
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_2")
-        x = activation(x, name="activation_2")
+        x = tf.layers.batch_normalization(
+                x, training = is_training, name = "batch_norm_2")
+        x = activation(x, name = "activation_2")
 
-        x = conv2d(
-                x, size=1, n_filters = n_filters,
-                stride = 1,
-                activation = None,
+        x = conv2d_bn(
+                x, size = 1, n_filters = n_filters, stride = 1,
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
-                name = "conv2d_3")
-        x = tf.layers.batch_normalization(x, training=is_training, name="bn_3")
+                name = "conv_bn_3")
 
         x = squeeze_and_excite(
-                x,
-                ratio=ratio,
-                kernel_init=kernel_init,
-                name="squeeze_excite")
+                x, ratio = ratio,
+                regularizer = regularizer,
+                kernel_init_1 = se_kernel_init_1,
+                kernel_init_2 = se_kernel_init_2,
+                name = "squeeze_excite")
 
-        x = tf.add(x, shortcut, name="add")
-        x = activation(x, name="activation_3")
+        x = tf.add(x, shortcut, name = "add")
+        x = activation(x, name = "activation_3")
     return x

@@ -2,6 +2,79 @@
 # -*- coding: utf-8 -*-
 
 import math
+from operator import mul
+from functools import partial
+
+
+# Huang et al., Snapshot Ensembles: Train 1, get M for free
+# https://arxiv.org/abs/1704.00109
+# https://github.com/titu1994/Snapshot-Ensembles
+class CyclicCosineAnneal(object):
+    def __init__(self, a0, M = 1, max_steps = 100):
+        self.a0 = a0
+        self.M = M
+        self.max_steps = max_steps
+        self.steps = 0
+        self.TperM = self.max_steps // self.M
+        self.a0per2 = self.a0/2.0
+        self.value = self.a0per2
+
+    def __iter__(self):
+        return self
+    
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+        self.value = self.a0per2 * math.cos(math.pi * (self.steps % self.TperM ) / self.TperM) + 1.0
+        
+        self.steps = self.steps+1
+        return self.value     
+
+
+class DivideAt(object):
+    def __init__(self, start = 0.1, divide_by = 10, at_steps = [50, 75]):
+        self.start = start
+        self.divide_by = divide_by
+        self.at_steps = at_steps
+        self.value = self.start
+        self.steps = 0
+        
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+        if self.steps in self.at_steps:
+            self.value = self.value / self.divide_by
+        self.steps = self.steps+1
+        return self.value    
+
+
+class DivideAtRates(object):
+    def __init__(self, start = 0.1, divide_by = 10, at = [0.5, 0.75], max_steps = 100):
+        self.start = start
+        self.divide_by = divide_by
+        self.at = at
+        self.max_steps = max_steps
+        self.at_steps = map(int, map(partial(mul, self.max_steps), self.at))
+        self.value = self.start
+        self.steps = 0
+        
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+        if self.steps in self.at_steps:
+            self.value = self.value / self.divide_by
+        self.steps = self.steps+1
+        return self.value    
+
 
 class ExponentialDecay(object):
     """Iterator class to generate rates with exponential decay.
