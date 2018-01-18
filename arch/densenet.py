@@ -6,7 +6,7 @@ import tensorflow as tf
 from arch.layers import bn_act_conv2d, avg_pool2d, global_avg_pool2d
 from arch.initializers import He_normal
 
-#Densely Connected Convolutional Networks
+#Huang et al. Densely Connected Convolutional Networks
 #https://arxiv.org/abs/1608.06993
 #https://github.com/YixuanLi/densenet-tensorflow
 
@@ -35,10 +35,11 @@ def dense_block(
                     regularizer = regularizer,
                     kernel_init = kernel_init,
                     name = "bn_act_conv_" + str(r))
-            x = tf.layers.dropout(
-                    x, rate = drop_rate,
-                    training = is_training,
-                    seed = seed, name = "dropout_"+str(r))
+            if drop_rate > 0.0:
+                x = tf.layers.dropout(
+                        x, rate = drop_rate,
+                        training = is_training,
+                        seed = seed, name = "dropout_"+str(r))
             shortcuts.append(x)
             x = tf.concat(shortcuts, axis = 3)
     return x
@@ -71,10 +72,11 @@ def bottleneck_block(
                     kernel_init = kernel_init,
                     name = "reduction_bn_act_conv_" + str(r))
             
-            x = tf.layers.dropout(
-                    x, rate = drop_rate,
-                    training = is_training,
-                    seed = seed, name = "reduction_dropout_"+str(r))
+            if drop_rate > 0.0:
+                x = tf.layers.dropout(
+                        x, rate = drop_rate,
+                        training = is_training,
+                        seed = seed+1, name = "reduction_dropout_"+str(r))
             
             x = bn_act_conv2d(
                     x, size = size, n_filters = n_filters, stride = 1,
@@ -84,10 +86,11 @@ def bottleneck_block(
                     kernel_init = kernel_init,
                     name = "bn_act_conv_" + str(r))
             
-            x = tf.layers.dropout(
-                    x, rate = drop_rate,
-                    training = is_training,
-                    seed = seed, name = "dropout_"+str(r))
+            if drop_rate > 0.0:
+                x = tf.layers.dropout(
+                        x, rate = drop_rate,
+                        training = is_training,
+                        seed = seed+2, name = "dropout_"+str(r))
             
             shortcuts.append(x)
             x = tf.concat(shortcuts, axis = 3)
@@ -118,10 +121,11 @@ def transition_layer(
                 kernel_init = kernel_init,
                 name = "bn_act_conv")
         
-        x = tf.layers.dropout(
-                x, rate = drop_rate,
-                training = is_training,
-                seed = seed, name = "dropout")
+        if drop_rate > 0.0:
+            x = tf.layers.dropout(
+                    x, rate = drop_rate,
+                    training = is_training,
+                    seed = seed, name = "dropout")
         x = pool(x, size = pool_size, stride = pool_stride, name = "pool")
     return x
         

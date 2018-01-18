@@ -14,6 +14,7 @@ from config import cifar10_data_folder, cifar10_net_folder
 from util.transform import RandomizedTransformer, Affine
 
 
+#https://www.kaggle.com/c/cifar-10/discussion/40237
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -112,7 +113,7 @@ def main():
             lr = next(decay)
             lr = lr*1.0/(1.0+lr_decay*i)
             # training via random batches
-            for (xb, yb) in random_batch_generator(128, tr_x, tr_y, seed = 42+i):
+            for (xb, yb) in random_batch_generator(64, tr_x, tr_y, seed = 42+i):
                 xbtr = np.zeros_like(xb)
                 for j in range(len(xb)):
                     xbtr[j] = transformer.transform(xb[j])    
@@ -146,8 +147,8 @@ def main():
     session = None
 #('Epoch: ', 124)
 #('Learning rate: ', 0.00024996900384352343)
-#('Test accuracy: ', 0.89570314)
-#('Train accuracy: ', 0.95952249)
+#('Test accuracy: ', 0.89687502)
+#('Train accuracy: ', 0.95565212)
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.resnext_graph import cifar10_resnext_29_wd
+from arch.senet_graph import cifar10_se_resnext_29_wd
 from arch.misc import DivideAtRates
 from arch.io import save_variables
 from util.misc import tuple_list_find
@@ -14,7 +14,10 @@ from config import cifar10_data_folder, cifar10_net_folder
 from util.transform import RandomizedTransformer, Affine
 
 
-#https://arxiv.org/pdf/1611.05431.pdf
+# no CIFAR-10 experiments in
+# https://arxiv.org/abs/1709.01507
+# so the original resnext-29 settings is applied here
+# https://arxiv.org/pdf/1611.05431.pdf
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -46,7 +49,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_resnext_29_wd(x, weight_decay = 0.0005)
+    layers, variables = cifar10_se_resnext_29_wd(x, weight_decay = 0.0005)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -108,7 +111,7 @@ def main():
         for i in range(n_epochs):
             lr = next(decay)
             # training via random batches
-            for (xb, yb) in random_batch_generator(128, tr_x, tr_y, seed = 42+i):
+            for (xb, yb) in random_batch_generator(64, tr_x, tr_y, seed = 42+i):
                 xbtr = np.zeros_like(xb)
                 for j in range(len(xb)):
                     xbtr[j] = transformer.transform(xb[j])                
@@ -136,7 +139,7 @@ def main():
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))
             print("Train accuracy: ", np.mean(tr_acc))            
-        net_path = os.path.join(cifar10_net_folder, "cifar10_resnext29_wd_randtrans.pkl")
+        net_path = os.path.join(cifar10_net_folder, "cifar10_se_resnext29_wd_randtrans.pkl")
         save_variables(session, net_path)
     session.close()
     session = None

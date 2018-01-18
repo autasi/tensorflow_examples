@@ -14,6 +14,10 @@ from config import cifar10_data_folder, cifar10_net_folder
 from util.transform import RandomizedTransformer, Affine
 
 
+# no CIFAR-10 experiments in
+# https://arxiv.org/abs/1709.01507
+# so the original resnet-20 settings is applied here
+# https://arxiv.org/pdf/1512.03385.pdf
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -53,7 +57,7 @@ def main():
     # logit output required for optimization
     logit = tuple_list_find(layers, "logit")[1]
         
-    n_epochs = 300
+    n_epochs = 200
     
     # optimization is done one the cross-entropy between labels and predicted logit    
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=gt, logits=logit))
@@ -139,10 +143,7 @@ def main():
         save_variables(session, net_path)
     session.close()
     session = None
-#('Epoch: ', 299)
-#('Learning rate: ', 0.001)
-#('Test accuracy: ', 0.91562498)
-#('Train accuracy: ', 0.99760842)
+
 
 if __name__ == "__main__":
     # environment variables for intel MKL

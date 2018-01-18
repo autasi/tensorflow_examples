@@ -298,6 +298,226 @@ def factorized_conv2d(
     return x
 
 
+def factorized_conv2d_act(
+        inputs, size, n_filters, activation,
+        n_repeat = 1,
+        stride = 1,
+        padding = "SAME",
+        kernel_init = He_normal(),
+        bias_init = tf.zeros_initializer(),
+        name = "factorized_conv2d"):
+    """Creates a factorized 2D convolutional layer, i.e. nxn is factorized into
+       1xn followed by nx1, which can be repeated multiple times.
+    Args:
+        inputs: 4D input tensor, NHWC
+        size: Kernel size, int.
+        n_filters: List of ints or two-tuples containing the number of filters.
+        n_repeat: Number of repetitions.
+        stride: Stride size, int or list of two ints.
+        padding: Padding algorithm "SAME" or "VALID".
+        kernel_init: Kernel initialization function.
+        bias_init: Bias initialization function.
+        name: Name of the layer.
+    Returns:
+        4D tensor.
+    """    
+    if not isinstance(stride, (tuple, list)):
+        stride = [stride, stride]
+    if not isinstance(n_filters, list):
+        n_filters = [n_filters]*n_repeat
+    with tf.variable_scope(name):
+        x = inputs
+        for r in range(n_repeat):
+            curr_filters = n_filters[r]
+            if not isinstance(curr_filters, (tuple, list)):
+                curr_filters = (curr_filters, curr_filters)
+            in_filt = x.shape[3].value             
+            weights1 = tf.get_variable(
+                    shape = [1, size, in_filt, curr_filters[0]],
+                    initializer = kernel_init,
+                    name = "weight_"+str(r)+"_1")
+            biases1 = tf.get_variable(
+                    shape = [curr_filters[0]],
+                    initializer = bias_init,
+                    name="bias_"+str(r)+"_1")
+            conv1 = tf.nn.conv2d(
+                    x, weights1,
+                    strides = [1, stride[0], stride[1], 1],
+                    padding = padding,
+                    name = "conv_"+str(r)+"_1")
+            x = tf.nn.bias_add(conv1, biases1, name = "bias_add_"+str(r)+"_1")
+            if activation is not None:
+                x = activation(x, name = "activation")
+            
+            weights2 = tf.get_variable(
+                    shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    initializer = kernel_init,
+                    name = "weight_"+str(r)+"_2")
+            biases2 = tf.get_variable(
+                    shape = [curr_filters[1]],
+                    initializer = bias_init,
+                    name="bias_"+str(r)+"_2")
+            conv2 = tf.nn.conv2d(
+                    x, weights2,
+                    strides = [1, stride[0], stride[1], 1],
+                    padding = padding,
+                    name = "conv_"+str(r)+"_2")
+            x = tf.nn.bias_add(conv2, biases2, name = "bias_add_"+str(r)+"_2")
+            if activation is not None:
+                x = activation(x, name = "activation")
+    return x
+
+factorized_conv2d_relu = partial(factorized_conv2d_act, activation = tf.nn.relu)
+
+
+def factorized_conv2d_bn(
+        inputs, size, n_filters,
+        n_repeat = 1,
+        stride = 1,
+        padding = "SAME",
+        is_training = False,
+        kernel_init = He_normal(),
+        bias_init = tf.zeros_initializer(),
+        name = "factorized_conv2d"):
+    """Creates a factorized 2D convolutional layer, i.e. nxn is factorized into
+       1xn followed by nx1, which can be repeated multiple times.
+    Args:
+        inputs: 4D input tensor, NHWC
+        size: Kernel size, int.
+        n_filters: List of ints or two-tuples containing the number of filters.
+        n_repeat: Number of repetitions.
+        stride: Stride size, int or list of two ints.
+        padding: Padding algorithm "SAME" or "VALID".
+        kernel_init: Kernel initialization function.
+        bias_init: Bias initialization function.
+        name: Name of the layer.
+    Returns:
+        4D tensor.
+    """    
+    if not isinstance(stride, (tuple, list)):
+        stride = [stride, stride]
+    if not isinstance(n_filters, list):
+        n_filters = [n_filters]*n_repeat
+    with tf.variable_scope(name):
+        x = inputs
+        for r in range(n_repeat):
+            curr_filters = n_filters[r]
+            if not isinstance(curr_filters, (tuple, list)):
+                curr_filters = (curr_filters, curr_filters)
+            in_filt = x.shape[3].value             
+            weights1 = tf.get_variable(
+                    shape = [1, size, in_filt, curr_filters[0]],
+                    initializer = kernel_init,
+                    name = "weight_"+str(r)+"_1")
+            biases1 = tf.get_variable(
+                    shape = [curr_filters[0]],
+                    initializer = bias_init,
+                    name="bias_"+str(r)+"_1")
+            conv1 = tf.nn.conv2d(
+                    x, weights1,
+                    strides = [1, stride[0], stride[1], 1],
+                    padding = padding,
+                    name = "conv_"+str(r)+"_1")
+            x = tf.nn.bias_add(conv1, biases1, name = "bias_add_"+str(r)+"_1")
+            x = tf.layers.batch_normalization(
+                    x, training = is_training, name = "batch_norm_"+str(r)+"_1")
+            
+            weights2 = tf.get_variable(
+                    shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    initializer = kernel_init,
+                    name = "weight_"+str(r)+"_2")
+            biases2 = tf.get_variable(
+                    shape = [curr_filters[1]],
+                    initializer = bias_init,
+                    name="bias_"+str(r)+"_2")
+            conv2 = tf.nn.conv2d(
+                    x, weights2,
+                    strides = [1, stride[0], stride[1], 1],
+                    padding = padding,
+                    name = "conv_"+str(r)+"_2")
+            x = tf.nn.bias_add(conv2, biases2, name = "bias_add_"+str(r)+"_2")
+            x = tf.layers.batch_normalization(
+                    x, training = is_training, name = "batch_norm_"+str(r)+"_2")
+    return x
+
+
+def factorized_conv2d_bn_act(
+        inputs, size, n_filters, activation,
+        n_repeat = 1,
+        stride = 1,
+        padding = "SAME",
+        is_training = False,
+        kernel_init = He_normal(),
+        bias_init = tf.zeros_initializer(),
+        name = "factorized_conv2d"):
+    """Creates a factorized 2D convolutional layer, i.e. nxn is factorized into
+       1xn followed by nx1, which can be repeated multiple times.
+    Args:
+        inputs: 4D input tensor, NHWC
+        size: Kernel size, int.
+        n_filters: List of ints or two-tuples containing the number of filters.
+        n_repeat: Number of repetitions.
+        stride: Stride size, int or list of two ints.
+        padding: Padding algorithm "SAME" or "VALID".
+        kernel_init: Kernel initialization function.
+        bias_init: Bias initialization function.
+        name: Name of the layer.
+    Returns:
+        4D tensor.
+    """    
+    if not isinstance(stride, (tuple, list)):
+        stride = [stride, stride]
+    if not isinstance(n_filters, list):
+        n_filters = [n_filters]*n_repeat
+    with tf.variable_scope(name):
+        x = inputs
+        for r in range(n_repeat):
+            curr_filters = n_filters[r]
+            if not isinstance(curr_filters, (tuple, list)):
+                curr_filters = (curr_filters, curr_filters)
+            in_filt = x.shape[3].value             
+            weights1 = tf.get_variable(
+                    shape = [1, size, in_filt, curr_filters[0]],
+                    initializer = kernel_init,
+                    name = "weight_"+str(r)+"_1")
+            biases1 = tf.get_variable(
+                    shape = [curr_filters[0]],
+                    initializer = bias_init,
+                    name="bias_"+str(r)+"_1")
+            conv1 = tf.nn.conv2d(
+                    x, weights1,
+                    strides = [1, stride[0], stride[1], 1],
+                    padding = padding,
+                    name = "conv_"+str(r)+"_1")
+            x = tf.nn.bias_add(conv1, biases1, name = "bias_add_"+str(r)+"_1")
+            x = tf.layers.batch_normalization(
+                    x, training = is_training, name = "batch_norm_"+str(r)+"_1")
+            if activation is not None:
+                x = activation(x, name = "activation")
+            
+            weights2 = tf.get_variable(
+                    shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    initializer = kernel_init,
+                    name = "weight_"+str(r)+"_2")
+            biases2 = tf.get_variable(
+                    shape = [curr_filters[1]],
+                    initializer = bias_init,
+                    name="bias_"+str(r)+"_2")
+            conv2 = tf.nn.conv2d(
+                    x, weights2,
+                    strides = [1, stride[0], stride[1], 1],
+                    padding = padding,
+                    name = "conv_"+str(r)+"_2")
+            x = tf.nn.bias_add(conv2, biases2, name = "bias_add_"+str(r)+"_2")
+            x = tf.layers.batch_normalization(
+                    x, training = is_training, name = "batch_norm_"+str(r)+"_2")
+            if activation is not None:
+                x = activation(x, name = "activation")
+    return x
+
+factorized_conv2d_bn_relu = partial(factorized_conv2d_bn_act, activation = tf.nn.relu)
+
+
 # group convolution with the same input and output depths
 def group_conv2d_fixdepth(
         inputs, size, cardinality, group_width,

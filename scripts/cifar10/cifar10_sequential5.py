@@ -12,8 +12,11 @@ from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
 from config import cifar10_data_folder, cifar10_net_folder
 from util.transform import RandomizedTransformer, Affine
+from util.imgproc import GCN
+from util.normalization import ZCA_whitening, ZCA_whitening2, global_mean_std, pixel_mean_std
 
 
+#https://arxiv.org/pdf/1412.6806.pdf
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -30,12 +33,17 @@ def main():
     n_chans = tr_x.shape[3]
     n_classes = tr_y.shape[1]
 
-    # data normalization = the authors use global contrast normalization + ZCA whitening
-    eps = 1e-7
-    tr_mean = np.mean(tr_x, axis = (0,1,2,3))
-    tr_std = np.std(tr_x, axis = (0,1,2,3))
-    tr_x = (tr_x-tr_mean)/(tr_std+eps)
-    te_x = (te_x-tr_mean)/(tr_std+eps)
+    # data normalization
+#    eps = 1e-7
+#    tr_mean = np.mean(tr_x, axis = (0,1,2,3))
+#    tr_std = np.std(tr_x, axis = (0,1,2,3))
+#    tr_x = (tr_x-tr_mean)/(tr_std+eps)
+#    te_x = (te_x-tr_mean)/(tr_std+eps)    
+    tr_x = GCN(tr_x, scale=55)
+    te_x = GCN(te_x, scale=55)
+    tr_x, te_x = ZCA_whitening2(tr_x, te_x)
+    tr_x, te_x = global_mean_std(tr_x, te_x)
+    #tr_x, te_x = pixel_mean_std(tr_x, te_x)
     
     # initialization
     tf.reset_default_graph()
@@ -108,7 +116,7 @@ def main():
         for i in range(n_epochs):
             lr = next(decay)
             # training via random batches
-            for (xb, yb) in random_batch_generator(128, tr_x, tr_y, seed = 42+i):
+            for (xb, yb) in random_batch_generator(64, tr_x, tr_y, seed = 42+i):
                 xbtr = np.zeros_like(xb)
                 for j in range(len(xb)):
                     xbtr[j] = transformer.transform(xb[j])    

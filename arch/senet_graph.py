@@ -251,10 +251,10 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
     res1 = resnext.residual_layer(
             conv, n_blocks = 3, stride = 1,
             n_filters = 64,
-            cardinality = 8,
+            cardinality = 16,
             group_width = 64,
             block_function = partial(
-                    senet.senet.se_resnext_bottleneck_block,
+                    senet.se_resnext_bottleneck_block,
                     ratio = ratio,
                     regularizer = tf.contrib.layers.l2_regularizer(weight_decay),
                     se_kernel_init_1 = He_normal(seed = seed+2),
@@ -268,10 +268,10 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
     res2 = resnext.residual_layer(
             res1, n_blocks = 3, stride = 2,
             n_filters = 128,
-            cardinality = 8,
+            cardinality = 16,
             group_width = 64,
             block_function = partial(
-                    senet.senet.se_resnext_bottleneck_block,
+                    senet.se_resnext_bottleneck_block,
                     ratio = ratio,
                     regularizer = tf.contrib.layers.l2_regularizer(weight_decay),
                     se_kernel_init_1 = He_normal(seed = seed+3),
@@ -285,10 +285,10 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
     res3 = resnext.residual_layer(
             res2, n_blocks = 3, stride = 2,
             n_filters = 256,
-            cardinality = 8,
+            cardinality = 16,
             group_width = 64,
             block_function = partial(
-                    senet.senet.se_resnext_bottleneck_block,
+                    senet.se_resnext_bottleneck_block,
                     ratio = ratio,
                     regularizer = tf.contrib.layers.l2_regularizer(weight_decay),
                     se_kernel_init_1 = He_normal(seed = seed+4),

@@ -7,7 +7,7 @@ from arch.layers import dense_relu, dense_sigmoid, global_avg_pool2d
 from arch.initializers import He_normal, Kumar_normal
 
 
-#Squeeze-and-Excitation Networks
+#He et al. Squeeze-and-Excitation Networks
 #https://arxiv.org/abs/1709.01507
 #https://github.com/titu1994/keras-squeeze-excite-network
 #https://github.com/hujie-frank/SENet

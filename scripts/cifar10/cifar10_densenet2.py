@@ -5,16 +5,17 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.resnext_graph import cifar10_resnext_29_wd
+from arch.densenet_graph import cifar10_densenet_40_wd
 from arch.misc import DivideAtRates
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
 from config import cifar10_data_folder, cifar10_net_folder
 from util.transform import RandomizedTransformer, Affine
+from util.normalization import channel_mean_std
 
 
-#https://arxiv.org/pdf/1611.05431.pdf
+#https://arxiv.org/abs/1608.06993
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -32,9 +33,7 @@ def main():
     n_classes = tr_y.shape[1]
     
     # data normalization
-    tr_mean = np.mean(tr_x, axis = 0)
-    tr_x = tr_x-tr_mean
-    te_x = te_x-tr_mean
+    tr_x, te_x = channel_mean_std(tr_x, te_x)
     
     # initialization
     tf.reset_default_graph()
@@ -46,7 +45,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_resnext_29_wd(x, weight_decay = 0.0005)
+    layers, variables = cifar10_densenet_40_wd(x, drop_rate = 0.0, weight_decay = 0.0001)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -108,10 +107,10 @@ def main():
         for i in range(n_epochs):
             lr = next(decay)
             # training via random batches
-            for (xb, yb) in random_batch_generator(128, tr_x, tr_y, seed = 42+i):
+            for (xb, yb) in random_batch_generator(64, tr_x, tr_y, seed = 42+i):
                 xbtr = np.zeros_like(xb)
                 for j in range(len(xb)):
-                    xbtr[j] = transformer.transform(xb[j])                
+                    xbtr[j] = transformer.transform(xb[j])
                 session.run(train_step, feed_dict = {x: xbtr,
                                                      gt: yb,
                                                      training: True,
@@ -136,10 +135,14 @@ def main():
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))
             print("Train accuracy: ", np.mean(tr_acc))            
-        net_path = os.path.join(cifar10_net_folder, "cifar10_resnext29_wd_randtrans.pkl")
+        net_path = os.path.join(cifar10_net_folder, "cifar10_densenet40_wd_randtrans.pkl")
         save_variables(session, net_path)
     session.close()
     session = None
+#('Epoch: ', 299)
+#('Learning rate: ', 0.001)
+#('Test accuracy: ', 0.93955076)
+#('Train accuracy: ', 0.99988043)
 
 
 if __name__ == "__main__":
