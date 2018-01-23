@@ -12,7 +12,7 @@ def conv2d(
         padding = "SAME",
         regularizer = None,
         kernel_init = He_normal(),
-        bias_init = He_normal(),
+        bias_init = tf.zeros_initializer(),
         name = "conv2d"):
     """Creates a 2D convolutional layer.
     Args:
@@ -58,7 +58,7 @@ def conv2d_bn(
         is_training = False,
         regularizer = None,
         kernel_init = He_normal(),
-        bias_init = He_normal(),
+        bias_init = tf.zeros_initializer(),
         name = "conv2d_bn"
         ):
     with tf.variable_scope(name):
@@ -81,7 +81,7 @@ def conv2d_act(
         padding = "SAME",
         regularizer = None,
         kernel_init = He_normal(),
-        bias_init = He_normal(),        
+        bias_init = tf.zeros_initializer(),
         name = "conv2d_act"
         ):
     with tf.variable_scope(name):
@@ -106,7 +106,7 @@ def conv2d_bn_act(
         is_training = False,
         regularizer = None,
         kernel_init = He_normal(),
-        bias_init = He_normal(),        
+        bias_init = tf.zeros_initializer(),        
         name = "conv2d_bn_act"
         ):
     with tf.variable_scope(name):
@@ -134,7 +134,7 @@ def conv2d_act_bn(
         is_training = False,
         regularizer = None,
         kernel_init = He_normal(),
-        bias_init = He_normal(),        
+        bias_init = tf.zeros_initializer(),        
         name = "conv2d_bn_act"
         ):
     with tf.variable_scope(name):
@@ -162,7 +162,7 @@ def bn_act_conv2d(
         is_training = False,
         regularizer = None,
         kernel_init = He_normal(),
-        bias_init = He_normal(),        
+        bias_init = tf.zeros_initializer(),        
         name = "bn_act_conv2d"
         ):
     with tf.variable_scope(name):
@@ -187,6 +187,7 @@ def separable_conv2d(
         stride = 1,
         depth_multiplier = 1,
         padding = "SAME",
+        regularizer = None,
         depth_init = He_normal(),
         pointwise_init = He_normal(),
         bias_init = tf.zeros_initializer(),
@@ -215,10 +216,12 @@ def separable_conv2d(
     with tf.variable_scope(name):
         depth_weights = tf.get_variable(
                 shape = [size[0], size[1], in_filt, depth_multiplier],
+                regularizer = regularizer,
                 initializer = depth_init,
                 name = "depth_weight")
         pointwise_weights = tf.get_variable(
                 shape = [1, 1, depth_multiplier*in_filt, n_filters],
+                regularizer = regularizer,
                 initializer = pointwise_init,
                 name = "pointwise_weight")
         biases = tf.get_variable(
@@ -237,6 +240,7 @@ def factorized_conv2d(
         n_repeat = 1,
         stride = 1,
         padding = "SAME",
+        regularizer = None,
         kernel_init = He_normal(),
         bias_init = tf.zeros_initializer(),
         name = "factorized_conv2d"):
@@ -268,6 +272,7 @@ def factorized_conv2d(
             in_filt = x.shape[3].value             
             weights1 = tf.get_variable(
                     shape = [1, size, in_filt, curr_filters[0]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_1")
             biases1 = tf.get_variable(
@@ -283,6 +288,7 @@ def factorized_conv2d(
             
             weights2 = tf.get_variable(
                     shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_2")
             biases2 = tf.get_variable(
@@ -303,6 +309,7 @@ def factorized_conv2d_act(
         n_repeat = 1,
         stride = 1,
         padding = "SAME",
+        regularizer = None,
         kernel_init = He_normal(),
         bias_init = tf.zeros_initializer(),
         name = "factorized_conv2d"):
@@ -334,6 +341,7 @@ def factorized_conv2d_act(
             in_filt = x.shape[3].value             
             weights1 = tf.get_variable(
                     shape = [1, size, in_filt, curr_filters[0]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_1")
             biases1 = tf.get_variable(
@@ -351,6 +359,7 @@ def factorized_conv2d_act(
             
             weights2 = tf.get_variable(
                     shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_2")
             biases2 = tf.get_variable(
@@ -375,6 +384,7 @@ def factorized_conv2d_bn(
         n_repeat = 1,
         stride = 1,
         padding = "SAME",
+        regularizer = None,
         is_training = False,
         kernel_init = He_normal(),
         bias_init = tf.zeros_initializer(),
@@ -407,6 +417,7 @@ def factorized_conv2d_bn(
             in_filt = x.shape[3].value             
             weights1 = tf.get_variable(
                     shape = [1, size, in_filt, curr_filters[0]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_1")
             biases1 = tf.get_variable(
@@ -424,6 +435,7 @@ def factorized_conv2d_bn(
             
             weights2 = tf.get_variable(
                     shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_2")
             biases2 = tf.get_variable(
@@ -447,6 +459,7 @@ def factorized_conv2d_bn_act(
         stride = 1,
         padding = "SAME",
         is_training = False,
+        regularizer = None,
         kernel_init = He_normal(),
         bias_init = tf.zeros_initializer(),
         name = "factorized_conv2d"):
@@ -478,6 +491,7 @@ def factorized_conv2d_bn_act(
             in_filt = x.shape[3].value             
             weights1 = tf.get_variable(
                     shape = [1, size, in_filt, curr_filters[0]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_1")
             biases1 = tf.get_variable(
@@ -497,6 +511,7 @@ def factorized_conv2d_bn_act(
             
             weights2 = tf.get_variable(
                     shape = [size, 1, curr_filters[0], curr_filters[1]],
+                    regularizer = regularizer,
                     initializer = kernel_init,
                     name = "weight_"+str(r)+"_2")
             biases2 = tf.get_variable(
@@ -524,6 +539,7 @@ def group_conv2d_fixdepth(
         stride = 1,
         regularizer = None,
         kernel_init = He_normal(seed = 42),
+        bias_init = tf.zeros_initializer(),
         name = "group_conv2d"):
     
     if cardinality == 1:
@@ -532,6 +548,7 @@ def group_conv2d_fixdepth(
                 stride = stride,
                 regularizer = regularizer,
                 kernel_init = kernel_init,
+                bias_init = bias_init,
                 name = name)
         
             
@@ -545,6 +562,7 @@ def group_conv2d_fixdepth(
                     stride = stride,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
+                    bias_init = bias_init,
                     name = "conv2d_"+str(i))
             conv_groups.append(conv)
             

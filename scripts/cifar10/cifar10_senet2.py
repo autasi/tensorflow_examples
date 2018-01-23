@@ -143,7 +143,10 @@ def main():
         save_variables(session, net_path)
     session.close()
     session = None
-
+#('Epoch: ', 199)
+#('Learning rate: ', 0.001)
+#('Test accuracy: ', 0.91923827)
+#('Train accuracy: ', 0.99561542)
 
 if __name__ == "__main__":
     # environment variables for intel MKL

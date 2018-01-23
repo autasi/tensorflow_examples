@@ -5,7 +5,7 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.inception_graph import cifar10_bn_inception_v1
+from arch.inception_graph import cifar10_inception_v4
 from arch.misc import ExponentialDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
@@ -14,7 +14,7 @@ from config import cifar10_data_folder, cifar10_net_folder
 from util.normalization import channel_mean_std
 
 
-# http://proceedings.mlr.press/v37/ioffe15.pdf
+# https://arxiv.org/pdf/1512.00567.pdf
 def main():
     # input data is in NHWC format
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
@@ -44,7 +44,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_bn_inception_v1(x)
+    layers, variables = cifar10_inception_v4(x)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -110,14 +110,15 @@ def main():
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))
             print("Train accuracy: ", np.mean(tr_acc))            
-        net_path = os.path.join(cifar10_net_folder, "cifar10_bn_inception_v1_expdecay.pkl")
+        net_path = os.path.join(cifar10_net_folder, "cifar10_inception_v4_expdecay.pkl")
         save_variables(session, net_path)
     session.close()
     session = None
 #('Epoch: ', 49)
 #('Learning rate: ', 0.0010471285480508996)
-#('Test accuracy: ', 0.89785159)
+#('Test accuracy: ', 0.88603514)
 #('Train accuracy: ', 1.0)
+
 
 if __name__ == "__main__":
     # environment variables for intel MKL

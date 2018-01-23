@@ -463,14 +463,14 @@ def expanded_filterbank_fact1d_bn(
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
-                    name = "conv_1x3")
+                    name = "conv_1x3_1")
         x_3x1 = conv2d_bn_relu(
                     reduce_1x3_3x1, size = [3,1], n_filters = n_filters_1x3_3x1,
                     stride = 1,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
-                    name = "conv_3x1")
+                    name = "conv_3x1_1")
         
         # 1x3 + 3x1 + (1x3 + 3x1)
         reduce_1x3 = conv2d_bn_relu(
@@ -480,28 +480,28 @@ def expanded_filterbank_fact1d_bn(
                     regularizer = regularizer,
                     kernel_init = kernel_init_reduce,
                     name = "conv_reduce_1x3")
-        x_1x3 = conv2d_bn_relu(
+        x_1x3_2 = conv2d_bn_relu(
                     reduce_1x3, size = [1,3], n_filters = n_filters_1x3,
                     stride = 1,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
-                    name = "conv_1x3")
-        x_3x1 = conv2d_bn_relu(
-                    reduce_1x3, size = [3,1], n_filters = n_filters_3x1,
+                    name = "conv_1x3_2")
+        x_3x1_2 = conv2d_bn_relu(
+                    x_1x3_2, size = [3,1], n_filters = n_filters_3x1,
                     stride = 1,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
-                    name = "conv_3x1")
+                    name = "conv_3x1_2")
         x_3x3_1x3 = conv2d_relu(
-                    x_3x1, size = [1,3], n_filters = n_filters_3x3_1x3_3x1,
+                    x_3x1_2, size = [1,3], n_filters = n_filters_3x3_1x3_3x1,
                     stride = 1,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
                     name = "conv_3x3_1x3")
         x_3x3_3x1 = conv2d_bn_relu(
-                    x_3x1, size = [3,1], n_filters = n_filters_3x3_1x3_3x1,
+                    x_3x1_2, size = [3,1], n_filters = n_filters_3x3_1x3_3x1,
                     stride = 1,
                     is_training = is_training,
                     regularizer = regularizer,
@@ -595,7 +595,7 @@ def reduction_bn(
 # https://arxiv.org/pdf/1602.07261.pdf
 # Figure 7
 # for 35 × 35 to 17 × 17
-def v4_reduction_bn_1(
+def reduction_bn_v4_1(
         inputs,
         n_filters_3x3_1 = 384, #n
         n_reduce_3x3_2 = 192, #k
@@ -603,6 +603,7 @@ def v4_reduction_bn_1(
         n_filters_3x3_2_2 = 256, #m
         pool = max_pool2d,
         pool_size = 3,
+        padding = "VALID",
         is_training = False,
         regularizer = None,
         kernel_init = He_normal(seed = 42),
@@ -614,7 +615,7 @@ def v4_reduction_bn_1(
         x_3x3_1 = conv2d_bn_relu(
                     inputs, size = 3, n_filters = n_filters_3x3_1,
                     stride = 2,
-                    padding = "VALID",
+                    padding = padding,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
@@ -638,7 +639,7 @@ def v4_reduction_bn_1(
         x_3x3_2_2 = conv2d_bn_relu(
                     x_3x3_2_1, size = 3, n_filters = n_filters_3x3_2_2,
                     stride = 2,
-                    padding = "VALID",
+                    padding = padding,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
@@ -647,7 +648,7 @@ def v4_reduction_bn_1(
         # pool
         pool = pool(
                 inputs, size = pool_size, stride = 2,
-                padding = "VALID", name = "pool")
+                padding = padding, name = "pool")
 
         inception = tf.concat([x_3x3_1, x_3x3_2_2, pool], axis = 3)
         
@@ -659,7 +660,7 @@ def v4_reduction_bn_1(
 # https://arxiv.org/pdf/1602.07261.pdf
 # Figure 8
 # for 17 × 17 to 8 × 8
-def v4_reduction_bn_2(
+def reduction_bn_v4_2(
         inputs,
         n_reduce_3x3 = 192,
         n_filters_3x3 = 192,
@@ -669,6 +670,7 @@ def v4_reduction_bn_2(
         n_filters_7x7_3x3 = 320,
         pool = max_pool2d,
         pool_size = 3,
+        padding = "VALID",
         is_training = False,
         regularizer = None,
         kernel_init = He_normal(seed = 42),
@@ -687,7 +689,7 @@ def v4_reduction_bn_2(
         x_3x3 = conv2d_bn_relu(
                     reduce_3x3, size = 3, n_filters = n_filters_3x3,
                     stride = 2,
-                    padding = "VALID",
+                    padding = padding,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
@@ -718,7 +720,7 @@ def v4_reduction_bn_2(
         x_7x7_3x3 = conv2d_bn_relu(
                     x_7x1, size = 3, n_filters = n_filters_7x7_3x3,
                     stride = 2,
-                    padding = "VALID",
+                    padding = padding,
                     is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
@@ -727,7 +729,7 @@ def v4_reduction_bn_2(
         # pool
         pool = pool(
                 inputs, size = pool_size, stride = 2,
-                padding = "VALID", name = "pool")
+                padding = padding, name = "pool")
 
         inception = tf.concat([x_3x3, x_7x7_3x3, pool], axis = 3)
         

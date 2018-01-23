@@ -7,7 +7,8 @@ from arch.initializers import He_normal
 
 #Xie et al. Aggregated Residual Transformations for Deep Neural Networks, 2017
 #https://arxiv.org/pdf/1611.05431.pdf    
-
+#https://gist.github.com/mjdietzx/0cb95922aac14d446a6530f87b3a04ce
+#https://github.com/titu1994/Keras-ResNeXt/blob/master/resnext.py
 def bottleneck_block(
         inputs,
         n_filters,

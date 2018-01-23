@@ -34,16 +34,16 @@ def main():
     n_classes = tr_y.shape[1]
 
     # data normalization
-#    eps = 1e-7
-#    tr_mean = np.mean(tr_x, axis = (0,1,2,3))
-#    tr_std = np.std(tr_x, axis = (0,1,2,3))
-#    tr_x = (tr_x-tr_mean)/(tr_std+eps)
-#    te_x = (te_x-tr_mean)/(tr_std+eps)    
-    tr_x = GCN(tr_x, scale=55)
-    te_x = GCN(te_x, scale=55)
-    tr_x, te_x = ZCA_whitening2(tr_x, te_x)
-    tr_x, te_x = global_mean_std(tr_x, te_x)
-    #tr_x, te_x = pixel_mean_std(tr_x, te_x)
+##    eps = 1e-7
+##    tr_mean = np.mean(tr_x, axis = (0,1,2,3))
+##    tr_std = np.std(tr_x, axis = (0,1,2,3))
+##    tr_x = (tr_x-tr_mean)/(tr_std+eps)
+##    te_x = (te_x-tr_mean)/(tr_std+eps)    
+#    tr_x = GCN(tr_x, scale=55)
+#    te_x = GCN(te_x, scale=55)
+#    tr_x, te_x = ZCA_whitening2(tr_x, te_x)
+#    tr_x, te_x = global_mean_std(tr_x, te_x)
+    tr_x, te_x = pixel_mean_std(tr_x, te_x)
     
     # initialization
     tf.reset_default_graph()
@@ -148,6 +148,10 @@ def main():
         save_variables(session, net_path)
     session.close()
     session = None
+#('Epoch: ', 349)
+#('Learning rate: ', 5e-05)
+#('Test accuracy: ', 0.88496095)
+#('Train accuracy: ', 0.92965162)
 
 
 if __name__ == "__main__":
