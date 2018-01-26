@@ -3,7 +3,7 @@
 
 from functools import partial
 import tensorflow as tf
-from arch.layers import conv2d_act_bn, global_avg_pool2d, dense
+from arch.layers import conv2d_act_bn, conv2d_bn_act, global_avg_pool2d, dense
 from arch.initializers import He_normal, Kumar_normal
 from arch import resnet
 from arch import resnext
@@ -152,7 +152,7 @@ def cifar10_se_resnet_20_wd(x, ratio = 8, weight_decay = 0.0001, seed = 42):
     return layers, variables
 
 
-def cifar10_se_resnext_29(x, ratio = 16, seed = 42):
+def cifar10_se_resnext_29(x, cardinality = 8, group_width = 16, ratio = 16, seed = 42):
 
     layers = []
     variables = []
@@ -160,7 +160,7 @@ def cifar10_se_resnext_29(x, ratio = 16, seed = 42):
     training = tf.placeholder(tf.bool, name="training")
     variables.append(("training", training))
 
-    conv = conv2d_act_bn(
+    conv = conv2d_bn_act(
             x, size = 3, n_filters = 64,
             activation = tf.nn.relu,
             is_training = training,
@@ -170,9 +170,8 @@ def cifar10_se_resnext_29(x, ratio = 16, seed = 42):
             
     res1 = resnext.residual_layer(
             conv, n_blocks = 3, stride = 1,
-            n_filters = 64,
-            cardinality = 8,
-            group_width = 64,
+            cardinality = cardinality,
+            group_width = group_width,
             block_function = partial(
                     senet.senet.se_resnext_bottleneck_block,
                     ratio = ratio,
@@ -186,9 +185,8 @@ def cifar10_se_resnext_29(x, ratio = 16, seed = 42):
 
     res2 = resnext.residual_layer(
             res1, n_blocks = 3, stride = 2,
-            n_filters = 128,
-            cardinality = 8,
-            group_width = 64,
+            cardinality = cardinality,
+            group_width = group_width*2,
             block_function = partial(
                     senet.senet.se_resnext_bottleneck_block,
                     ratio = ratio,
@@ -202,9 +200,8 @@ def cifar10_se_resnext_29(x, ratio = 16, seed = 42):
 
     res3 = resnext.residual_layer(
             res2, n_blocks = 3, stride = 2,
-            n_filters = 256,
-            cardinality = 8,
-            group_width = 64,
+            cardinality = cardinality,
+            group_width = group_width*4,
             block_function = partial(
                     senet.senet.se_resnext_bottleneck_block,
                     ratio = ratio,
@@ -231,7 +228,7 @@ def cifar10_se_resnext_29(x, ratio = 16, seed = 42):
     return layers, variables
 
 
-def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
+def cifar10_se_resnext_29_wd(x, cardinality = 8, group_width = 16, ratio = 16, weight_decay = 0.0001, seed = 42):
 
     layers = []
     variables = []
@@ -239,7 +236,7 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
     training = tf.placeholder(tf.bool, name="training")
     variables.append(("training", training))
 
-    conv = conv2d_act_bn(
+    conv = conv2d_bn_act(
             x, size = 3, n_filters = 64,
             activation = tf.nn.relu,
             is_training = training,
@@ -250,9 +247,8 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
             
     res1 = resnext.residual_layer(
             conv, n_blocks = 3, stride = 1,
-            n_filters = 64,
-            cardinality = 16,
-            group_width = 64,
+            cardinality = cardinality,
+            group_width = group_width,
             block_function = partial(
                     senet.se_resnext_bottleneck_block,
                     ratio = ratio,
@@ -267,9 +263,8 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
 
     res2 = resnext.residual_layer(
             res1, n_blocks = 3, stride = 2,
-            n_filters = 128,
-            cardinality = 16,
-            group_width = 64,
+            cardinality = cardinality,
+            group_width = group_width*2,
             block_function = partial(
                     senet.se_resnext_bottleneck_block,
                     ratio = ratio,
@@ -284,9 +279,8 @@ def cifar10_se_resnext_29_wd(x, ratio = 16, weight_decay = 0.0001, seed = 42):
 
     res3 = resnext.residual_layer(
             res2, n_blocks = 3, stride = 2,
-            n_filters = 256,
-            cardinality = 16,
-            group_width = 64,
+            cardinality = cardinality,
+            group_width = group_width*4,
             block_function = partial(
                     senet.se_resnext_bottleneck_block,
                     ratio = ratio,

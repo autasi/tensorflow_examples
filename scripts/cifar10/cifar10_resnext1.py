@@ -46,7 +46,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_resnext_29(x)
+    layers, variables = cifar10_resnext_29(x, cardinality = 8, group_width = 16)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -80,6 +80,10 @@ def main():
     # learning rate with exponential decay
     exp_decay = ExponentialDecay(start=0.01, stop=0.001, max_steps=50)
 
+#    config = tf.ConfigProto()
+#    config.gpu_options.allocator_type ='BFC'
+#    #config.gpu_options.per_process_gpu_memory_fraction = 0.90
+#    config.gpu_options.allow_growth = True
     session = tf.Session()
     with session.as_default():
         # initialization of variables
@@ -118,8 +122,9 @@ def main():
     session = None
 #('Epoch: ', 49)
 #('Learning rate: ', 0.0010471285480508996)
-#('Test accuracy: ', 0.85117185)
-#('Train accuracy: ', 0.99992031)
+#('Test accuracy: ', 0.87285155)
+#('Train accuracy: ', 1.0)
+
 
 
 if __name__ == "__main__":

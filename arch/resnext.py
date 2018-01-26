@@ -11,7 +11,6 @@ from arch.initializers import He_normal
 #https://github.com/titu1994/Keras-ResNeXt/blob/master/resnext.py
 def bottleneck_block(
         inputs,
-        n_filters,
         cardinality,
         group_width,
         size = 3,
@@ -22,10 +21,12 @@ def bottleneck_block(
         kernel_init = He_normal(seed = 42),
         name = "bottleneck_block"):
     n_filters_reduce = cardinality*group_width
+    n_filters = n_filters_reduce*2
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
-            shortcut = conv2d(
+            shortcut = conv2d_bn(
                     inputs, size = 1, n_filters = n_filters, stride = stride,
+                    is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
                     name = "shortcut")
@@ -33,7 +34,7 @@ def bottleneck_block(
             shortcut = tf.identity(inputs, name = "shortcut")
         
         x = conv2d_bn_act(
-                inputs, size = 1, n_filters = n_filters_reduce, stride = stride,
+                inputs, size = 1, n_filters = n_filters_reduce, stride = 1,
                 activation = activation,
                 is_training = is_training,
                 regularizer = regularizer,
@@ -41,7 +42,7 @@ def bottleneck_block(
                 name = "conv_bn_act_1")
 
         x = group_conv2d_fixdepth(
-                x, size = size, stride = 1,
+                x, size = size, stride = stride,
                 cardinality = cardinality,
                 group_width = group_width,
                 regularizer = regularizer,
@@ -66,7 +67,6 @@ def bottleneck_block(
 
 def residual_layer(
         inputs,
-        n_filters,
         cardinality,
         group_width,
         n_blocks = 3, 
@@ -79,7 +79,6 @@ def residual_layer(
     with tf.variable_scope(name):
         x = block_function(
                 inputs,
-                n_filters = n_filters,
                 cardinality = cardinality,
                 group_width = group_width,
                 stride = stride,
@@ -90,7 +89,6 @@ def residual_layer(
         for n in range(1, n_blocks):
             x = block_function(
                     x,
-                    n_filters = n_filters,
                     cardinality = cardinality,
                     group_width = group_width,
                     stride = 1,

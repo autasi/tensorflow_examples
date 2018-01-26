@@ -89,7 +89,6 @@ def se_resnet_residual_block(
 
 def se_resnext_bottleneck_block(
         inputs,
-        n_filters,
         cardinality,
         group_width,
         size = 3,
@@ -103,6 +102,7 @@ def se_resnext_bottleneck_block(
         se_kernel_init_2 = Kumar_normal(activation = "sigmoid", mode = "FAN_AVG", seed = 42),
         name = "se_resnext_bottleneck_block"):
     n_filters_reduce = cardinality*group_width
+    n_filters = n_filters_reduce*2
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
             shortcut = conv2d(
@@ -113,7 +113,7 @@ def se_resnext_bottleneck_block(
             shortcut = tf.identity(inputs, name = "shortcut")
         
         x = conv2d_bn_act(
-                inputs, size = 1, n_filters = n_filters_reduce, stride = stride,
+                inputs, size = 1, n_filters = n_filters_reduce, stride = 1,
                 activation = activation,
                 is_training = is_training,
                 regularizer = regularizer,
@@ -122,7 +122,7 @@ def se_resnext_bottleneck_block(
         
 
         x = group_conv2d_fixdepth(
-                x, size = size, stride = 1,
+                x, size = size, stride = stride,
                 cardinality = cardinality,
                 group_width = group_width,
                 regularizer = regularizer,

@@ -49,7 +49,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_se_resnext_29_wd(x, weight_decay = 0.0005)
+    layers, variables = cifar10_se_resnext_29_wd(x, cardinality = 8, group_width = 16, weight_decay = 0.0005)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
