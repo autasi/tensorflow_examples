@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-from arch.layers import conv2d, conv2d_bn_act, conv2d_bn, group_conv2d_fixdepth
+from arch.layers import conv2d_bn_act, conv2d_bn, group_conv2d
 from arch.initializers import He_normal
 
 #Xie et al. Aggregated Residual Transformations for Deep Neural Networks, 2017
@@ -41,10 +41,10 @@ def bottleneck_block(
                 kernel_init = kernel_init,
                 name = "conv_bn_act_1")
 
-        x = group_conv2d_fixdepth(
+        x = group_conv2d(
                 x, size = size, stride = stride,
                 cardinality = cardinality,
-                group_width = group_width,
+                n_filters = n_filters_reduce,
                 regularizer = regularizer,
                 kernel_init = kernel_init,
                 name = "group_conv_2"

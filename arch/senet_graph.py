@@ -16,7 +16,7 @@ def cifar10_se_resnet_20(x, ratio = 8, seed = 42):
     training = tf.placeholder(tf.bool, name="training")
     variables.append(("training", training))
 
-    conv = conv2d_act_bn(
+    conv = conv2d_bn_act(
             x, size = 3, n_filters = 16,
             activation = tf.nn.relu,
             is_training = training,
@@ -85,7 +85,7 @@ def cifar10_se_resnet_20_wd(x, ratio = 8, weight_decay = 0.0001, seed = 42):
     training = tf.placeholder(tf.bool, name="training")
     variables.append(("training", training))
 
-    conv = conv2d_act_bn(
+    conv = conv2d_bn_act(
             x, size = 3, n_filters = 16,
             activation = tf.nn.relu,
             is_training = training,
@@ -152,7 +152,7 @@ def cifar10_se_resnet_20_wd(x, ratio = 8, weight_decay = 0.0001, seed = 42):
     return layers, variables
 
 
-def cifar10_se_resnext_29(x, cardinality = 8, group_width = 16, ratio = 16, seed = 42):
+def cifar10_se_resnext_29(x, cardinality = 8, group_width = 64, ratio = 16, seed = 42):
 
     layers = []
     variables = []
@@ -228,7 +228,7 @@ def cifar10_se_resnext_29(x, cardinality = 8, group_width = 16, ratio = 16, seed
     return layers, variables
 
 
-def cifar10_se_resnext_29_wd(x, cardinality = 8, group_width = 16, ratio = 16, weight_decay = 0.0001, seed = 42):
+def cifar10_se_resnext_29_wd(x, cardinality = 8, group_width = 64, ratio = 16, weight_decay = 0.0001, seed = 42):
 
     layers = []
     variables = []

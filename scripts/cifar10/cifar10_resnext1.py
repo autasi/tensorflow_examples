@@ -122,9 +122,8 @@ def main():
     session = None
 #('Epoch: ', 49)
 #('Learning rate: ', 0.0010471285480508996)
-#('Test accuracy: ', 0.87285155)
-#('Train accuracy: ', 1.0)
-
+#('Test accuracy: ', 0.86503905)
+#('Train accuracy: ', 0.99950176)
 
 
 if __name__ == "__main__":

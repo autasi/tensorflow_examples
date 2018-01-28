@@ -534,6 +534,7 @@ factorized_conv2d_bn_relu = partial(factorized_conv2d_bn_act, activation = tf.nn
 
 
 # group convolution with the same input and output depths
+# obsolate -> use group_conv2d
 def group_conv2d_fixdepth(
         inputs, size, cardinality, group_width,
         stride = 1,
@@ -569,6 +570,41 @@ def group_conv2d_fixdepth(
         outputs = tf.concat(conv_groups, axis = 3, name = "concat")    
         
     return outputs
+
+
+def group_conv2d(
+        inputs, size, cardinality, n_filters,
+        stride = 1,
+        regularizer = None,
+        kernel_init = He_normal(seed = 42),
+        bias_init = tf.zeros_initializer(),
+        name = "group_conv2d"):
+    
+    with tf.variable_scope(name):
+        if cardinality == 1:
+            return conv2d(
+                    inputs, size = size, n_filters = n_filters,
+                    stride = stride,
+                    regularizer = regularizer,
+                    kernel_init = kernel_init,
+                    bias_init = bias_init,
+                    name = "conv2d")
+            
+        in_split = inputs.get_shape()[3].value // cardinality
+        out_depth = n_filters // cardinality
+        conv_groups = [
+            conv2d(inputs[:,:,:,i*in_split:i*in_split+in_split],
+                   size = size,
+                   n_filters = out_depth,
+                   stride = stride,
+                   regularizer = regularizer,
+                   kernel_init = kernel_init,
+                   bias_init = bias_init,
+                   name = "conv2d_"+str(i)
+                   ) for i in range(cardinality)]
+        outputs = tf.concat(conv_groups, axis = 3, name = "concat")
+    return outputs
+
 
 
 def max_pool2d(
@@ -777,4 +813,49 @@ def dense_act_bn(
     return x
 
 dense_relu_bn = partial(dense_act_bn, activation=tf.nn.relu)
+
+
+def zero_pad2d(x, pad = 1, name = "zero_pad2d"):
+    if isinstance(pad, list):
+        if isinstance(pad[0], list):
+            paddings = [[0,0],pad[0],pad[1],[0,0]]
+        else:
+            paddings = [[0,0],[pad[0],pad[0]],[pad[1],pad[1]],[0,0]]
+    else:
+        paddings = [[0,0],[pad,pad],[pad,pad],[0,0]]
+    x = tf.pad(x, paddings = paddings, mode = 'CONSTANT', constant_values = 0, name = name)
+    return x
+    
+
+def crop2d(x, crop = 1, name = "crop2d"):
+    if isinstance(crop, list):
+        if not isinstance(crop[0], list):
+            cropping = [[crop[0],crop[0]],[crop[1],crop[1]]]
+        else:
+            cropping = crop
+    else:
+        cropping = [[crop,crop],[crop,crop]]
+    if (cropping[0][1] == 0) and (cropping[1][1] == 0):
+        x = x[:,
+              cropping[0][0]:,
+              cropping[1][0]:,
+              :]
+    elif cropping[0][1] == 0:
+        x = x[:,
+              cropping[0][0]:,
+              cropping[1][0]:-cropping[1][1],
+              :]
+    elif cropping[1][1] == 0:
+        x = x[:,
+              cropping[0][0]:-cropping[0][1],
+              cropping[1][0]:,
+              :]
+    else:
+        x = x[:,
+              cropping[0][0]:-cropping[0][1],
+              cropping[1][0]:-cropping[1][1],
+              :]
+    x = tf.identity(x, name = name)
+    return x
+    
 

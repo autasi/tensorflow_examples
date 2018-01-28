@@ -19,7 +19,7 @@ def cifar10_resnext_29(x, cardinality = 8, group_width = 64, seed = 42):
             activation = tf.nn.relu,
             is_training = training,
             kernel_init = He_normal(seed = seed+1),
-            name="initial_conv")
+            name = "initial_conv")
     layers.append(("initial_conv", conv))
             
     res1 = resnext.residual_layer(

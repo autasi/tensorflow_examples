@@ -105,10 +105,11 @@ def se_resnext_bottleneck_block(
     n_filters = n_filters_reduce*2
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
-            shortcut = conv2d(
-                        inputs, size = 1, n_filters = n_filters, stride = stride,
-                        kernel_init = kernel_init,
-                        name = "shortcut")
+            shortcut = conv2d_bn(
+                    inputs, size = 1, n_filters = n_filters, stride = stride,
+                    is_training = is_training,
+                    kernel_init = kernel_init,
+                    name = "shortcut")
         else:
             shortcut = tf.identity(inputs, name = "shortcut")
         
@@ -120,7 +121,6 @@ def se_resnext_bottleneck_block(
                 kernel_init = kernel_init,
                 name = "conv_bn_act_1")
         
-
         x = group_conv2d_fixdepth(
                 x, size = size, stride = stride,
                 cardinality = cardinality,
