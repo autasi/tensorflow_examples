@@ -143,6 +143,10 @@ def main():
         save_variables(session, net_path)
     session.close()
     session = None
+#('Epoch: ', 299)
+#('Learning rate: ', 0.001)
+#('Test accuracy: ', 0.93662107)
+#('Train accuracy: ', 0.99994022)
 
 
 if __name__ == "__main__":
