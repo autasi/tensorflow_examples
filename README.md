@@ -11,8 +11,8 @@ The codes require the following libriaries:
 ## Networks
 The following networks are available:
 * Basic ConvNets
-  * Local response normalization (LRN)
-  * Batch normalalization (BN)
+  * Local response normalization (*LRN*)
+  * Batch normalalization (*BN*)
   * All convolutional network
 * ResNet
   * Bottleneck blocks
@@ -49,17 +49,27 @@ Networks are evaluated against CIFAR-10 in two protocols using:
 
 ## Results
 ### Networks
-The list below contains the default settings for the networks:
+The list below contains the default settings for the networks. These are used by default in the network structures if not noted otherwise.
 * Convolution stride size is 1.
 * Pooling stride size is 2.
 * Kernel size for pooling is 2.
 * Activation is ReLU, except the last dense layer, where SoftMax is used.
+Moreover the *WD* term in the model name refers to the regularization applied on the weights.
 The following lists summarize the networks evaluated.
 #### CN3D
 1. Conv(size=5x5, filt=32) + LRN + MaxPool(size=3x3) + Dropout(0.2)
 2. Conv(size=5x5, filt=64) + LRN + MaxPool(size=3x3) + Dropout(0.3)
-3. Conv(size=3x3, filt=128) + LRN + MaxPool(size=2x2) + Dropout(0.3)
+3. Conv(size=3x3, filt=128) + LRN + MaxPool + Dropout(0.4)
 4. Dense
+#### CBN3D
+Similar to **CN3D** however LRN is changed to BN. Everything else remains the same.
+#### CBN6D
+1. Conv(size=3x3, filt=32) + BN + Conv(size=3x3, filt=32) + BN + MaxPool + Dropout(0.2)
+2. Conv(size=3x3, filt=64) + BN + Conv(size=3x3, filt=64) + BN + MaxPool + Dropout(0.3)
+3. Conv(size=3x3, filt=128) + BN + Conv(size=3x3, filt=128) + BN + MaxPool + Dropout(0.4)
+4. Dense
+#### CBN6D-WD
+The same as **CBN6D** with $\lambda=0.0001$
 ### Basic
 Network
 ### Author
