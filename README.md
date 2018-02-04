@@ -1,4 +1,4 @@
-# TensorFlow examples for training and testing
+# TensorFlow network architectures and evaluations
 This repository contains some TensorFlow examples of various networks architectures. Evaluations are performed on CIFAR-10.
 ## Getting started
 Follow the instructions below to get a working copy on your local machine.
