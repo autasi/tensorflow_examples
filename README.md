@@ -48,13 +48,13 @@ Networks are evaluated against CIFAR-10 in two protocols using:
     * Data augmentation is fixed, namely using small random affine transformations (scale, rotation, and translation)
 
 ## Results
-### Networks
+### Notations and settings
 The list below contains the default settings for the networks. These are used by default in the network structures if not noted otherwise.
 * Convolution stride size is 1.
 * Pooling stride size is 2.
 * Kernel size for pooling is 2.
 * Activation is ReLU, except the last dense layer, where SoftMax is used.
-Moreover the *WD* term in the model name refers to the regularization applied on the weights, the regularization parameters is denoted by &lambda;.
+Moreover the *WD* term in the model name refers to the regularization applied on the weights, the regularization parameters is denoted by &lambda;. By default batch normalization (BN) is applied *after* the convolution and *before* the nonlinearities, and will be denoted by *Conv_BN*.
 The following lists summarize the networks evaluated.
 #### CN3D
 1. Conv(size=5x5, filt=32) + LRN + MaxPool(size=3x3) + Dropout(0.2)
@@ -62,12 +62,16 @@ The following lists summarize the networks evaluated.
 3. Conv(size=3x3, filt=128) + LRN + MaxPool + Dropout(0.4)
 4. Dense
 #### CBN3D
-Similar to **CN3D** however LRN is changed to BN. Everything else remains the same.
+Similar to **CN3D** however LRN is dropped and BN is applied. Everything else remains the same.
+1. Conv_BN(size=5x5, filt=32) + MaxPool(size=3x3) + Dropout(0.2)
+2. Conv_BN(size=5x5, filt=64) + MaxPool(size=3x3) + Dropout(0.3)
+3. Conv_BN(size=3x3, filt=128) + MaxPool + Dropout(0.4)
+4. Dense output
 #### CBN6D
-1. Conv(size=3x3, filt=32) + BN + Conv(size=3x3, filt=32) + BN + MaxPool + Dropout(0.2)
-2. Conv(size=3x3, filt=64) + BN + Conv(size=3x3, filt=64) + BN + MaxPool + Dropout(0.3)
-3. Conv(size=3x3, filt=128) + BN + Conv(size=3x3, filt=128) + BN + MaxPool + Dropout(0.4)
-4. Dense
+1. Conv_BN(size=3x3, filt=32) + Conv_BN(size=3x3, filt=32) + MaxPool + Dropout(0.2)
+2. Conv_BN(size=3x3, filt=64) + Conv_BN(size=3x3, filt=64) + MaxPool + Dropout(0.3)
+3. Conv_BN(size=3x3, filt=128) + Conv_BN(size=3x3, filt=128) + MaxPool + Dropout(0.4)
+4. Dense output
 #### CBN6D-WD
 The same as **CBN6D** with &lambda;=0.0001
 ### Basic
