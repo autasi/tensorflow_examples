@@ -61,18 +61,18 @@ The following lists summarize the networks evaluated.
 1. Conv(5x5, 32) + LRN + MaxPool(3x3) + Dropout(0.2)
 2. Conv(5x5, 64) + LRN + MaxPool(3x3) + Dropout(0.3)
 3. Conv(3x3, 128) + LRN + MaxPool + Dropout(0.4)
-4. Dense
+4. Dense + SoftMax
 #### CBN3D
 Similar to **CN3D** however LRN is dropped and BN is applied. Everything else remains the same.
 1. Conv_BN(5x5, 32) + MaxPool(3x3) + Dropout(0.2)
 2. Conv_BN(5x5, 64) + MaxPool(3x3) + Dropout(0.3)
 3. Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
-4. Dense output
+4. Dense + SoftMax
 #### CBN6D
 1. Conv_BN(3x3, 32) + Conv_BN(3x3, 32) + MaxPool + Dropout(0.2)
 2. Conv_BN(3x3, 64) + Conv_BN(3x3, 64) + MaxPool + Dropout(0.3)
 3. Conv_BN(3x3, 128) + Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
-4. Dense output
+4. Dense + SoftMax
 #### CBN6D-WD
 The same as **CBN6D** with weight regularization parameter &lambda;=0.0001
 #### AllConvC-WD
@@ -83,6 +83,26 @@ The same as **CBN6D** with weight regularization parameter &lambda;=0.0001
 5. Conv(1x1, 192)
 6. Conv(1x1, 10)
 7. Global_AvgPool + SoftMax
+#### ResNet-20
+1. Conv_BN(3x3, 16)
+2. Residual_layer(blocks=3, filters=16, stride=1)
+3. Residual_layer(blocks=3, filters=32, stride=2)
+4. Residual_layer(blocks=3, filters=64, stride=2)
+5. Global_AvgPool
+6. Dense + SoftMax
+#### ResNet-32
+1. Conv_BN(3x3, 16)
+2. Residual_layer(blocks=5, filters=16, stride=1)
+3. Residual_layer(blocks=5, filters=32, stride=2)
+4. Residual_layer(blocks=5, filters=64, stride=2)
+5. Global_AvgPool
+6. Dense + SoftMax
+#### ResNet-bottleneck-20
+The same as **ResNet-20** but using bottleneck blocks. It has more convolution layers, but i kept the *20* for simplicity.
+#### ResNet-bottleneck-32
+The same as **ResNet-32** but using bottleneck blocks. It has more convolution layers, but i kept the *32* for simplicity.
+#### ResNet-20-WD
+The same as **ResNet-20** with weight regularization parameter &lambda;=0.0001
 ### Basic
 Network
 ### Author
