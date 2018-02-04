@@ -11,15 +11,15 @@ The codes require the following libriaries:
 ## Networks
 The following networks are available:
 * Basic ConvNets
-  * Local response normalization
-  * Batch normalalization
+  * Local response normalization (LRN)
+  * Batch normalalization (BN)
   * All convolutional network
 * ResNet
   * Bottleneck blocks
 * ResNeXt
 * Inception networks
   * Inception v1
-  * Batch normalized Inception v1
+  * BN Inception v1
   * Inception v2
   * Inception v3
   * Inception v4
