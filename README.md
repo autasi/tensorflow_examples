@@ -11,8 +11,8 @@ The codes require the following libriaries:
 ## Networks
 The following networks are available:
 * Basic ConvNets
-  * Local response normalization (**LRN**)
-  * Batch normalalization (**BN**)
+  * Local response normalization (*LRN*)
+  * Batch normalalization (*BN*)
   * All convolutional network
 * ResNet
   * Bottleneck blocks
@@ -54,7 +54,7 @@ The list below contains the default settings for the networks. These are used by
 * Pooling stride size is 2.
 * Kernel size for pooling is 2.
 * Activation is ReLU, except the last dense layer, where SoftMax is used.
-Moreover the **WD** term in the model name refers to the regularization applied on the weights, the regularization parameters is denoted by &lambda;.
+Moreover the *WD* term in the model name refers to the regularization applied on the weights, the regularization parameters is denoted by &lambda;.
 The following lists summarize the networks evaluated.
 #### CN3D
 1. Conv(size=5x5, filt=32) + LRN + MaxPool(size=3x3) + Dropout(0.2)
