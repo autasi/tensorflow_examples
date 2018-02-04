@@ -69,7 +69,7 @@ Similar to **CN3D** however LRN is changed to BN. Everything else remains the sa
 3. Conv(size=3x3, filt=128) + BN + Conv(size=3x3, filt=128) + BN + MaxPool + Dropout(0.4)
 4. Dense
 #### CBN6D-WD
-The same as **CBN6D** with $\lambda=0.0001$
+The same as **CBN6D** with &lambda;=0.0001
 ### Basic
 Network
 ### Author
