@@ -51,29 +51,38 @@ Networks are evaluated against CIFAR-10 in two protocols using:
 ### Notations and settings
 The list below contains the default settings for the networks. These are used by default in the network structures if not noted otherwise.
 * Convolution stride size is 1.
-* Pooling stride size is 2.
-* Kernel size for pooling is 2.
+* Convolution padding is 'same'. Valid will be denoted by *v*.
+* Kernel size for pooling is 2x2.
+* Pooling stride size is 2x2.
 * Activation is ReLU, except the last dense layer, where SoftMax is used.
 Moreover the *WD* term in the model name refers to the regularization applied on the weights, the regularization parameters is denoted by &lambda;. By default batch normalization (BN) is applied *after* the convolution and *before* the nonlinearities, and will be denoted by *Conv_BN*.
 The following lists summarize the networks evaluated.
 #### CN3D
-1. Conv(size=5x5, filt=32) + LRN + MaxPool(size=3x3) + Dropout(0.2)
-2. Conv(size=5x5, filt=64) + LRN + MaxPool(size=3x3) + Dropout(0.3)
-3. Conv(size=3x3, filt=128) + LRN + MaxPool + Dropout(0.4)
+1. Conv(5x5, 32) + LRN + MaxPool(3x3) + Dropout(0.2)
+2. Conv(5x5, 64) + LRN + MaxPool(3x3) + Dropout(0.3)
+3. Conv(3x3, 128) + LRN + MaxPool + Dropout(0.4)
 4. Dense
 #### CBN3D
 Similar to **CN3D** however LRN is dropped and BN is applied. Everything else remains the same.
-1. Conv_BN(size=5x5, filt=32) + MaxPool(size=3x3) + Dropout(0.2)
-2. Conv_BN(size=5x5, filt=64) + MaxPool(size=3x3) + Dropout(0.3)
-3. Conv_BN(size=3x3, filt=128) + MaxPool + Dropout(0.4)
+1. Conv_BN(5x5, 32) + MaxPool(3x3) + Dropout(0.2)
+2. Conv_BN(5x5, 64) + MaxPool(3x3) + Dropout(0.3)
+3. Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
 4. Dense output
 #### CBN6D
-1. Conv_BN(size=3x3, filt=32) + Conv_BN(size=3x3, filt=32) + MaxPool + Dropout(0.2)
-2. Conv_BN(size=3x3, filt=64) + Conv_BN(size=3x3, filt=64) + MaxPool + Dropout(0.3)
-3. Conv_BN(size=3x3, filt=128) + Conv_BN(size=3x3, filt=128) + MaxPool + Dropout(0.4)
+1. Conv_BN(3x3, 32) + Conv_BN(3x3, 32) + MaxPool + Dropout(0.2)
+2. Conv_BN(3x3, 64) + Conv_BN(3x3, 64) + MaxPool + Dropout(0.3)
+3. Conv_BN(3x3, 128) + Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
 4. Dense output
 #### CBN6D-WD
-The same as **CBN6D** with &lambda;=0.0001
+The same as **CBN6D** with weight regularization parameter &lambda;=0.0001
+#### AllConvC-WD
+1. Dropout(0.2)
+2. Conv(3x3, 96) + Conv(3x3, 96) + Conv(3x3, 96, stride=2x2) + Dropout(0.5)
+3. Conv(3x3, 192) + Conv(3x3, 192) + Conv(3x3, 192, stride=2x2) + Dropout(0.5)
+4. Conv(3x3, 192, v)
+5. Conv(1x1, 192)
+6. Conv(1x1, 10)
+7. Global_AvgPool + SoftMax
 ### Basic
 Network
 ### Author
