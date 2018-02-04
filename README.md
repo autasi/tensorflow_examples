@@ -54,11 +54,12 @@ The list below contains the default settings for the networks:
 * Pooling stride size is 2.
 * Kernel size for pooling is 2.
 * Activation is ReLU, except the last dense layer, where SoftMax is used.
-The following list summarizes the networks evaluated.
-* CN3D
-  1. Conv(size=5x5, filt=32) + LRN + MaxPool(size=3x3) + Dropout(0.2)
-  2. Conv(size=5x5, filt=64) + LRN + MaxPool(size=3x3) + Dropout(0.3)
-  3. Conv(size=3x3, filt=128) + LRN + MaxPool(size=2x2) + Dropout(0.3)
+The following lists summarize the networks evaluated.
+#### CN3D
+1. Conv(size=5x5, filt=32) + LRN + MaxPool(size=3x3) + Dropout(0.2)
+2. Conv(size=5x5, filt=64) + LRN + MaxPool(size=3x3) + Dropout(0.3)
+3. Conv(size=3x3, filt=128) + LRN + MaxPool(size=2x2) + Dropout(0.3)
+4. Dense
 ### Basic
 Network
 ### Author
