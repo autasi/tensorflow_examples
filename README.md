@@ -14,6 +14,7 @@ The following networks are available:
   * Local response normalization (*LRN*)
   * Batch normalalization (*BN*)
   * All convolutional network
+  * SELU activation and &alpha;-Dropout
 * ResNet
   * Bottleneck blocks
 * ResNeXt
