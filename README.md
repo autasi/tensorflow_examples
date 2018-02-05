@@ -69,9 +69,10 @@ Similar to **CN3D** however LRN is dropped and BN is applied. Everything else re
 3. Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
 4. Dense + SoftMax
 #### CBN6D
-1. Conv_BN(3x3, 32) + Conv_BN(3x3, 32) + MaxPool + Dropout(0.2)
-2. Conv_BN(3x3, 64) + Conv_BN(3x3, 64) + MaxPool + Dropout(0.3)
-3. Conv_BN(3x3, 128) + Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
+This network uses blocks of Conv + ReLU + BN as
+1. Conv(3x3, 32) + BN + Conv(3x3, 32) + BN + MaxPool + Dropout(0.2)
+2. Conv(3x3, 64) + BN + Conv(3x3, 64) + BN + MaxPool + Dropout(0.3)
+3. Conv(3x3, 128) + BN + Conv(3x3, 128) + BN + MaxPool + Dropout(0.4)
 4. Dense + SoftMax
 #### CBN6D-WD
 The same as **CBN6D** with weight regularization parameter &lambda;=0.0001
@@ -97,9 +98,9 @@ The same as **CBN6D** with weight regularization parameter &lambda;=0.0001
 4. Residual_layer(blocks=5, filters=64, stride=2)
 5. Global_AvgPool
 6. Dense + SoftMax
-#### ResNet-bottleneck-20
+#### ResNet-Bottleneck-20
 The same as **ResNet-20** but using bottleneck blocks. It has more convolution layers, but i kept the *20* for simplicity.
-#### ResNet-bottleneck-32
+#### ResNet-Bottleneck-32
 The same as **ResNet-32** but using bottleneck blocks. It has more convolution layers, but i kept the *32* for simplicity.
 #### ResNet-20-WD
 The same as **ResNet-20** with weight regularization parameter &lambda;=0.0001
