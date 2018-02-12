@@ -36,6 +36,9 @@ def Kumar_normal(activation = "relu", mode = "FAN_AVG", seed = 42):
     elif activation == "tanh":
         # stdev = sqrt(1/N) for normal, or sqrt(1.3/N) for truncated
         factor = 1.0
+    elif activation == "selu":
+        # stdev = sqrt(1/N) for normal, or sqrt(1.3/N) for truncated
+        factor = 1.0
     else:
         factor = 1.0
         

@@ -32,6 +32,20 @@ class CyclicCosineAnneal(object):
         return self.value     
 
 
+class FixValue(object):
+    def __init__(self, value = 0.01):
+        self.value = value
+        
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+        return self.value    
+
+
 class DivideAt(object):
     def __init__(self, start = 0.1, divide_by = 10, at_steps = [50, 75]):
         self.start = start
@@ -59,7 +73,7 @@ class DivideAtRates(object):
         self.divide_by = divide_by
         self.at = at
         self.max_steps = max_steps
-        self.at_steps = map(int, map(partial(mul, self.max_steps), self.at))
+        self.at_steps = list(map(int, list(map(partial(mul, self.max_steps), self.at))))
         self.value = self.start
         self.steps = 0
         
@@ -75,6 +89,19 @@ class DivideAtRates(object):
         self.steps = self.steps+1
         return self.value    
 
+
+class DivideAtRatesWithDecay(DivideAtRates):
+    def __init__(self, start = 0.1, divide_by = 10, at = [0.5, 0.75], max_steps = 100, decay = 1e-6):
+        super(DivideAtRatesWithDecay, self).__init__(start, divide_by, at, max_steps)
+        self.decay = decay
+        
+    def __next__(self):
+        if self.steps in self.at_steps:
+            self.value = self.value / self.divide_by
+        val = self.value*1.0/(1.0+self.decay*self.steps)
+        self.steps = self.steps+1
+        return val
+    
 
 class ExponentialDecay(object):
     """Iterator class to generate rates with exponential decay.
@@ -117,3 +144,30 @@ class ExponentialDecay(object):
             value = math.exp(self.decay_rate*self.steps)*self.start
         self.steps = self.steps+1
         return value
+    
+    
+class LinearDecay(object):
+    
+    def __init__(self, start=0.1, stop=0.01, max_steps=100):
+        self.start = start
+        self.stop = stop
+        self.max_steps = max_steps
+        self.decay_rate = (stop-start)/max_steps
+        self.steps = 0
+        
+    def __iter__(self):
+        # Method required for iterator objects. Returns itself.
+        return self
+    
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+
+        if self.steps >= self.max_steps:
+            value = self.stop
+        else:
+            value = self.start + self.decay_rate*self.steps
+        self.steps = self.steps+1
+        return value    
+    

@@ -5,6 +5,7 @@ from functools import partial
 import numpy as np
 import tensorflow as tf
 from arch.initializers import He_normal
+from arch import selu
 
 def conv2d(
         inputs, size, n_filters,
@@ -98,6 +99,9 @@ def conv2d_act(
     return x
 
 conv2d_relu = partial(conv2d_act, activation = tf.nn.relu)
+
+conv2d_selu = partial(conv2d_act, activation = selu.selu)
+
 
 def conv2d_bn_act(
         inputs, size, n_filters, activation,
@@ -713,6 +717,7 @@ def dense_act(
 
 dense_relu = partial(dense_act, activation = tf.nn.relu)
 dense_sigmoid = partial(dense_act, activation = tf.nn.sigmoid)
+dense_selu = partial(dense_act, activation = selu.selu)
 
 def dense_bn(
         inputs, n_units,

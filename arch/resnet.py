@@ -22,8 +22,9 @@ def residual_block(
         name = "residual_block"):   
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
-            shortcut = conv2d(
+            shortcut = conv2d_bn(
                     inputs, size = 1, n_filters = n_filters, stride = stride,
+                    is_training = is_training,
                     regularizer = regularizer,
                     kernel_init = kernel_init,
                     name = "shortcut")
@@ -57,13 +58,16 @@ def bottleneck_block(
         size = 3,
         stride = 1,
         activation = tf.nn.relu,
+        regularizer = None,
         kernel_init = He_normal(seed = 42),
         is_training = False,
         name = "bottleneck_block"):
     with tf.variable_scope(name):        
         if (inputs.shape[3] != n_filters) or (stride != 1):
-            shortcut = conv2d(
+            shortcut = conv2d_bn(
                     inputs, size = 1, n_filters = n_filters, stride = stride,
+                    is_training = is_training,
+                    regularizer = regularizer,
                     kernel_init = kernel_init,
                     name = "shortcut")
         else:
@@ -73,19 +77,22 @@ def bottleneck_block(
                 inputs, size = 1, n_filters = n_filters_reduce, stride = stride,
                 activation = activation,
                 is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
                 name = "conv_bn_act_1")
         
         x = conv2d_bn_act(
                 x, size = size, n_filters = n_filters_reduce, stride = 1,
                 activation = activation,
-                is_training = is_training,                
+                is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
                 name = "conv_bn_act_2")
 
         x = conv2d_bn(
                 x, size = 1, n_filters = n_filters, stride = 1,
                 is_training = is_training,
+                regularizer = regularizer,
                 kernel_init = kernel_init,
                 name = "conv_bn_3")
 

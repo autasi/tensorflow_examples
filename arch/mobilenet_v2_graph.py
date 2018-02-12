@@ -2,7 +2,7 @@
 import tensorflow as tf
 from arch.layers import conv2d_bn_relu, dense, global_avg_pool2d
 from arch.initializers import He_normal, Kumar_normal
-import mobilenet_v2
+from arch import mobilenet_v2
 
 #Sandler et al., Inverted Residuals and Linear Bottlenecks: Mobile Networks for
 #Classification, Detection and Segmentation

@@ -52,11 +52,12 @@ def se_resnet_residual_block(
         name = "se_resnet_residual_block"):   
     with tf.variable_scope(name):
         if (inputs.shape[3] != n_filters) or (stride != 1):
-            shortcut = conv2d(
-                        inputs, size = 1, n_filters = n_filters, stride = stride,
-                        regularizer = regularizer,
-                        kernel_init = kernel_init,
-                        name = "shortcut")
+            shortcut = conv2d_bn(
+                    inputs, size = 1, n_filters = n_filters, stride = stride,
+                    is_training = is_training,
+                    regularizer = regularizer,
+                    kernel_init = kernel_init,
+                    name = "shortcut")
         else:
             shortcut = tf.identity(inputs, name = "shortcut")
         
@@ -84,6 +85,66 @@ def se_resnet_residual_block(
         
         x = tf.add(x, shortcut, name = "add")
         x = activation(x, name = "activation_2")
+    return x
+
+
+def se_resnet_bottleneck_block(
+        inputs,
+        n_filters,
+        n_filters_reduce,
+        size = 3,
+        stride = 1,
+        activation = tf.nn.relu,
+        ratio = 16,
+        regularizer = None,
+        kernel_init = He_normal(seed = 42),
+        se_kernel_init_1 = He_normal(seed = 42),
+        se_kernel_init_2 = Kumar_normal(activation = "sigmoid", mode = "FAN_AVG", seed = 42),
+        is_training = False,
+        name = "se_resnet_residual_block"):   
+    with tf.variable_scope(name):
+        if (inputs.shape[3] != n_filters) or (stride != 1):
+            shortcut = conv2d_bn(
+                    inputs, size = 1, n_filters = n_filters, stride = stride,
+                    is_training = is_training,
+                    regularizer = regularizer,
+                    kernel_init = kernel_init,
+                    name = "shortcut")
+        else:
+            shortcut = tf.identity(inputs, name = "shortcut")
+        
+        x = conv2d_bn_act(
+                inputs, size = 1, n_filters = n_filters_reduce, stride = stride,
+                activation = activation,
+                is_training = is_training,
+                regularizer = regularizer,
+                kernel_init = kernel_init,
+                name = "conv_bn_act_1")
+        
+        x = conv2d_bn_act(
+                x, size = size, n_filters = n_filters_reduce, stride = 1,
+                activation = activation,
+                is_training = is_training,
+                regularizer = regularizer,
+                kernel_init = kernel_init,
+                name = "conv_bn_act_2")
+        
+        x = conv2d_bn(
+                x, size = size, n_filters = n_filters, stride = 1,
+                is_training = is_training,
+                regularizer = regularizer,
+                kernel_init = kernel_init,
+                name = "conv_bn_3")
+
+        x = squeeze_and_excite(
+                x, ratio = ratio,
+                regularizer = regularizer,
+                kernel_init_1 = se_kernel_init_1,
+                kernel_init_2 = se_kernel_init_2,
+                name = "squeeze_excite")
+        
+        x = tf.add(x, shortcut, name = "add")
+        x = activation(x, name = "activation_3")
     return x
 
 

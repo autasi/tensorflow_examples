@@ -5,12 +5,13 @@ import os
 import pickle
 import numpy as np
 import tensorflow as tf
-from arch.resnet_graph import cifar10_resnet_bottleneck_20
-from arch.misc import ExponentialDecay
+from arch.shufflenet_graph import cifar10_shufflenet_wd
+from arch.misc import LinearDecay
 from arch.io import save_variables
 from util.misc import tuple_list_find
 from util.batch import random_batch_generator, batch_generator
 from config import cifar10_data_folder, cifar10_net_folder
+from util.transform import RandomizedTransformer, Affine
 
 
 def main():
@@ -30,11 +31,9 @@ def main():
     n_classes = tr_y.shape[1]
     
     # data normalization
-    eps = 1e-7
-    tr_mean = np.mean(tr_x, axis = (0,1,2,3))
-    tr_std = np.std(tr_x, axis = (0,1,2,3))
-    tr_x = (tr_x-tr_mean)/(tr_std+eps)
-    te_x = (te_x-tr_mean)/(tr_std+eps)    
+    tr_mean = np.mean(tr_x, axis = 0)
+    tr_x = tr_x-tr_mean
+    te_x = te_x-tr_mean
     
     # initialization
     tf.reset_default_graph()
@@ -46,7 +45,7 @@ def main():
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    layers, variables = cifar10_resnet_bottleneck_20(x)
+    layers, variables = cifar10_shufflenet_wd(x, weight_decay = 4e-5)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -54,10 +53,12 @@ def main():
     # logit output required for optimization
     logit = tuple_list_find(layers, "logit")[1]
         
-    n_epochs = 50
+    n_epochs = 300
     
     # optimization is done one the cross-entropy between labels and predicted logit    
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=gt, logits=logit))
+    reg_ws = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
+    loss_fn = cross_entropy + tf.reduce_sum(reg_ws)
     
     # keeps track of the number of batches used for updating the network
     global_step = tf.Variable(0, trainable=False, name="global_step")
@@ -68,7 +69,7 @@ def main():
     # some layers (e.g. batch normalization) require updates to internal variables
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies(update_ops):
-        train_step = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cross_entropy,
+        train_step = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss_fn,
                                                                                   global_step = global_step)
         
     # correct classifications
@@ -78,17 +79,32 @@ def main():
     accuracy = tf.reduce_mean(tf.cast(corr, tf.float32))
     
     # learning rate with exponential decay
-    exp_decay = ExponentialDecay(start=0.01, stop=0.001, max_steps=50)
+    lin_decay = LinearDecay(start=0.5, stop=0.0, max_steps=n_epochs)
+
+    # apply random affine transformations to training images
+    transformer = RandomizedTransformer(
+            transformer_class = Affine,
+            params = [('shape', (height, width, n_chans)),
+                      ('scale', 1.0)],
+            rand_params = [('r', [-3.0, 3.0]),
+                           ('tx', [-3.0, 3.0]),
+                           ('ty', [-3.0, 3.0]),
+                           ('reflect_y', [False, True])],
+            mode = 'each',
+            random_seed = 42)
 
     session = tf.Session()
     with session.as_default():
         # initialization of variables
         session.run(tf.global_variables_initializer())
         for i in range(n_epochs):
-            lr = next(exp_decay)
+            lr = next(lin_decay)
             # training via random batches
             for (xb, yb) in random_batch_generator(128, tr_x, tr_y, seed = 42+i):
-                session.run(train_step, feed_dict = {x: xb,
+                xbtr = np.zeros_like(xb)
+                for j in range(len(xb)):
+                    xbtr[j] = transformer.transform(xb[j])                 
+                session.run(train_step, feed_dict = {x: xbtr,
                                                      gt: yb,
                                                      training: True,
                                                      learning_rate: lr})
@@ -112,14 +128,10 @@ def main():
             print("Learning rate: ", lr)
             print("Test accuracy: ", np.mean(acc))
             print("Train accuracy: ", np.mean(tr_acc))            
-        net_path = os.path.join(cifar10_net_folder, "cifar10_resnet_bottleneck20_expdecay.pkl")
+        net_path = os.path.join(cifar10_net_folder, "cifar10_shufflenet_wd_randtrans.pkl")
         save_variables(session, net_path)
     session.close()
     session = None
-#('Epoch: ', 49)
-#('Learning rate: ', 0.0010471285480508996)
-#('Test accuracy: ', 0.78593749)
-#('Train accuracy: ', 0.99894375)
 
 
 if __name__ == "__main__":
