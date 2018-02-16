@@ -171,3 +171,26 @@ class LinearDecay(object):
         self.steps = self.steps+1
         return value    
     
+    
+class DecayValue(object):
+    
+    def __init__(self, start=0.1, decay_rate=0.98, max_steps=None):
+        self.start = start
+        self.decay_rate = decay_rate
+        self.max_steps = max_steps
+        self.steps = 0
+        self.value = start
+        
+    def __iter__(self):
+        # Method required for iterator objects. Returns itself.
+        return self
+    
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+
+        if (self.max_steps is None) or (self.steps < self.max_steps):
+            self.value = self.value*self.decay_rate
+        self.steps = self.steps+1
+        return self.value    

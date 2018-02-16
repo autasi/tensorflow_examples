@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-from layers import conv2d_bn_relu, conv2d_relu, max_pool2d, avg_pool2d, global_avg_pool2d, dense
-from initializers import He_normal, Kumar_normal
-import inception
+from arch.layers import conv2d_bn_relu, conv2d_relu, max_pool2d, avg_pool2d, global_avg_pool2d, dense
+from arch.initializers import He_normal, Kumar_normal
+from arch import inception
 
 
 #https://arxiv.org/pdf/1409.4842v1.pdf

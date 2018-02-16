@@ -1,0 +1,2620 @@
+resnet identity 20 wd
+Epoch:  0
+Learning rate:  0.1
+Test accuracy:  0.45126954
+Train accuracy:  0.45096064
+Epoch:  1
+Learning rate:  0.1
+Test accuracy:  0.43789062
+Train accuracy:  0.44483417
+Epoch:  2
+Learning rate:  0.1
+Test accuracy:  0.61708987
+Train accuracy:  0.62332195
+Epoch:  3
+Learning rate:  0.1
+Test accuracy:  0.6881836
+Train accuracy:  0.6889987
+Epoch:  4
+Learning rate:  0.1
+Test accuracy:  0.7248047
+Train accuracy:  0.7339445
+Epoch:  5
+Learning rate:  0.1
+Test accuracy:  0.67509764
+Train accuracy:  0.6853117
+Epoch:  6
+Learning rate:  0.1
+Test accuracy:  0.70478517
+Train accuracy:  0.71921635
+Epoch:  7
+Learning rate:  0.1
+Test accuracy:  0.6130859
+Train accuracy:  0.62574536
+Epoch:  8
+Learning rate:  0.1
+Test accuracy:  0.74726564
+Train accuracy:  0.7514509
+Epoch:  9
+Learning rate:  0.1
+Test accuracy:  0.6774414
+Train accuracy:  0.69911116
+Epoch:  10
+Learning rate:  0.1
+Test accuracy:  0.63730466
+Train accuracy:  0.64297277
+Epoch:  11
+Learning rate:  0.1
+Test accuracy:  0.68232423
+Train accuracy:  0.6975008
+Epoch:  12
+Learning rate:  0.1
+Test accuracy:  0.76113284
+Train accuracy:  0.7757215
+Epoch:  13
+Learning rate:  0.1
+Test accuracy:  0.74423826
+Train accuracy:  0.7613202
+Epoch:  14
+Learning rate:  0.1
+Test accuracy:  0.77792966
+Train accuracy:  0.79785156
+Epoch:  15
+Learning rate:  0.1
+Test accuracy:  0.7632812
+Train accuracy:  0.78111047
+Epoch:  16
+Learning rate:  0.1
+Test accuracy:  0.7668945
+Train accuracy:  0.79207987
+Epoch:  17
+Learning rate:  0.1
+Test accuracy:  0.7475586
+Train accuracy:  0.7640665
+Epoch:  18
+Learning rate:  0.1
+Test accuracy:  0.6958008
+Train accuracy:  0.7234455
+Epoch:  19
+Learning rate:  0.1
+Test accuracy:  0.81757814
+Train accuracy:  0.84584266
+Epoch:  20
+Learning rate:  0.1
+Test accuracy:  0.7661133
+Train accuracy:  0.784953
+Epoch:  21
+Learning rate:  0.1
+Test accuracy:  0.76601565
+Train accuracy:  0.7925382
+Epoch:  22
+Learning rate:  0.1
+Test accuracy:  0.7789062
+Train accuracy:  0.8014948
+Epoch:  23
+Learning rate:  0.1
+Test accuracy:  0.7980469
+Train accuracy:  0.8245496
+Epoch:  24
+Learning rate:  0.1
+Test accuracy:  0.78388673
+Train accuracy:  0.8020169
+Epoch:  25
+Learning rate:  0.1
+Test accuracy:  0.76767576
+Train accuracy:  0.7905452
+Epoch:  26
+Learning rate:  0.1
+Test accuracy:  0.8040039
+Train accuracy:  0.83012193
+Epoch:  27
+Learning rate:  0.1
+Test accuracy:  0.7871094
+Train accuracy:  0.81228477
+Epoch:  28
+Learning rate:  0.1
+Test accuracy:  0.7806641
+Train accuracy:  0.8015665
+Epoch:  29
+Learning rate:  0.1
+Test accuracy:  0.7910156
+Train accuracy:  0.82365674
+Epoch:  30
+Learning rate:  0.1
+Test accuracy:  0.79521483
+Train accuracy:  0.8212133
+Epoch:  31
+Learning rate:  0.1
+Test accuracy:  0.8279297
+Train accuracy:  0.85976565
+Epoch:  32
+Learning rate:  0.1
+Test accuracy:  0.8126953
+Train accuracy:  0.844017
+Epoch:  33
+Learning rate:  0.1
+Test accuracy:  0.7535156
+Train accuracy:  0.77468514
+Epoch:  34
+Learning rate:  0.1
+Test accuracy:  0.8100586
+Train accuracy:  0.83316326
+Epoch:  35
+Learning rate:  0.1
+Test accuracy:  0.7973633
+Train accuracy:  0.82109374
+Epoch:  36
+Learning rate:  0.1
+Test accuracy:  0.8057617
+Train accuracy:  0.8325096
+Epoch:  37
+Learning rate:  0.1
+Test accuracy:  0.69853514
+Train accuracy:  0.70707506
+Epoch:  38
+Learning rate:  0.1
+Test accuracy:  0.7674805
+Train accuracy:  0.7890426
+Epoch:  39
+Learning rate:  0.1
+Test accuracy:  0.80507815
+Train accuracy:  0.8313337
+Epoch:  40
+Learning rate:  0.1
+Test accuracy:  0.7988281
+Train accuracy:  0.82550627
+Epoch:  41
+Learning rate:  0.1
+Test accuracy:  0.81103516
+Train accuracy:  0.84076846
+Epoch:  42
+Learning rate:  0.1
+Test accuracy:  0.7651367
+Train accuracy:  0.78624845
+Epoch:  43
+Learning rate:  0.1
+Test accuracy:  0.787793
+Train accuracy:  0.8221301
+Epoch:  44
+Learning rate:  0.1
+Test accuracy:  0.78984374
+Train accuracy:  0.81352437
+Epoch:  45
+Learning rate:  0.1
+Test accuracy:  0.8238281
+Train accuracy:  0.855971
+Epoch:  46
+Learning rate:  0.1
+Test accuracy:  0.8220703
+Train accuracy:  0.8541175
+Epoch:  47
+Learning rate:  0.1
+Test accuracy:  0.8335937
+Train accuracy:  0.8626196
+Epoch:  48
+Learning rate:  0.1
+Test accuracy:  0.8515625
+Train accuracy:  0.8854632
+Epoch:  49
+Learning rate:  0.1
+Test accuracy:  0.7979492
+Train accuracy:  0.83040094
+Epoch:  50
+Learning rate:  0.1
+Test accuracy:  0.81992185
+Train accuracy:  0.8523756
+Epoch:  51
+Learning rate:  0.1
+Test accuracy:  0.83759767
+Train accuracy:  0.87468904
+Epoch:  52
+Learning rate:  0.1
+Test accuracy:  0.79404294
+Train accuracy:  0.82184315
+Epoch:  53
+Learning rate:  0.1
+Test accuracy:  0.74130857
+Train accuracy:  0.7672712
+Epoch:  54
+Learning rate:  0.1
+Test accuracy:  0.81953126
+Train accuracy:  0.85427696
+Epoch:  55
+Learning rate:  0.1
+Test accuracy:  0.8328125
+Train accuracy:  0.87545043
+Epoch:  56
+Learning rate:  0.1
+Test accuracy:  0.7776367
+Train accuracy:  0.81629866
+Epoch:  57
+Learning rate:  0.1
+Test accuracy:  0.76230466
+Train accuracy:  0.7922074
+Epoch:  58
+Learning rate:  0.1
+Test accuracy:  0.8060547
+Train accuracy:  0.8341637
+Epoch:  59
+Learning rate:  0.1
+Test accuracy:  0.8279297
+Train accuracy:  0.8634766
+Epoch:  60
+Learning rate:  0.1
+Test accuracy:  0.75683594
+Train accuracy:  0.780688
+Epoch:  61
+Learning rate:  0.1
+Test accuracy:  0.8477539
+Train accuracy:  0.88875955
+Epoch:  62
+Learning rate:  0.1
+Test accuracy:  0.76816404
+Train accuracy:  0.7984335
+Epoch:  63
+Learning rate:  0.1
+Test accuracy:  0.8381836
+Train accuracy:  0.87517935
+Epoch:  64
+Learning rate:  0.1
+Test accuracy:  0.82285154
+Train accuracy:  0.85400593
+Epoch:  65
+Learning rate:  0.1
+Test accuracy:  0.79482424
+Train accuracy:  0.8248764
+Epoch:  66
+Learning rate:  0.1
+Test accuracy:  0.8069336
+Train accuracy:  0.8446508
+Epoch:  67
+Learning rate:  0.1
+Test accuracy:  0.82246095
+Train accuracy:  0.8562022
+Epoch:  68
+Learning rate:  0.1
+Test accuracy:  0.79521483
+Train accuracy:  0.8283762
+Epoch:  69
+Learning rate:  0.1
+Test accuracy:  0.84521484
+Train accuracy:  0.8828404
+Epoch:  70
+Learning rate:  0.1
+Test accuracy:  0.728418
+Train accuracy:  0.75483096
+Epoch:  71
+Learning rate:  0.1
+Test accuracy:  0.8087891
+Train accuracy:  0.8430246
+Epoch:  72
+Learning rate:  0.1
+Test accuracy:  0.79541016
+Train accuracy:  0.83034116
+Epoch:  73
+Learning rate:  0.1
+Test accuracy:  0.8064453
+Train accuracy:  0.83453447
+Epoch:  74
+Learning rate:  0.1
+Test accuracy:  0.79658204
+Train accuracy:  0.829819
+Epoch:  75
+Learning rate:  0.1
+Test accuracy:  0.77490234
+Train accuracy:  0.8110451
+Epoch:  76
+Learning rate:  0.1
+Test accuracy:  0.8106445
+Train accuracy:  0.84538823
+Epoch:  77
+Learning rate:  0.1
+Test accuracy:  0.8439453
+Train accuracy:  0.88317126
+Epoch:  78
+Learning rate:  0.1
+Test accuracy:  0.8166992
+Train accuracy:  0.8521484
+Epoch:  79
+Learning rate:  0.1
+Test accuracy:  0.8739258
+Train accuracy:  0.9163943
+Epoch:  80
+Learning rate:  0.1
+Test accuracy:  0.8087891
+Train accuracy:  0.84823024
+Epoch:  81
+Learning rate:  0.1
+Test accuracy:  0.8449219
+Train accuracy:  0.89031404
+Epoch:  82
+Learning rate:  0.1
+Test accuracy:  0.818457
+Train accuracy:  0.8542171
+Epoch:  83
+Learning rate:  0.1
+Test accuracy:  0.8459961
+Train accuracy:  0.88322306
+Epoch:  84
+Learning rate:  0.1
+Test accuracy:  0.84521484
+Train accuracy:  0.88300383
+Epoch:  85
+Learning rate:  0.1
+Test accuracy:  0.79345703
+Train accuracy:  0.82139266
+Epoch:  86
+Learning rate:  0.1
+Test accuracy:  0.78623044
+Train accuracy:  0.8225008
+Epoch:  87
+Learning rate:  0.1
+Test accuracy:  0.81757814
+Train accuracy:  0.85752547
+Epoch:  88
+Learning rate:  0.1
+Test accuracy:  0.83144534
+Train accuracy:  0.8712811
+Epoch:  89
+Learning rate:  0.1
+Test accuracy:  0.79521483
+Train accuracy:  0.83195156
+Epoch:  90
+Learning rate:  0.1
+Test accuracy:  0.8094727
+Train accuracy:  0.8439453
+Epoch:  91
+Learning rate:  0.1
+Test accuracy:  0.8484375
+Train accuracy:  0.8822624
+Epoch:  92
+Learning rate:  0.1
+Test accuracy:  0.8335937
+Train accuracy:  0.8735013
+Epoch:  93
+Learning rate:  0.1
+Test accuracy:  0.8496094
+Train accuracy:  0.88838494
+Epoch:  94
+Learning rate:  0.1
+Test accuracy:  0.8580078
+Train accuracy:  0.89553976
+Epoch:  95
+Learning rate:  0.1
+Test accuracy:  0.79970706
+Train accuracy:  0.8307198
+Epoch:  96
+Learning rate:  0.1
+Test accuracy:  0.84365237
+Train accuracy:  0.885232
+Epoch:  97
+Learning rate:  0.1
+Test accuracy:  0.82802737
+Train accuracy:  0.85949063
+Epoch:  98
+Learning rate:  0.1
+Test accuracy:  0.8291992
+Train accuracy:  0.86550546
+Epoch:  99
+Learning rate:  0.1
+Test accuracy:  0.8198242
+Train accuracy:  0.862221
+Epoch:  100
+Learning rate:  0.01
+Test accuracy:  0.90634763
+Train accuracy:  0.9552017
+Epoch:  101
+Learning rate:  0.01
+Test accuracy:  0.9102539
+Train accuracy:  0.9580118
+Epoch:  102
+Learning rate:  0.01
+Test accuracy:  0.91552734
+Train accuracy:  0.9652384
+Epoch:  103
+Learning rate:  0.01
+Test accuracy:  0.91494143
+Train accuracy:  0.9679767
+Epoch:  104
+Learning rate:  0.01
+Test accuracy:  0.91728514
+Train accuracy:  0.96820396
+Epoch:  105
+Learning rate:  0.01
+Test accuracy:  0.912793
+Train accuracy:  0.9664421
+Epoch:  106
+Learning rate:  0.01
+Test accuracy:  0.9207031
+Train accuracy:  0.9728037
+Epoch:  107
+Learning rate:  0.01
+Test accuracy:  0.91621095
+Train accuracy:  0.96915656
+Epoch:  108
+Learning rate:  0.01
+Test accuracy:  0.9165039
+Train accuracy:  0.97252876
+Epoch:  109
+Learning rate:  0.01
+Test accuracy:  0.9125
+Train accuracy:  0.96920836
+Epoch:  110
+Learning rate:  0.01
+Test accuracy:  0.9175781
+Train accuracy:  0.973589
+Epoch:  111
+Learning rate:  0.01
+Test accuracy:  0.9182617
+Train accuracy:  0.97346544
+Epoch:  112
+Learning rate:  0.01
+Test accuracy:  0.91796875
+Train accuracy:  0.9764788
+Epoch:  113
+Learning rate:  0.01
+Test accuracy:  0.9181641
+Train accuracy:  0.9763273
+Epoch:  114
+Learning rate:  0.01
+Test accuracy:  0.9165039
+Train accuracy:  0.97466916
+Epoch:  115
+Learning rate:  0.01
+Test accuracy:  0.9163086
+Train accuracy:  0.97616786
+Epoch:  116
+Learning rate:  0.01
+Test accuracy:  0.9121094
+Train accuracy:  0.9742187
+Epoch:  117
+Learning rate:  0.01
+Test accuracy:  0.9176758
+Train accuracy:  0.97849965
+Epoch:  118
+Learning rate:  0.01
+Test accuracy:  0.91982424
+Train accuracy:  0.97852355
+Epoch:  119
+Learning rate:  0.01
+Test accuracy:  0.915625
+Train accuracy:  0.9783602
+Epoch:  120
+Learning rate:  0.01
+Test accuracy:  0.9160156
+Train accuracy:  0.97696507
+Epoch:  121
+Learning rate:  0.01
+Test accuracy:  0.91416013
+Train accuracy:  0.97736764
+Epoch:  122
+Learning rate:  0.01
+Test accuracy:  0.9182617
+Train accuracy:  0.9800143
+Epoch:  123
+Learning rate:  0.01
+Test accuracy:  0.91738284
+Train accuracy:  0.9813656
+Epoch:  124
+Learning rate:  0.01
+Test accuracy:  0.9163086
+Train accuracy:  0.9784239
+Epoch:  125
+Learning rate:  0.01
+Test accuracy:  0.91445315
+Train accuracy:  0.97620773
+Epoch:  126
+Learning rate:  0.01
+Test accuracy:  0.9134766
+Train accuracy:  0.9777463
+Epoch:  127
+Learning rate:  0.01
+Test accuracy:  0.9177734
+Train accuracy:  0.9803332
+Epoch:  128
+Learning rate:  0.01
+Test accuracy:  0.9145508
+Train accuracy:  0.97999835
+Epoch:  129
+Learning rate:  0.01
+Test accuracy:  0.92021483
+Train accuracy:  0.983227
+Epoch:  130
+Learning rate:  0.01
+Test accuracy:  0.91445315
+Train accuracy:  0.9783043
+Epoch:  131
+Learning rate:  0.01
+Test accuracy:  0.9170898
+Train accuracy:  0.9805405
+Epoch:  132
+Learning rate:  0.01
+Test accuracy:  0.9145508
+Train accuracy:  0.9820113
+Epoch:  133
+Learning rate:  0.01
+Test accuracy:  0.9147461
+Train accuracy:  0.9821707
+Epoch:  134
+Learning rate:  0.01
+Test accuracy:  0.91748047
+Train accuracy:  0.983797
+Epoch:  135
+Learning rate:  0.01
+Test accuracy:  0.9164063
+Train accuracy:  0.9842036
+Epoch:  136
+Learning rate:  0.01
+Test accuracy:  0.91611326
+Train accuracy:  0.98384887
+Epoch:  137
+Learning rate:  0.01
+Test accuracy:  0.9171875
+Train accuracy:  0.98376113
+Epoch:  138
+Learning rate:  0.01
+Test accuracy:  0.912793
+Train accuracy:  0.979536
+Epoch:  139
+Learning rate:  0.01
+Test accuracy:  0.9164063
+Train accuracy:  0.98396045
+Epoch:  140
+Learning rate:  0.01
+Test accuracy:  0.91621095
+Train accuracy:  0.9848653
+Epoch:  141
+Learning rate:  0.01
+Test accuracy:  0.9183594
+Train accuracy:  0.9857422
+Epoch:  142
+Learning rate:  0.01
+Test accuracy:  0.91796875
+Train accuracy:  0.9861408
+Epoch:  143
+Learning rate:  0.01
+Test accuracy:  0.9126953
+Train accuracy:  0.98171234
+Epoch:  144
+Learning rate:  0.01
+Test accuracy:  0.91679686
+Train accuracy:  0.9838648
+Epoch:  145
+Learning rate:  0.01
+Test accuracy:  0.9177734
+Train accuracy:  0.98591757
+Epoch:  146
+Learning rate:  0.01
+Test accuracy:  0.91259766
+Train accuracy:  0.98456234
+Epoch:  147
+Learning rate:  0.01
+Test accuracy:  0.9102539
+Train accuracy:  0.9829839
+Epoch:  148
+Learning rate:  0.01
+Test accuracy:  0.91308594
+Train accuracy:  0.9841797
+Epoch:  149
+Learning rate:  0.01
+Test accuracy:  0.91679686
+Train accuracy:  0.9849968
+Epoch:  150
+Learning rate:  0.001
+Test accuracy:  0.91904294
+Train accuracy:  0.98838484
+Epoch:  151
+Learning rate:  0.001
+Test accuracy:  0.9199219
+Train accuracy:  0.98890305
+Epoch:  152
+Learning rate:  0.001
+Test accuracy:  0.91865236
+Train accuracy:  0.98886317
+Epoch:  153
+Learning rate:  0.001
+Test accuracy:  0.91923827
+Train accuracy:  0.9897042
+Epoch:  154
+Learning rate:  0.001
+Test accuracy:  0.92021483
+Train accuracy:  0.99004704
+Epoch:  155
+Learning rate:  0.001
+Test accuracy:  0.9183594
+Train accuracy:  0.98948103
+Epoch:  156
+Learning rate:  0.001
+Test accuracy:  0.9206055
+Train accuracy:  0.99050546
+Epoch:  157
+Learning rate:  0.001
+Test accuracy:  0.9194336
+Train accuracy:  0.9898677
+Epoch:  158
+Learning rate:  0.001
+Test accuracy:  0.9188477
+Train accuracy:  0.989764
+Epoch:  159
+Learning rate:  0.001
+Test accuracy:  0.9205078
+Train accuracy:  0.9898836
+Epoch:  160
+Learning rate:  0.001
+Test accuracy:  0.92109376
+Train accuracy:  0.9909638
+Epoch:  161
+Learning rate:  0.001
+Test accuracy:  0.92021483
+Train accuracy:  0.98988765
+Epoch:  162
+Learning rate:  0.001
+Test accuracy:  0.91923827
+Train accuracy:  0.9905373
+Epoch:  163
+Learning rate:  0.001
+Test accuracy:  0.91933596
+Train accuracy:  0.99059707
+Epoch:  164
+Learning rate:  0.001
+Test accuracy:  0.92041016
+Train accuracy:  0.99060106
+Epoch:  165
+Learning rate:  0.001
+Test accuracy:  0.92041016
+Train accuracy:  0.9905014
+Epoch:  166
+Learning rate:  0.001
+Test accuracy:  0.9194336
+Train accuracy:  0.99068075
+Epoch:  167
+Learning rate:  0.001
+Test accuracy:  0.9211914
+Train accuracy:  0.9905413
+Epoch:  168
+Learning rate:  0.001
+Test accuracy:  0.9201172
+Train accuracy:  0.9905413
+Epoch:  169
+Learning rate:  0.001
+Test accuracy:  0.9199219
+Train accuracy:  0.9910196
+Epoch:  170
+Learning rate:  0.001
+Test accuracy:  0.92148435
+Train accuracy:  0.9908841
+Epoch:  171
+Learning rate:  0.001
+Test accuracy:  0.9207031
+Train accuracy:  0.9912827
+Epoch:  172
+Learning rate:  0.001
+Test accuracy:  0.9199219
+Train accuracy:  0.99118304
+Epoch:  173
+Learning rate:  0.001
+Test accuracy:  0.9203125
+Train accuracy:  0.99119896
+Epoch:  174
+Learning rate:  0.001
+Test accuracy:  0.92265624
+Train accuracy:  0.9915019
+Epoch:  175
+Learning rate:  0.001
+Test accuracy:  0.9216797
+Train accuracy:  0.9915019
+Epoch:  176
+Learning rate:  0.001
+Test accuracy:  0.92148435
+Train accuracy:  0.99136245
+Epoch:  177
+Learning rate:  0.001
+Test accuracy:  0.92197263
+Train accuracy:  0.99166137
+Epoch:  178
+Learning rate:  0.001
+Test accuracy:  0.9212891
+Train accuracy:  0.991761
+Epoch:  179
+Learning rate:  0.001
+Test accuracy:  0.9211914
+Train accuracy:  0.9917411
+Epoch:  180
+Learning rate:  0.001
+Test accuracy:  0.9206055
+Train accuracy:  0.99202013
+Epoch:  181
+Learning rate:  0.001
+Test accuracy:  0.9213867
+Train accuracy:  0.9915019
+Epoch:  182
+Learning rate:  0.001
+Test accuracy:  0.9208008
+Train accuracy:  0.99140227
+Epoch:  183
+Learning rate:  0.001
+Test accuracy:  0.92158204
+Train accuracy:  0.9916215
+Epoch:  184
+Learning rate:  0.001
+Test accuracy:  0.92177737
+Train accuracy:  0.9921198
+Epoch:  185
+Learning rate:  0.001
+Test accuracy:  0.9208008
+Train accuracy:  0.99196035
+Epoch:  186
+Learning rate:  0.001
+Test accuracy:  0.92197263
+Train accuracy:  0.9921397
+Epoch:  187
+Learning rate:  0.001
+Test accuracy:  0.9213867
+Train accuracy:  0.9920998
+Epoch:  188
+Learning rate:  0.001
+Test accuracy:  0.9212891
+Train accuracy:  0.99144214
+Epoch:  189
+Learning rate:  0.001
+Test accuracy:  0.92216796
+Train accuracy:  0.9924187
+Epoch:  190
+Learning rate:  0.001
+Test accuracy:  0.921875
+Train accuracy:  0.99229914
+Epoch:  191
+Learning rate:  0.001
+Test accuracy:  0.9225586
+Train accuracy:  0.99257815
+Epoch:  192
+Learning rate:  0.001
+Test accuracy:  0.92158204
+Train accuracy:  0.9924785
+Epoch:  193
+Learning rate:  0.001
+Test accuracy:  0.9225586
+Train accuracy:  0.9926579
+Epoch:  194
+Learning rate:  0.001
+Test accuracy:  0.9220703
+Train accuracy:  0.9924586
+Epoch:  195
+Learning rate:  0.001
+Test accuracy:  0.9224609
+Train accuracy:  0.9924187
+Epoch:  196
+Learning rate:  0.001
+Test accuracy:  0.92197263
+Train accuracy:  0.99221945
+Epoch:  197
+Learning rate:  0.001
+Test accuracy:  0.92197263
+Train accuracy:  0.99229914
+Epoch:  198
+Learning rate:  0.001
+Test accuracy:  0.92275393
+Train accuracy:  0.99263793
+Epoch:  199
+Learning rate:  0.001
+Test accuracy:  0.92275393
+Train accuracy:  0.99229914
+Mean accuracy:  0.92275393
+Max accuracy:  0.92275393
+Min accuracy:  0.92275393
+xception
+Epoch:  0
+Learning rate:  0.01
+Test accuracy:  0.10644531
+Train accuracy:  0.10520966
+Epoch:  1
+Learning rate:  0.00954992586021436
+Test accuracy:  0.42167968
+Train accuracy:  0.42373645
+Epoch:  2
+Learning rate:  0.009120108393559099
+Test accuracy:  0.5915039
+Train accuracy:  0.61016023
+Epoch:  3
+Learning rate:  0.008709635899560806
+Test accuracy:  0.6166016
+Train accuracy:  0.6227718
+Epoch:  4
+Learning rate:  0.008317637711026709
+Test accuracy:  0.6399414
+Train accuracy:  0.66450495
+Epoch:  5
+Learning rate:  0.007943282347242816
+Test accuracy:  0.71728516
+Train accuracy:  0.7567403
+Epoch:  6
+Learning rate:  0.007585775750291838
+Test accuracy:  0.7855469
+Train accuracy:  0.8414541
+Epoch:  7
+Learning rate:  0.007244359600749901
+Test accuracy:  0.78027344
+Train accuracy:  0.85605466
+Epoch:  8
+Learning rate:  0.006918309709189365
+Test accuracy:  0.78457034
+Train accuracy:  0.87685347
+Epoch:  9
+Learning rate:  0.00660693448007596
+Test accuracy:  0.78222656
+Train accuracy:  0.88185984
+Epoch:  10
+Learning rate:  0.006309573444801933
+Test accuracy:  0.80478513
+Train accuracy:  0.92687345
+Epoch:  11
+Learning rate:  0.006025595860743578
+Test accuracy:  0.8100586
+Train accuracy:  0.94911516
+Epoch:  12
+Learning rate:  0.005754399373371569
+Test accuracy:  0.8198242
+Train accuracy:  0.9609375
+Epoch:  13
+Learning rate:  0.005495408738576246
+Test accuracy:  0.82001954
+Train accuracy:  0.9641541
+Epoch:  14
+Learning rate:  0.005248074602497726
+Test accuracy:  0.81777346
+Train accuracy:  0.9597656
+Epoch:  15
+Learning rate:  0.005011872336272724
+Test accuracy:  0.82714844
+Train accuracy:  0.983227
+Epoch:  16
+Learning rate:  0.004786300923226384
+Test accuracy:  0.81757814
+Train accuracy:  0.9736129
+Epoch:  17
+Learning rate:  0.00457088189614875
+Test accuracy:  0.78984374
+Train accuracy:  0.9465561
+Epoch:  18
+Learning rate:  0.00436515832240166
+Test accuracy:  0.82890624
+Train accuracy:  0.9882972
+Epoch:  19
+Learning rate:  0.004168693834703354
+Test accuracy:  0.8373047
+Train accuracy:  0.9912628
+Epoch:  20
+Learning rate:  0.0039810717055349725
+Test accuracy:  0.8317383
+Train accuracy:  0.9895966
+Epoch:  21
+Learning rate:  0.0038018939632056127
+Test accuracy:  0.834082
+Train accuracy:  0.99114716
+Epoch:  22
+Learning rate:  0.0036307805477010136
+Test accuracy:  0.8257812
+Train accuracy:  0.98450655
+Epoch:  23
+Learning rate:  0.003467368504525317
+Test accuracy:  0.8394531
+Train accuracy:  0.99515706
+Epoch:  24
+Learning rate:  0.0033113112148259118
+Test accuracy:  0.8354492
+Train accuracy:  0.9944954
+Epoch:  25
+Learning rate:  0.00316227766016838
+Test accuracy:  0.83867186
+Train accuracy:  0.99379784
+Epoch:  26
+Learning rate:  0.0030199517204020166
+Test accuracy:  0.84277344
+Train accuracy:  0.99664783
+Epoch:  27
+Learning rate:  0.0028840315031266064
+Test accuracy:  0.8435547
+Train accuracy:  0.99718595
+Epoch:  28
+Learning rate:  0.0027542287033381664
+Test accuracy:  0.83320314
+Train accuracy:  0.992315
+Epoch:  29
+Learning rate:  0.0026302679918953826
+Test accuracy:  0.8457031
+Train accuracy:  0.99710226
+Epoch:  30
+Learning rate:  0.0025118864315095807
+Test accuracy:  0.84462893
+Train accuracy:  0.99790734
+Epoch:  31
+Learning rate:  0.0023988329190194908
+Test accuracy:  0.8419922
+Train accuracy:  0.99904335
+Epoch:  32
+Learning rate:  0.0022908676527677732
+Test accuracy:  0.84160155
+Train accuracy:  0.9964525
+Epoch:  33
+Learning rate:  0.002187761623949553
+Test accuracy:  0.8279297
+Train accuracy:  0.99194837
+Epoch:  34
+Learning rate:  0.0020892961308540394
+Test accuracy:  0.8455078
+Train accuracy:  0.99836576
+Epoch:  35
+Learning rate:  0.00199526231496888
+Test accuracy:  0.8448242
+Train accuracy:  0.99876434
+Epoch:  36
+Learning rate:  0.0019054607179632478
+Test accuracy:  0.8474609
+Train accuracy:  0.99954164
+Epoch:  37
+Learning rate:  0.001819700858609984
+Test accuracy:  0.84990233
+Train accuracy:  0.99958146
+Epoch:  38
+Learning rate:  0.0017378008287493758
+Test accuracy:  0.84941405
+Train accuracy:  0.999442
+Epoch:  39
+Learning rate:  0.0016595869074375609
+Test accuracy:  0.8477539
+Train accuracy:  0.9993423
+Epoch:  40
+Learning rate:  0.0015848931924611136
+Test accuracy:  0.8453125
+Train accuracy:  0.99930245
+Epoch:  41
+Learning rate:  0.0015135612484362083
+Test accuracy:  0.850293
+Train accuracy:  0.9997808
+Epoch:  42
+Learning rate:  0.001445439770745928
+Test accuracy:  0.84375
+Train accuracy:  0.9996612
+Epoch:  43
+Learning rate:  0.0013803842646028853
+Test accuracy:  0.846875
+Train accuracy:  0.99962133
+Epoch:  44
+Learning rate:  0.001318256738556407
+Test accuracy:  0.8449219
+Train accuracy:  0.99956155
+Epoch:  45
+Learning rate:  0.0012589254117941673
+Test accuracy:  0.8535156
+Train accuracy:  0.9998007
+Epoch:  46
+Learning rate:  0.0012022644346174132
+Test accuracy:  0.84648436
+Train accuracy:  0.999701
+Epoch:  47
+Learning rate:  0.0011481536214968829
+Test accuracy:  0.8475586
+Train accuracy:  0.9997808
+Epoch:  48
+Learning rate:  0.0010964781961431854
+Test accuracy:  0.8522461
+Train accuracy:  0.99990034
+Epoch:  49
+Learning rate:  0.0010471285480508996
+Test accuracy:  0.85117185
+Train accuracy:  0.99986047
+Mean accuracy:  0.85117185
+Max accuracy:  0.85117185
+Min accuracy:  0.85117185
+mobilenet
+Epoch:  0
+Learning rate:  0.01
+Test accuracy:  0.15166016
+Train accuracy:  0.15192921
+Epoch:  1
+Learning rate:  0.00954992586021436
+Test accuracy:  0.22167969
+Train accuracy:  0.2174705
+Epoch:  2
+Learning rate:  0.009120108393559099
+Test accuracy:  0.36367187
+Train accuracy:  0.37310666
+Epoch:  3
+Learning rate:  0.008709635899560806
+Test accuracy:  0.44267577
+Train accuracy:  0.4555883
+Epoch:  4
+Learning rate:  0.008317637711026709
+Test accuracy:  0.58095706
+Train accuracy:  0.594615
+Epoch:  5
+Learning rate:  0.007943282347242816
+Test accuracy:  0.5024414
+Train accuracy:  0.518475
+Epoch:  6
+Learning rate:  0.007585775750291838
+Test accuracy:  0.6255859
+Train accuracy:  0.66137594
+Epoch:  7
+Learning rate:  0.007244359600749901
+Test accuracy:  0.6411133
+Train accuracy:  0.6721262
+Epoch:  8
+Learning rate:  0.006918309709189365
+Test accuracy:  0.71865237
+Train accuracy:  0.76253587
+Epoch:  9
+Learning rate:  0.00660693448007596
+Test accuracy:  0.7133789
+Train accuracy:  0.7635403
+Epoch:  10
+Learning rate:  0.006309573444801933
+Test accuracy:  0.69277346
+Train accuracy:  0.7456593
+Epoch:  11
+Learning rate:  0.006025595860743578
+Test accuracy:  0.72509766
+Train accuracy:  0.79406095
+Epoch:  12
+Learning rate:  0.005754399373371569
+Test accuracy:  0.75693357
+Train accuracy:  0.84470665
+Epoch:  13
+Learning rate:  0.005495408738576246
+Test accuracy:  0.74990237
+Train accuracy:  0.8336695
+Epoch:  14
+Learning rate:  0.005248074602497726
+Test accuracy:  0.77734375
+Train accuracy:  0.8833506
+Epoch:  15
+Learning rate:  0.005011872336272724
+Test accuracy:  0.7553711
+Train accuracy:  0.8463409
+Epoch:  16
+Learning rate:  0.004786300923226384
+Test accuracy:  0.7830078
+Train accuracy:  0.908805
+Epoch:  17
+Learning rate:  0.00457088189614875
+Test accuracy:  0.78154296
+Train accuracy:  0.91648996
+Epoch:  18
+Learning rate:  0.00436515832240166
+Test accuracy:  0.77070314
+Train accuracy:  0.90992504
+Epoch:  19
+Learning rate:  0.004168693834703354
+Test accuracy:  0.7885742
+Train accuracy:  0.9383171
+Epoch:  20
+Learning rate:  0.0039810717055349725
+Test accuracy:  0.7801758
+Train accuracy:  0.93182397
+Epoch:  21
+Learning rate:  0.0038018939632056127
+Test accuracy:  0.80673826
+Train accuracy:  0.9597537
+Epoch:  22
+Learning rate:  0.0036307805477010136
+Test accuracy:  0.7974609
+Train accuracy:  0.9698382
+Epoch:  23
+Learning rate:  0.003467368504525317
+Test accuracy:  0.79472655
+Train accuracy:  0.9683275
+Epoch:  24
+Learning rate:  0.0033113112148259118
+Test accuracy:  0.79833984
+Train accuracy:  0.97736764
+Epoch:  25
+Learning rate:  0.00316227766016838
+Test accuracy:  0.8070313
+Train accuracy:  0.9811663
+Epoch:  26
+Learning rate:  0.0030199517204020166
+Test accuracy:  0.80302733
+Train accuracy:  0.9771166
+Epoch:  27
+Learning rate:  0.0028840315031266064
+Test accuracy:  0.8120117
+Train accuracy:  0.99009484
+Epoch:  28
+Learning rate:  0.0027542287033381664
+Test accuracy:  0.80556643
+Train accuracy:  0.98449457
+Epoch:  29
+Learning rate:  0.0026302679918953826
+Test accuracy:  0.80976564
+Train accuracy:  0.98424345
+Epoch:  30
+Learning rate:  0.0025118864315095807
+Test accuracy:  0.8094727
+Train accuracy:  0.9860491
+Epoch:  31
+Learning rate:  0.0023988329190194908
+Test accuracy:  0.80996096
+Train accuracy:  0.9885324
+Epoch:  32
+Learning rate:  0.0022908676527677732
+Test accuracy:  0.80458987
+Train accuracy:  0.9823621
+Epoch:  33
+Learning rate:  0.002187761623949553
+Test accuracy:  0.81347656
+Train accuracy:  0.9901507
+Epoch:  34
+Learning rate:  0.0020892961308540394
+Test accuracy:  0.80458987
+Train accuracy:  0.984387
+Epoch:  35
+Learning rate:  0.00199526231496888
+Test accuracy:  0.81689453
+Train accuracy:  0.99266183
+Epoch:  36
+Learning rate:  0.0019054607179632478
+Test accuracy:  0.81582034
+Train accuracy:  0.9939174
+Epoch:  37
+Learning rate:  0.001819700858609984
+Test accuracy:  0.8135742
+Train accuracy:  0.99465483
+Epoch:  38
+Learning rate:  0.0017378008287493758
+Test accuracy:  0.8107422
+Train accuracy:  0.99324375
+Epoch:  39
+Learning rate:  0.0016595869074375609
+Test accuracy:  0.8208008
+Train accuracy:  0.9973493
+Epoch:  40
+Learning rate:  0.0015848931924611136
+Test accuracy:  0.7987305
+Train accuracy:  0.98669887
+Epoch:  41
+Learning rate:  0.0015135612484362083
+Test accuracy:  0.8225586
+Train accuracy:  0.99864477
+Epoch:  42
+Learning rate:  0.001445439770745928
+Test accuracy:  0.8203125
+Train accuracy:  0.9970703
+Epoch:  43
+Learning rate:  0.0013803842646028853
+Test accuracy:  0.8178711
+Train accuracy:  0.9970504
+Epoch:  44
+Learning rate:  0.001318256738556407
+Test accuracy:  0.82314456
+Train accuracy:  0.99808675
+Epoch:  45
+Learning rate:  0.0012589254117941673
+Test accuracy:  0.81572264
+Train accuracy:  0.99717
+Epoch:  46
+Learning rate:  0.0012022644346174132
+Test accuracy:  0.82109374
+Train accuracy:  0.99577093
+Epoch:  47
+Learning rate:  0.0011481536214968829
+Test accuracy:  0.8225586
+Train accuracy:  0.9990035
+Epoch:  48
+Learning rate:  0.0010964781961431854
+Test accuracy:  0.8291992
+Train accuracy:  0.99950176
+Epoch:  49
+Learning rate:  0.0010471285480508996
+Test accuracy:  0.8270508
+Train accuracy:  0.9991829
+Mean accuracy:  0.8270508
+Max accuracy:  0.8270508
+Min accuracy:  0.8270508
+shufflenet
+Epoch:  0
+Learning rate:  0.01
+Test accuracy:  0.44003907
+Train accuracy:  0.44190052
+Epoch:  1
+Learning rate:  0.00954992586021436
+Test accuracy:  0.5352539
+Train accuracy:  0.54214364
+Epoch:  2
+Learning rate:  0.009120108393559099
+Test accuracy:  0.6003906
+Train accuracy:  0.6160635
+Epoch:  3
+Learning rate:  0.008709635899560806
+Test accuracy:  0.58310544
+Train accuracy:  0.5896524
+Epoch:  4
+Learning rate:  0.008317637711026709
+Test accuracy:  0.70996094
+Train accuracy:  0.72855943
+Epoch:  5
+Learning rate:  0.007943282347242816
+Test accuracy:  0.7097656
+Train accuracy:  0.733235
+Epoch:  6
+Learning rate:  0.007585775750291838
+Test accuracy:  0.77353513
+Train accuracy:  0.80487883
+Epoch:  7
+Learning rate:  0.007244359600749901
+Test accuracy:  0.73701173
+Train accuracy:  0.7697744
+Epoch:  8
+Learning rate:  0.006918309709189365
+Test accuracy:  0.73105466
+Train accuracy:  0.77377236
+Epoch:  9
+Learning rate:  0.00660693448007596
+Test accuracy:  0.7825195
+Train accuracy:  0.83626837
+Epoch:  10
+Learning rate:  0.006309573444801933
+Test accuracy:  0.7588867
+Train accuracy:  0.8043208
+Epoch:  11
+Learning rate:  0.006025595860743578
+Test accuracy:  0.77597654
+Train accuracy:  0.83150107
+Epoch:  12
+Learning rate:  0.005754399373371569
+Test accuracy:  0.80390626
+Train accuracy:  0.8876993
+Epoch:  13
+Learning rate:  0.005495408738576246
+Test accuracy:  0.8173828
+Train accuracy:  0.8991629
+Epoch:  14
+Learning rate:  0.005248074602497726
+Test accuracy:  0.80996096
+Train accuracy:  0.89003503
+Epoch:  15
+Learning rate:  0.005011872336272724
+Test accuracy:  0.821582
+Train accuracy:  0.9153978
+Epoch:  16
+Learning rate:  0.004786300923226384
+Test accuracy:  0.8373047
+Train accuracy:  0.9412867
+Epoch:  17
+Learning rate:  0.00457088189614875
+Test accuracy:  0.81035155
+Train accuracy:  0.90786827
+Epoch:  18
+Learning rate:  0.00436515832240166
+Test accuracy:  0.81035155
+Train accuracy:  0.9104672
+Epoch:  19
+Learning rate:  0.004168693834703354
+Test accuracy:  0.83505857
+Train accuracy:  0.95457196
+Epoch:  20
+Learning rate:  0.0039810717055349725
+Test accuracy:  0.8143555
+Train accuracy:  0.93477356
+Epoch:  21
+Learning rate:  0.0038018939632056127
+Test accuracy:  0.84873044
+Train accuracy:  0.9726164
+Epoch:  22
+Learning rate:  0.0036307805477010136
+Test accuracy:  0.83515626
+Train accuracy:  0.954249
+Epoch:  23
+Learning rate:  0.003467368504525317
+Test accuracy:  0.84873044
+Train accuracy:  0.97109777
+Epoch:  24
+Learning rate:  0.0033113112148259118
+Test accuracy:  0.8580078
+Train accuracy:  0.9846461
+Epoch:  25
+Learning rate:  0.00316227766016838
+Test accuracy:  0.85488284
+Train accuracy:  0.9776308
+Epoch:  26
+Learning rate:  0.0030199517204020166
+Test accuracy:  0.8513672
+Train accuracy:  0.97781414
+Epoch:  27
+Learning rate:  0.0028840315031266064
+Test accuracy:  0.85429686
+Train accuracy:  0.9825734
+Epoch:  28
+Learning rate:  0.0027542287033381664
+Test accuracy:  0.846875
+Train accuracy:  0.97135687
+Epoch:  29
+Learning rate:  0.0026302679918953826
+Test accuracy:  0.8520508
+Train accuracy:  0.9865075
+Epoch:  30
+Learning rate:  0.0025118864315095807
+Test accuracy:  0.85146487
+Train accuracy:  0.9871851
+Epoch:  31
+Learning rate:  0.0023988329190194908
+Test accuracy:  0.85234374
+Train accuracy:  0.9873007
+Epoch:  32
+Learning rate:  0.0022908676527677732
+Test accuracy:  0.85839844
+Train accuracy:  0.99211574
+Epoch:  33
+Learning rate:  0.002187761623949553
+Test accuracy:  0.85849607
+Train accuracy:  0.9880381
+Epoch:  34
+Learning rate:  0.0020892961308540394
+Test accuracy:  0.8616211
+Train accuracy:  0.9933634
+Epoch:  35
+Learning rate:  0.00199526231496888
+Test accuracy:  0.871875
+Train accuracy:  0.99726963
+Epoch:  36
+Learning rate:  0.0019054607179632478
+Test accuracy:  0.8591797
+Train accuracy:  0.9921875
+Epoch:  37
+Learning rate:  0.001819700858609984
+Test accuracy:  0.86572266
+Train accuracy:  0.99519295
+Epoch:  38
+Learning rate:  0.0017378008287493758
+Test accuracy:  0.86708987
+Train accuracy:  0.99577487
+Epoch:  39
+Learning rate:  0.0016595869074375609
+Test accuracy:  0.8606445
+Train accuracy:  0.99170524
+Epoch:  40
+Learning rate:  0.0015848931924611136
+Test accuracy:  0.8642578
+Train accuracy:  0.9948182
+Epoch:  41
+Learning rate:  0.0015135612484362083
+Test accuracy:  0.865918
+Train accuracy:  0.9941207
+Epoch:  42
+Learning rate:  0.001445439770745928
+Test accuracy:  0.86865234
+Train accuracy:  0.99788344
+Epoch:  43
+Learning rate:  0.0013803842646028853
+Test accuracy:  0.87490237
+Train accuracy:  0.99750876
+Epoch:  44
+Learning rate:  0.001318256738556407
+Test accuracy:  0.87236327
+Train accuracy:  0.99862087
+Epoch:  45
+Learning rate:  0.0012589254117941673
+Test accuracy:  0.8744141
+Train accuracy:  0.99922276
+Epoch:  46
+Learning rate:  0.0012022644346174132
+Test accuracy:  0.86640626
+Train accuracy:  0.99286115
+Epoch:  47
+Learning rate:  0.0011481536214968829
+Test accuracy:  0.871875
+Train accuracy:  0.99726963
+Epoch:  48
+Learning rate:  0.0010964781961431854
+Test accuracy:  0.869043
+Train accuracy:  0.9994021
+Epoch:  49
+Learning rate:  0.0010471285480508996
+Test accuracy:  0.8748047
+Train accuracy:  0.99924266
+Mean accuracy:  0.8748047
+Max accuracy:  0.8748047
+Min accuracy:  0.8748047
+shufflenet wd
+Epoch:  0
+Learning rate:  0.5
+Test accuracy:  0.10224609
+Train accuracy:  0.10066566
+Epoch:  1
+Learning rate:  0.49833333333333335
+Test accuracy:  0.10205078
+Train accuracy:  0.0998565
+Epoch:  2
+Learning rate:  0.49666666666666665
+Test accuracy:  0.10205078
+Train accuracy:  0.10004384
+Epoch:  3
+Learning rate:  0.495
+Test accuracy:  0.10048828
+Train accuracy:  0.09974889
+Epoch:  4
+Learning rate:  0.49333333333333335
+Test accuracy:  0.1078125
+Train accuracy:  0.104635686
+Epoch:  5
+Learning rate:  0.49166666666666664
+Test accuracy:  0.115625
+Train accuracy:  0.11595584
+Epoch:  6
+Learning rate:  0.49
+Test accuracy:  0.11367188
+Train accuracy:  0.11142778
+Epoch:  7
+Learning rate:  0.48833333333333334
+Test accuracy:  0.19785157
+Train accuracy:  0.19765227
+Epoch:  8
+Learning rate:  0.4866666666666667
+Test accuracy:  0.21835938
+Train accuracy:  0.21886958
+Epoch:  9
+Learning rate:  0.485
+Test accuracy:  0.23310547
+Train accuracy:  0.22956392
+Epoch:  10
+Learning rate:  0.48333333333333334
+Test accuracy:  0.22148438
+Train accuracy:  0.219037
+Epoch:  11
+Learning rate:  0.4816666666666667
+Test accuracy:  0.21083984
+Train accuracy:  0.21217315
+Epoch:  12
+Learning rate:  0.48
+Test accuracy:  0.24833985
+Train accuracy:  0.25277025
+Epoch:  13
+Learning rate:  0.47833333333333333
+Test accuracy:  0.24082032
+Train accuracy:  0.23801418
+Epoch:  14
+Learning rate:  0.4766666666666667
+Test accuracy:  0.27314454
+Train accuracy:  0.27302694
+Epoch:  15
+Learning rate:  0.475
+Test accuracy:  0.3635742
+Train accuracy:  0.3660276
+Epoch:  16
+Learning rate:  0.47333333333333333
+Test accuracy:  0.3314453
+Train accuracy:  0.33588168
+Epoch:  17
+Learning rate:  0.4716666666666667
+Test accuracy:  0.32910156
+Train accuracy:  0.3365872
+Epoch:  18
+Learning rate:  0.47
+Test accuracy:  0.33125
+Train accuracy:  0.33217874
+Epoch:  19
+Learning rate:  0.4683333333333333
+Test accuracy:  0.4102539
+Train accuracy:  0.41229272
+Epoch:  20
+Learning rate:  0.4666666666666667
+Test accuracy:  0.4149414
+Train accuracy:  0.4144571
+Epoch:  21
+Learning rate:  0.46499999999999997
+Test accuracy:  0.3696289
+Train accuracy:  0.36613518
+Epoch:  22
+Learning rate:  0.4633333333333333
+Test accuracy:  0.41865236
+Train accuracy:  0.42052776
+Epoch:  23
+Learning rate:  0.46166666666666667
+Test accuracy:  0.42646486
+Train accuracy:  0.42733577
+Epoch:  24
+Learning rate:  0.46
+Test accuracy:  0.4173828
+Train accuracy:  0.42399952
+Epoch:  25
+Learning rate:  0.4583333333333333
+Test accuracy:  0.44814453
+Train accuracy:  0.45466757
+Epoch:  26
+Learning rate:  0.45666666666666667
+Test accuracy:  0.47509766
+Train accuracy:  0.47934073
+Epoch:  27
+Learning rate:  0.455
+Test accuracy:  0.47910157
+Train accuracy:  0.4803332
+Epoch:  28
+Learning rate:  0.4533333333333333
+Test accuracy:  0.51171875
+Train accuracy:  0.52683353
+Epoch:  29
+Learning rate:  0.45166666666666666
+Test accuracy:  0.52792966
+Train accuracy:  0.5457789
+Epoch:  30
+Learning rate:  0.45
+Test accuracy:  0.33222657
+Train accuracy:  0.33896285
+Epoch:  31
+Learning rate:  0.4483333333333333
+Test accuracy:  0.38261718
+Train accuracy:  0.3887795
+Epoch:  32
+Learning rate:  0.44666666666666666
+Test accuracy:  0.49033204
+Train accuracy:  0.49637675
+Epoch:  33
+Learning rate:  0.445
+Test accuracy:  0.5289062
+Train accuracy:  0.5387915
+Epoch:  34
+Learning rate:  0.44333333333333336
+Test accuracy:  0.5029297
+Train accuracy:  0.5112165
+Epoch:  35
+Learning rate:  0.44166666666666665
+Test accuracy:  0.51601565
+Train accuracy:  0.52528703
+Epoch:  36
+Learning rate:  0.44
+Test accuracy:  0.56640625
+Train accuracy:  0.5852599
+Epoch:  37
+Learning rate:  0.43833333333333335
+Test accuracy:  0.44453126
+Train accuracy:  0.44914702
+Epoch:  38
+Learning rate:  0.43666666666666665
+Test accuracy:  0.51035154
+Train accuracy:  0.5222855
+Epoch:  39
+Learning rate:  0.435
+Test accuracy:  0.55322266
+Train accuracy:  0.57004946
+Epoch:  40
+Learning rate:  0.43333333333333335
+Test accuracy:  0.5169922
+Train accuracy:  0.53478956
+Epoch:  41
+Learning rate:  0.43166666666666664
+Test accuracy:  0.5480469
+Train accuracy:  0.5567283
+Epoch:  42
+Learning rate:  0.43
+Test accuracy:  0.2533203
+Train accuracy:  0.25580758
+Epoch:  43
+Learning rate:  0.42833333333333334
+Test accuracy:  0.596875
+Train accuracy:  0.60828686
+Epoch:  44
+Learning rate:  0.42666666666666664
+Test accuracy:  0.5768555
+Train accuracy:  0.5935547
+Epoch:  45
+Learning rate:  0.425
+Test accuracy:  0.58066404
+Train accuracy:  0.59826213
+Epoch:  46
+Learning rate:  0.42333333333333334
+Test accuracy:  0.42148438
+Train accuracy:  0.44189653
+Epoch:  47
+Learning rate:  0.42166666666666663
+Test accuracy:  0.5914062
+Train accuracy:  0.59787947
+Epoch:  48
+Learning rate:  0.42
+Test accuracy:  0.5120117
+Train accuracy:  0.52445394
+Epoch:  49
+Learning rate:  0.41833333333333333
+Test accuracy:  0.60419923
+Train accuracy:  0.6151865
+Epoch:  50
+Learning rate:  0.41666666666666663
+Test accuracy:  0.6675781
+Train accuracy:  0.6884446
+Epoch:  51
+Learning rate:  0.415
+Test accuracy:  0.60546875
+Train accuracy:  0.6195751
+Epoch:  52
+Learning rate:  0.41333333333333333
+Test accuracy:  0.59951174
+Train accuracy:  0.60083705
+Epoch:  53
+Learning rate:  0.4116666666666667
+Test accuracy:  0.6688477
+Train accuracy:  0.6875239
+Epoch:  54
+Learning rate:  0.41
+Test accuracy:  0.64326173
+Train accuracy:  0.6659957
+Epoch:  55
+Learning rate:  0.4083333333333333
+Test accuracy:  0.6533203
+Train accuracy:  0.67754704
+Epoch:  56
+Learning rate:  0.4066666666666667
+Test accuracy:  0.6234375
+Train accuracy:  0.64567524
+Epoch:  57
+Learning rate:  0.405
+Test accuracy:  0.64941406
+Train accuracy:  0.6714764
+Epoch:  58
+Learning rate:  0.4033333333333333
+Test accuracy:  0.6807617
+Train accuracy:  0.7086256
+Epoch:  59
+Learning rate:  0.40166666666666667
+Test accuracy:  0.6885742
+Train accuracy:  0.71364003
+Epoch:  60
+Learning rate:  0.4
+Test accuracy:  0.6584961
+Train accuracy:  0.69517696
+Epoch:  61
+Learning rate:  0.3983333333333333
+Test accuracy:  0.6832031
+Train accuracy:  0.711368
+Epoch:  62
+Learning rate:  0.39666666666666667
+Test accuracy:  0.63964844
+Train accuracy:  0.6629265
+Epoch:  63
+Learning rate:  0.395
+Test accuracy:  0.41064453
+Train accuracy:  0.42427853
+Epoch:  64
+Learning rate:  0.3933333333333333
+Test accuracy:  0.6948242
+Train accuracy:  0.72617984
+Epoch:  65
+Learning rate:  0.39166666666666666
+Test accuracy:  0.6479492
+Train accuracy:  0.6754305
+Epoch:  66
+Learning rate:  0.39
+Test accuracy:  0.7109375
+Train accuracy:  0.7338568
+Epoch:  67
+Learning rate:  0.3883333333333333
+Test accuracy:  0.69990236
+Train accuracy:  0.72594863
+Epoch:  68
+Learning rate:  0.38666666666666666
+Test accuracy:  0.66904294
+Train accuracy:  0.6947465
+Epoch:  69
+Learning rate:  0.385
+Test accuracy:  0.6935547
+Train accuracy:  0.7225247
+Epoch:  70
+Learning rate:  0.3833333333333333
+Test accuracy:  0.65234375
+Train accuracy:  0.6900271
+Epoch:  71
+Learning rate:  0.38166666666666665
+Test accuracy:  0.6807617
+Train accuracy:  0.70974964
+Epoch:  72
+Learning rate:  0.38
+Test accuracy:  0.49716797
+Train accuracy:  0.51639426
+Epoch:  73
+Learning rate:  0.3783333333333333
+Test accuracy:  0.72685546
+Train accuracy:  0.7652025
+Epoch:  74
+Learning rate:  0.37666666666666665
+Test accuracy:  0.72734374
+Train accuracy:  0.764493
+Epoch:  75
+Learning rate:  0.375
+Test accuracy:  0.71425784
+Train accuracy:  0.7529576
+Epoch:  76
+Learning rate:  0.3733333333333333
+Test accuracy:  0.6912109
+Train accuracy:  0.7235212
+Epoch:  77
+Learning rate:  0.37166666666666665
+Test accuracy:  0.61376953
+Train accuracy:  0.64135045
+Epoch:  78
+Learning rate:  0.37
+Test accuracy:  0.6113281
+Train accuracy:  0.6383769
+Epoch:  79
+Learning rate:  0.3683333333333333
+Test accuracy:  0.72021484
+Train accuracy:  0.75503826
+Epoch:  80
+Learning rate:  0.3666666666666667
+Test accuracy:  0.665918
+Train accuracy:  0.69773996
+Epoch:  81
+Learning rate:  0.365
+Test accuracy:  0.71181643
+Train accuracy:  0.74902344
+Epoch:  82
+Learning rate:  0.3633333333333333
+Test accuracy:  0.43984374
+Train accuracy:  0.45816725
+Epoch:  83
+Learning rate:  0.3616666666666667
+Test accuracy:  0.74667966
+Train accuracy:  0.7888074
+Epoch:  84
+Learning rate:  0.36
+Test accuracy:  0.740918
+Train accuracy:  0.78924984
+Epoch:  85
+Learning rate:  0.35833333333333334
+Test accuracy:  0.7300781
+Train accuracy:  0.7749283
+Epoch:  86
+Learning rate:  0.3566666666666667
+Test accuracy:  0.61923826
+Train accuracy:  0.6546197
+Epoch:  87
+Learning rate:  0.355
+Test accuracy:  0.70771486
+Train accuracy:  0.75510204
+Epoch:  88
+Learning rate:  0.35333333333333333
+Test accuracy:  0.7193359
+Train accuracy:  0.75970984
+Epoch:  89
+Learning rate:  0.3516666666666667
+Test accuracy:  0.73515624
+Train accuracy:  0.7788345
+Epoch:  90
+Learning rate:  0.35
+Test accuracy:  0.73642576
+Train accuracy:  0.7772281
+Epoch:  91
+Learning rate:  0.34833333333333333
+Test accuracy:  0.73046875
+Train accuracy:  0.780114
+Epoch:  92
+Learning rate:  0.3466666666666667
+Test accuracy:  0.75683594
+Train accuracy:  0.8058833
+Epoch:  93
+Learning rate:  0.345
+Test accuracy:  0.68066406
+Train accuracy:  0.7103356
+Epoch:  94
+Learning rate:  0.3433333333333333
+Test accuracy:  0.7428711
+Train accuracy:  0.7901068
+Epoch:  95
+Learning rate:  0.3416666666666667
+Test accuracy:  0.7636719
+Train accuracy:  0.81004465
+Epoch:  96
+Learning rate:  0.33999999999999997
+Test accuracy:  0.7661133
+Train accuracy:  0.8106824
+Epoch:  97
+Learning rate:  0.3383333333333333
+Test accuracy:  0.74208987
+Train accuracy:  0.7774872
+Epoch:  98
+Learning rate:  0.33666666666666667
+Test accuracy:  0.7523438
+Train accuracy:  0.79561543
+Epoch:  99
+Learning rate:  0.33499999999999996
+Test accuracy:  0.77255857
+Train accuracy:  0.8254664
+Epoch:  100
+Learning rate:  0.3333333333333333
+Test accuracy:  0.7181641
+Train accuracy:  0.75939894
+Epoch:  101
+Learning rate:  0.33166666666666667
+Test accuracy:  0.7102539
+Train accuracy:  0.7540936
+Epoch:  102
+Learning rate:  0.32999999999999996
+Test accuracy:  0.69794923
+Train accuracy:  0.750845
+Epoch:  103
+Learning rate:  0.3283333333333333
+Test accuracy:  0.7200195
+Train accuracy:  0.76747847
+Epoch:  104
+Learning rate:  0.32666666666666666
+Test accuracy:  0.75322264
+Train accuracy:  0.79450333
+Epoch:  105
+Learning rate:  0.32499999999999996
+Test accuracy:  0.7446289
+Train accuracy:  0.79812264
+Epoch:  106
+Learning rate:  0.32333333333333336
+Test accuracy:  0.7541016
+Train accuracy:  0.8026985
+Epoch:  107
+Learning rate:  0.32166666666666666
+Test accuracy:  0.7698242
+Train accuracy:  0.82050383
+Epoch:  108
+Learning rate:  0.31999999999999995
+Test accuracy:  0.77255857
+Train accuracy:  0.82661825
+Epoch:  109
+Learning rate:  0.31833333333333336
+Test accuracy:  0.74716794
+Train accuracy:  0.8018415
+Epoch:  110
+Learning rate:  0.31666666666666665
+Test accuracy:  0.6236328
+Train accuracy:  0.6554369
+Epoch:  111
+Learning rate:  0.31499999999999995
+Test accuracy:  0.7748047
+Train accuracy:  0.82853156
+Epoch:  112
+Learning rate:  0.31333333333333335
+Test accuracy:  0.66728514
+Train accuracy:  0.7225406
+Epoch:  113
+Learning rate:  0.31166666666666665
+Test accuracy:  0.76396483
+Train accuracy:  0.8182597
+Epoch:  114
+Learning rate:  0.31
+Test accuracy:  0.75996095
+Train accuracy:  0.8081433
+Epoch:  115
+Learning rate:  0.30833333333333335
+Test accuracy:  0.70273435
+Train accuracy:  0.7541693
+Epoch:  116
+Learning rate:  0.30666666666666664
+Test accuracy:  0.6905273
+Train accuracy:  0.73643976
+Epoch:  117
+Learning rate:  0.305
+Test accuracy:  0.7464844
+Train accuracy:  0.79784364
+Epoch:  118
+Learning rate:  0.30333333333333334
+Test accuracy:  0.7678711
+Train accuracy:  0.82163185
+Epoch:  119
+Learning rate:  0.30166666666666664
+Test accuracy:  0.571875
+Train accuracy:  0.60595506
+Epoch:  120
+Learning rate:  0.3
+Test accuracy:  0.7542969
+Train accuracy:  0.80690765
+Epoch:  121
+Learning rate:  0.29833333333333334
+Test accuracy:  0.7740234
+Train accuracy:  0.82141656
+Epoch:  122
+Learning rate:  0.29666666666666663
+Test accuracy:  0.7481445
+Train accuracy:  0.79452723
+Epoch:  123
+Learning rate:  0.295
+Test accuracy:  0.76035154
+Train accuracy:  0.81894934
+Epoch:  124
+Learning rate:  0.29333333333333333
+Test accuracy:  0.75576174
+Train accuracy:  0.8134446
+Epoch:  125
+Learning rate:  0.29166666666666663
+Test accuracy:  0.7740234
+Train accuracy:  0.8416773
+Epoch:  126
+Learning rate:  0.29
+Test accuracy:  0.77089846
+Train accuracy:  0.8226044
+Epoch:  127
+Learning rate:  0.28833333333333333
+Test accuracy:  0.74833983
+Train accuracy:  0.81123245
+Epoch:  128
+Learning rate:  0.2866666666666666
+Test accuracy:  0.7732422
+Train accuracy:  0.83267295
+Epoch:  129
+Learning rate:  0.285
+Test accuracy:  0.772168
+Train accuracy:  0.8284319
+Epoch:  130
+Learning rate:  0.2833333333333333
+Test accuracy:  0.77382815
+Train accuracy:  0.8339286
+Epoch:  131
+Learning rate:  0.2816666666666666
+Test accuracy:  0.7790039
+Train accuracy:  0.8463648
+Epoch:  132
+Learning rate:  0.28
+Test accuracy:  0.78466797
+Train accuracy:  0.8375
+Epoch:  133
+Learning rate:  0.2783333333333333
+Test accuracy:  0.75634766
+Train accuracy:  0.81242424
+Epoch:  134
+Learning rate:  0.2766666666666666
+Test accuracy:  0.75810546
+Train accuracy:  0.81762993
+Epoch:  135
+Learning rate:  0.275
+Test accuracy:  0.78203124
+Train accuracy:  0.8438297
+Epoch:  136
+Learning rate:  0.2733333333333333
+Test accuracy:  0.7860352
+Train accuracy:  0.85203683
+Epoch:  137
+Learning rate:  0.2716666666666666
+Test accuracy:  0.77441406
+Train accuracy:  0.8422991
+Epoch:  138
+Learning rate:  0.27
+Test accuracy:  0.81220704
+Train accuracy:  0.8821907
+Epoch:  139
+Learning rate:  0.2683333333333333
+Test accuracy:  0.7729492
+Train accuracy:  0.83828527
+Epoch:  140
+Learning rate:  0.26666666666666666
+Test accuracy:  0.73222655
+Train accuracy:  0.7950853
+Epoch:  141
+Learning rate:  0.265
+Test accuracy:  0.77246094
+Train accuracy:  0.8361567
+Epoch:  142
+Learning rate:  0.2633333333333333
+Test accuracy:  0.7703125
+Train accuracy:  0.837225
+Epoch:  143
+Learning rate:  0.26166666666666666
+Test accuracy:  0.8022461
+Train accuracy:  0.8765107
+Epoch:  144
+Learning rate:  0.26
+Test accuracy:  0.76113284
+Train accuracy:  0.83261716
+Epoch:  145
+Learning rate:  0.2583333333333333
+Test accuracy:  0.78115237
+Train accuracy:  0.85838246
+Epoch:  146
+Learning rate:  0.25666666666666665
+Test accuracy:  0.77441406
+Train accuracy:  0.8408602
+Epoch:  147
+Learning rate:  0.255
+Test accuracy:  0.81044924
+Train accuracy:  0.8776586
+Epoch:  148
+Learning rate:  0.2533333333333333
+Test accuracy:  0.7951172
+Train accuracy:  0.8665258
+Epoch:  149
+Learning rate:  0.25166666666666665
+Test accuracy:  0.81523436
+Train accuracy:  0.8815689
+Epoch:  150
+Learning rate:  0.25
+Test accuracy:  0.7753906
+Train accuracy:  0.847453
+Epoch:  151
+Learning rate:  0.2483333333333333
+Test accuracy:  0.790332
+Train accuracy:  0.8615872
+Epoch:  152
+Learning rate:  0.24666666666666665
+Test accuracy:  0.7300781
+Train accuracy:  0.812205
+Epoch:  153
+Learning rate:  0.245
+Test accuracy:  0.78115237
+Train accuracy:  0.8518376
+Epoch:  154
+Learning rate:  0.2433333333333333
+Test accuracy:  0.8048828
+Train accuracy:  0.88535154
+Epoch:  155
+Learning rate:  0.24166666666666664
+Test accuracy:  0.80791014
+Train accuracy:  0.88668287
+Epoch:  156
+Learning rate:  0.24
+Test accuracy:  0.7697266
+Train accuracy:  0.84183276
+Epoch:  157
+Learning rate:  0.23833333333333334
+Test accuracy:  0.80917966
+Train accuracy:  0.8870974
+Epoch:  158
+Learning rate:  0.23666666666666664
+Test accuracy:  0.8053711
+Train accuracy:  0.89043766
+Epoch:  159
+Learning rate:  0.235
+Test accuracy:  0.8048828
+Train accuracy:  0.8846739
+Epoch:  160
+Learning rate:  0.23333333333333334
+Test accuracy:  0.71601564
+Train accuracy:  0.77597654
+Epoch:  161
+Learning rate:  0.23166666666666663
+Test accuracy:  0.79697263
+Train accuracy:  0.8839764
+Epoch:  162
+Learning rate:  0.22999999999999998
+Test accuracy:  0.80302733
+Train accuracy:  0.8951212
+Epoch:  163
+Learning rate:  0.22833333333333333
+Test accuracy:  0.8120117
+Train accuracy:  0.8947704
+Epoch:  164
+Learning rate:  0.22666666666666663
+Test accuracy:  0.7974609
+Train accuracy:  0.87892616
+Epoch:  165
+Learning rate:  0.22499999999999998
+Test accuracy:  0.8083008
+Train accuracy:  0.89564735
+Epoch:  166
+Learning rate:  0.22333333333333333
+Test accuracy:  0.42958984
+Train accuracy:  0.4570193
+Epoch:  167
+Learning rate:  0.22166666666666662
+Test accuracy:  0.7535156
+Train accuracy:  0.8296038
+Epoch:  168
+Learning rate:  0.21999999999999997
+Test accuracy:  0.78583986
+Train accuracy:  0.86780137
+Epoch:  169
+Learning rate:  0.21833333333333332
+Test accuracy:  0.8017578
+Train accuracy:  0.8954879
+Epoch:  170
+Learning rate:  0.21666666666666667
+Test accuracy:  0.7746094
+Train accuracy:  0.8651945
+Epoch:  171
+Learning rate:  0.21499999999999997
+Test accuracy:  0.78095704
+Train accuracy:  0.8600207
+Epoch:  172
+Learning rate:  0.21333333333333332
+Test accuracy:  0.81748044
+Train accuracy:  0.9076451
+Epoch:  173
+Learning rate:  0.21166666666666667
+Test accuracy:  0.7831055
+Train accuracy:  0.8634486
+Epoch:  174
+Learning rate:  0.20999999999999996
+Test accuracy:  0.80126953
+Train accuracy:  0.8878228
+Epoch:  175
+Learning rate:  0.20833333333333331
+Test accuracy:  0.7765625
+Train accuracy:  0.86320156
+Epoch:  176
+Learning rate:  0.20666666666666667
+Test accuracy:  0.7926758
+Train accuracy:  0.8848254
+Epoch:  177
+Learning rate:  0.20499999999999996
+Test accuracy:  0.82070315
+Train accuracy:  0.9146724
+Epoch:  178
+Learning rate:  0.2033333333333333
+Test accuracy:  0.81640625
+Train accuracy:  0.90709907
+Epoch:  179
+Learning rate:  0.20166666666666666
+Test accuracy:  0.7925781
+Train accuracy:  0.87826055
+Epoch:  180
+Learning rate:  0.19999999999999996
+Test accuracy:  0.8208984
+Train accuracy:  0.9223294
+Epoch:  181
+Learning rate:  0.1983333333333333
+Test accuracy:  0.8178711
+Train accuracy:  0.9067921
+Epoch:  182
+Learning rate:  0.19666666666666666
+Test accuracy:  0.80507815
+Train accuracy:  0.899139
+Epoch:  183
+Learning rate:  0.195
+Test accuracy:  0.81464845
+Train accuracy:  0.909096
+Epoch:  184
+Learning rate:  0.1933333333333333
+Test accuracy:  0.8130859
+Train accuracy:  0.91491157
+Epoch:  185
+Learning rate:  0.19166666666666665
+Test accuracy:  0.7962891
+Train accuracy:  0.89850926
+Epoch:  186
+Learning rate:  0.19
+Test accuracy:  0.8246094
+Train accuracy:  0.92000157
+Epoch:  187
+Learning rate:  0.1883333333333333
+Test accuracy:  0.7931641
+Train accuracy:  0.8759367
+Epoch:  188
+Learning rate:  0.18666666666666665
+Test accuracy:  0.7915039
+Train accuracy:  0.88646364
+Epoch:  189
+Learning rate:  0.185
+Test accuracy:  0.80429685
+Train accuracy:  0.9024314
+Epoch:  190
+Learning rate:  0.1833333333333333
+Test accuracy:  0.81875
+Train accuracy:  0.9202009
+Epoch:  191
+Learning rate:  0.18166666666666664
+Test accuracy:  0.7753906
+Train accuracy:  0.8724131
+Epoch:  192
+Learning rate:  0.18
+Test accuracy:  0.81220704
+Train accuracy:  0.91636235
+Epoch:  193
+Learning rate:  0.1783333333333333
+Test accuracy:  0.80253905
+Train accuracy:  0.8951889
+Epoch:  194
+Learning rate:  0.17666666666666664
+Test accuracy:  0.8216797
+Train accuracy:  0.922728
+Epoch:  195
+Learning rate:  0.175
+Test accuracy:  0.81699216
+Train accuracy:  0.9158124
+Epoch:  196
+Learning rate:  0.17333333333333334
+Test accuracy:  0.80634767
+Train accuracy:  0.91097337
+Epoch:  197
+Learning rate:  0.17166666666666663
+Test accuracy:  0.8082031
+Train accuracy:  0.90617424
+Epoch:  198
+Learning rate:  0.16999999999999998
+Test accuracy:  0.8234375
+Train accuracy:  0.92584896
+Epoch:  199
+Learning rate:  0.16833333333333333
+Test accuracy:  0.80732423
+Train accuracy:  0.9103236
+Epoch:  200
+Learning rate:  0.16666666666666663
+Test accuracy:  0.80800784
+Train accuracy:  0.91066647
+Epoch:  201
+Learning rate:  0.16499999999999998
+Test accuracy:  0.7892578
+Train accuracy:  0.89824617
+Epoch:  202
+Learning rate:  0.16333333333333333
+Test accuracy:  0.82421875
+Train accuracy:  0.9325734
+Epoch:  203
+Learning rate:  0.16166666666666663
+Test accuracy:  0.80683595
+Train accuracy:  0.9200534
+Epoch:  204
+Learning rate:  0.15999999999999998
+Test accuracy:  0.5698242
+Train accuracy:  0.6366231
+Epoch:  205
+Learning rate:  0.15833333333333333
+Test accuracy:  0.8135742
+Train accuracy:  0.9294683
+Epoch:  206
+Learning rate:  0.15666666666666662
+Test accuracy:  0.8100586
+Train accuracy:  0.9207868
+Epoch:  207
+Learning rate:  0.15499999999999997
+Test accuracy:  0.8165039
+Train accuracy:  0.92556995
+Epoch:  208
+Learning rate:  0.15333333333333332
+Test accuracy:  0.7866211
+Train accuracy:  0.888357
+Epoch:  209
+Learning rate:  0.15166666666666667
+Test accuracy:  0.80458987
+Train accuracy:  0.9153061
+Epoch:  210
+Learning rate:  0.14999999999999997
+Test accuracy:  0.8178711
+Train accuracy:  0.9290059
+Epoch:  211
+Learning rate:  0.14833333333333332
+Test accuracy:  0.81816405
+Train accuracy:  0.93410796
+Epoch:  212
+Learning rate:  0.14666666666666667
+Test accuracy:  0.7897461
+Train accuracy:  0.90646523
+Epoch:  213
+Learning rate:  0.14499999999999996
+Test accuracy:  0.8298828
+Train accuracy:  0.9421596
+Epoch:  214
+Learning rate:  0.1433333333333333
+Test accuracy:  0.83125
+Train accuracy:  0.94631296
+Epoch:  215
+Learning rate:  0.14166666666666666
+Test accuracy:  0.8
+Train accuracy:  0.90540093
+Epoch:  216
+Learning rate:  0.13999999999999996
+Test accuracy:  0.8064453
+Train accuracy:  0.9205716
+Epoch:  217
+Learning rate:  0.1383333333333333
+Test accuracy:  0.805957
+Train accuracy:  0.9226682
+Epoch:  218
+Learning rate:  0.13666666666666666
+Test accuracy:  0.80976564
+Train accuracy:  0.92042804
+Epoch:  219
+Learning rate:  0.13499999999999995
+Test accuracy:  0.8216797
+Train accuracy:  0.93130577
+Epoch:  220
+Learning rate:  0.1333333333333333
+Test accuracy:  0.8246094
+Train accuracy:  0.94230705
+Epoch:  221
+Learning rate:  0.13166666666666665
+Test accuracy:  0.8341797
+Train accuracy:  0.9438217
+Epoch:  222
+Learning rate:  0.12999999999999995
+Test accuracy:  0.8424805
+Train accuracy:  0.9570153
+Epoch:  223
+Learning rate:  0.1283333333333333
+Test accuracy:  0.82958984
+Train accuracy:  0.9467794
+Epoch:  224
+Learning rate:  0.12666666666666665
+Test accuracy:  0.82900393
+Train accuracy:  0.952551
+Epoch:  225
+Learning rate:  0.125
+Test accuracy:  0.7939453
+Train accuracy:  0.90011954
+Epoch:  226
+Learning rate:  0.1233333333333333
+Test accuracy:  0.7910156
+Train accuracy:  0.89815056
+Epoch:  227
+Learning rate:  0.12166666666666665
+Test accuracy:  0.8298828
+Train accuracy:  0.9470265
+Epoch:  228
+Learning rate:  0.12
+Test accuracy:  0.82607424
+Train accuracy:  0.94523674
+Epoch:  229
+Learning rate:  0.11833333333333329
+Test accuracy:  0.8214844
+Train accuracy:  0.9409917
+Epoch:  230
+Learning rate:  0.11666666666666664
+Test accuracy:  0.82724607
+Train accuracy:  0.94805485
+Epoch:  231
+Learning rate:  0.11499999999999999
+Test accuracy:  0.8160156
+Train accuracy:  0.9401586
+Epoch:  232
+Learning rate:  0.11333333333333329
+Test accuracy:  0.83388674
+Train accuracy:  0.9568838
+Epoch:  233
+Learning rate:  0.11166666666666664
+Test accuracy:  0.82177734
+Train accuracy:  0.939194
+Epoch:  234
+Learning rate:  0.10999999999999999
+Test accuracy:  0.8293945
+Train accuracy:  0.95444435
+Epoch:  235
+Learning rate:  0.10833333333333328
+Test accuracy:  0.76113284
+Train accuracy:  0.8585619
+Epoch:  236
+Learning rate:  0.10666666666666663
+Test accuracy:  0.8431641
+Train accuracy:  0.96471626
+Epoch:  237
+Learning rate:  0.10499999999999998
+Test accuracy:  0.8245117
+Train accuracy:  0.9563377
+Epoch:  238
+Learning rate:  0.10333333333333333
+Test accuracy:  0.81259763
+Train accuracy:  0.93009406
+Epoch:  239
+Learning rate:  0.10166666666666663
+Test accuracy:  0.8317383
+Train accuracy:  0.95970976
+Epoch:  240
+Learning rate:  0.09999999999999998
+Test accuracy:  0.8345703
+Train accuracy:  0.9637995
+Epoch:  241
+Learning rate:  0.09833333333333333
+Test accuracy:  0.82607424
+Train accuracy:  0.95157045
+Epoch:  242
+Learning rate:  0.09666666666666662
+Test accuracy:  0.83671874
+Train accuracy:  0.96311384
+Epoch:  243
+Learning rate:  0.09499999999999997
+Test accuracy:  0.8300781
+Train accuracy:  0.9594706
+Epoch:  244
+Learning rate:  0.09333333333333332
+Test accuracy:  0.8371094
+Train accuracy:  0.96248007
+Epoch:  245
+Learning rate:  0.09166666666666662
+Test accuracy:  0.84121096
+Train accuracy:  0.96826375
+Epoch:  246
+Learning rate:  0.08999999999999997
+Test accuracy:  0.83984375
+Train accuracy:  0.9663863
+Epoch:  247
+Learning rate:  0.08833333333333332
+Test accuracy:  0.82041013
+Train accuracy:  0.95193714
+Epoch:  248
+Learning rate:  0.08666666666666661
+Test accuracy:  0.8373047
+Train accuracy:  0.965063
+Epoch:  249
+Learning rate:  0.08499999999999996
+Test accuracy:  0.8413086
+Train accuracy:  0.9734694
+Epoch:  250
+Learning rate:  0.08333333333333331
+Test accuracy:  0.8291992
+Train accuracy:  0.9660954
+Epoch:  251
+Learning rate:  0.08166666666666667
+Test accuracy:  0.821582
+Train accuracy:  0.9483498
+Epoch:  252
+Learning rate:  0.07999999999999996
+Test accuracy:  0.8407227
+Train accuracy:  0.9687062
+Epoch:  253
+Learning rate:  0.07833333333333331
+Test accuracy:  0.83027345
+Train accuracy:  0.95106024
+Epoch:  254
+Learning rate:  0.07666666666666666
+Test accuracy:  0.8486328
+Train accuracy:  0.9786033
+Epoch:  255
+Learning rate:  0.07499999999999996
+Test accuracy:  0.8345703
+Train accuracy:  0.9651068
+Epoch:  256
+Learning rate:  0.0733333333333333
+Test accuracy:  0.834668
+Train accuracy:  0.97037226
+Epoch:  257
+Learning rate:  0.07166666666666666
+Test accuracy:  0.84833986
+Train accuracy:  0.97873884
+Epoch:  258
+Learning rate:  0.06999999999999995
+Test accuracy:  0.8455078
+Train accuracy:  0.97781014
+Epoch:  259
+Learning rate:  0.0683333333333333
+Test accuracy:  0.8486328
+Train accuracy:  0.98105466
+Epoch:  260
+Learning rate:  0.06666666666666665
+Test accuracy:  0.84169924
+Train accuracy:  0.9727918
+Epoch:  261
+Learning rate:  0.06499999999999995
+Test accuracy:  0.8383789
+Train accuracy:  0.9742785
+Epoch:  262
+Learning rate:  0.0633333333333333
+Test accuracy:  0.846875
+Train accuracy:  0.9782804
+Epoch:  263
+Learning rate:  0.06166666666666665
+Test accuracy:  0.8485352
+Train accuracy:  0.9828923
+Epoch:  264
+Learning rate:  0.06
+Test accuracy:  0.84453124
+Train accuracy:  0.9762874
+Epoch:  265
+Learning rate:  0.05833333333333329
+Test accuracy:  0.834375
+Train accuracy:  0.9777662
+Epoch:  266
+Learning rate:  0.05666666666666664
+Test accuracy:  0.85419923
+Train accuracy:  0.98342234
+Epoch:  267
+Learning rate:  0.05499999999999999
+Test accuracy:  0.84707034
+Train accuracy:  0.98167247
+Epoch:  268
+Learning rate:  0.05333333333333329
+Test accuracy:  0.8575195
+Train accuracy:  0.9899275
+Epoch:  269
+Learning rate:  0.05166666666666664
+Test accuracy:  0.83740234
+Train accuracy:  0.97404337
+Epoch:  270
+Learning rate:  0.04999999999999999
+Test accuracy:  0.8557617
+Train accuracy:  0.98938936
+Epoch:  271
+Learning rate:  0.048333333333333284
+Test accuracy:  0.8545898
+Train accuracy:  0.9875598
+Epoch:  272
+Learning rate:  0.046666666666666634
+Test accuracy:  0.8508789
+Train accuracy:  0.98993146
+Epoch:  273
+Learning rate:  0.044999999999999984
+Test accuracy:  0.8503906
+Train accuracy:  0.9895927
+Epoch:  274
+Learning rate:  0.04333333333333328
+Test accuracy:  0.85195315
+Train accuracy:  0.9902224
+Epoch:  275
+Learning rate:  0.04166666666666663
+Test accuracy:  0.85126954
+Train accuracy:  0.9906649
+Epoch:  276
+Learning rate:  0.03999999999999998
+Test accuracy:  0.8533203
+Train accuracy:  0.9908801
+Epoch:  277
+Learning rate:  0.03833333333333333
+Test accuracy:  0.8557617
+Train accuracy:  0.9933395
+Epoch:  278
+Learning rate:  0.036666666666666625
+Test accuracy:  0.8587891
+Train accuracy:  0.99354273
+Epoch:  279
+Learning rate:  0.034999999999999976
+Test accuracy:  0.86445314
+Train accuracy:  0.9953763
+Epoch:  280
+Learning rate:  0.033333333333333326
+Test accuracy:  0.85898435
+Train accuracy:  0.99469864
+Epoch:  281
+Learning rate:  0.03166666666666662
+Test accuracy:  0.8569336
+Train accuracy:  0.99408084
+Epoch:  282
+Learning rate:  0.02999999999999997
+Test accuracy:  0.8648437
+Train accuracy:  0.99697065
+Epoch:  283
+Learning rate:  0.02833333333333332
+Test accuracy:  0.8575195
+Train accuracy:  0.9939812
+Epoch:  284
+Learning rate:  0.026666666666666616
+Test accuracy:  0.86259764
+Train accuracy:  0.9959303
+Epoch:  285
+Learning rate:  0.024999999999999967
+Test accuracy:  0.86513674
+Train accuracy:  0.99637276
+Epoch:  286
+Learning rate:  0.023333333333333317
+Test accuracy:  0.86748046
+Train accuracy:  0.99808675
+Epoch:  287
+Learning rate:  0.021666666666666612
+Test accuracy:  0.8624023
+Train accuracy:  0.9968511
+Epoch:  288
+Learning rate:  0.019999999999999962
+Test accuracy:  0.86445314
+Train accuracy:  0.99790734
+Epoch:  289
+Learning rate:  0.018333333333333313
+Test accuracy:  0.8654297
+Train accuracy:  0.99780774
+Epoch:  290
+Learning rate:  0.016666666666666663
+Test accuracy:  0.86689454
+Train accuracy:  0.9980469
+Epoch:  291
+Learning rate:  0.014999999999999958
+Test accuracy:  0.8654297
+Train accuracy:  0.99756855
+Epoch:  292
+Learning rate:  0.013333333333333308
+Test accuracy:  0.8676758
+Train accuracy:  0.9988241
+Epoch:  293
+Learning rate:  0.011666666666666659
+Test accuracy:  0.86796874
+Train accuracy:  0.9987444
+Epoch:  294
+Learning rate:  0.009999999999999953
+Test accuracy:  0.8696289
+Train accuracy:  0.9990832
+Epoch:  295
+Learning rate:  0.008333333333333304
+Test accuracy:  0.86982423
+Train accuracy:  0.9990035
+Epoch:  296
+Learning rate:  0.006666666666666654
+Test accuracy:  0.8708008
+Train accuracy:  0.9990832
+Epoch:  297
+Learning rate:  0.004999999999999949
+Test accuracy:  0.8703125
+Train accuracy:  0.9991829
+Epoch:  298
+Learning rate:  0.0033333333333332993
+Test accuracy:  0.86992186
+Train accuracy:  0.999163
+Epoch:  299
+Learning rate:  0.0016666666666666496
+Test accuracy:  0.8702148
+Train accuracy:  0.9992626
+Mean accuracy:  0.8702148
+Max accuracy:  0.8702148
+Min accuracy:  0.8702148

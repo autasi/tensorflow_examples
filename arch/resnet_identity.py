@@ -46,7 +46,7 @@ def identity_mapping_block(
                     name = "bn_act_conv_1")
                 
         x = bn_act_conv2d(
-                x, size = size, n_filters = n_filters, stride = stride,
+                x, size = size, n_filters = n_filters, stride = 1,
                 activation = activation,
                 is_training = is_training,
                 regularizer = regularizer,

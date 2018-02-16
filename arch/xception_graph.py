@@ -3,7 +3,7 @@
 import tensorflow as tf
 from arch.layers import conv2d_bn_relu, global_avg_pool2d, dense
 from arch.initializers import He_normal, Kumar_normal
-import xception
+from arch import xception
 
 # F. Chollet, Xception: Deep Learning with Depthwise Separable Convolutions
 # https://arxiv.org/pdf/1610.02357.pdf

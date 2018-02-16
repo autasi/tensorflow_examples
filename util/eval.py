@@ -32,6 +32,8 @@ def _eval_net_custom(
         optimizer,
         optimizer_args = None,
         weight_decay = 0.0,
+        aux_loss_weight = None,
+        label_smoothing = None,
         seed = 42):
     height = tr_x.shape[1]
     width = tr_x.shape[2]
@@ -50,12 +52,12 @@ def _eval_net_custom(
     gt = tf.placeholder(tf.float32, [None, n_classes], name="label")
     
     # create network
-    if weight_decay > 0.0:
-        reg_weights = True
-    else:
+    if weight_decay is None:
         reg_weights = False
-    layers, variables = net_func(x, weight_decay = weight_decay, seed = seed)
-
+        layers, variables = net_func(x, seed = seed)
+    else:
+        reg_weights = True
+        layers, variables = net_func(x, weight_decay = weight_decay, seed = seed)
     
     # training variable to control dropout
     training = tuple_list_find(variables, "training")[1]
@@ -64,7 +66,20 @@ def _eval_net_custom(
     logit = tuple_list_find(layers, "logit")[1]
     
     # optimization is done one the cross-entropy between labels and predicted logit    
-    loss_fn = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=gt, logits=logit))
+    if label_smoothing is None:
+        loss_fn = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=gt, logits=logit))
+    else:
+        loss_fn = tf.reduce_mean(tf.losses.softmax_cross_entropy(onehot_labels=gt, logits=logit, label_smoothing=label_smoothing))
+
+
+    if aux_loss_weight is not None:
+        aux_logit = tuple_list_find(layers, "aux_logit")[1]
+        if label_smoothing is None:
+            aux_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=gt, logits=aux_logit))
+        else:
+            aux_loss = tf.reduce_mean(tf.losses.softmax_cross_entropy(onehot_labels=gt, logits=aux_logit, label_smoothing=label_smoothing))
+        loss_fn = loss_fn + aux_loss_weight*aux_loss
+        
     if reg_weights:
         reg_ws = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
         loss_fn = loss_fn + tf.reduce_sum(reg_ws)
@@ -151,6 +166,8 @@ def eval_net_custom(
         optimizer,
         optimizer_args = None,
         weight_decay = 0.0,
+        aux_loss_weight = None,
+        label_smoothing = None,
         n_repeat = 1,
         seed = 42):
 
@@ -165,6 +182,8 @@ def eval_net_custom(
                 optimizer,
                 optimizer_args,
                 weight_decay = weight_decay,
+                aux_loss_weight = aux_loss_weight,
+                label_smoothing = label_smoothing,
                 seed = seed+n)
         accs.append(acc)
     return np.mean(accs), np.max(accs), np.min(accs)

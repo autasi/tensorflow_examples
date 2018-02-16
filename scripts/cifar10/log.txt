@@ -1,6 +1,0 @@
-se resnet 20
-se resnext 29
-se resnext 29 wd
-densenet 40
-densenet 40 wd
-bottleneck densenet 100

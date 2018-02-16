@@ -16,7 +16,7 @@ def inverted_residual(
         expand_ratio = 1.0,    
         size = 3,
         stride = 1,
-        activation = tf.nn.relu,
+        activation = tf.nn.relu6,
         regularizer = None,
         kernel_init = He_normal(seed = 42),
         bias_init = tf.zeros_initializer(),
@@ -26,7 +26,16 @@ def inverted_residual(
     n_filters_expand = int(n_filters * expand_ratio)
     with tf.variable_scope(name):
         if stride == 1:
-            shortcut = tf.identity(inputs, name = "shortcut")
+            if inputs.shape[3] != n_filters:
+                shortcut = conv2d_bn(
+                        inputs, size = 1, n_filters = n_filters, stride = 1,
+                        is_training = is_training,
+                        regularizer = regularizer,
+                        kernel_init = kernel_init,
+                        bias_init = bias_init,
+                        name = "shortcut")
+            else:
+                shortcut = tf.identity(inputs, name = "shortcut")
         else:
             shortcut = None
             
@@ -75,7 +84,7 @@ def inverted_residual_block(
         expand_ratio = 1.0,    
         size = 3,
         stride = 1,
-        activation = tf.nn.relu,
+        activation = tf.nn.relu6,
         regularizer = None,
         kernel_init = He_normal(seed = 42),
         bias_init = tf.zeros_initializer(),
