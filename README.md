@@ -58,7 +58,7 @@ The list below contains the default settings for the networks. These are used by
 * Activation is ReLU, except the last dense layer, where SoftMax is used.
 Moreover the *WD* term in the model name refers to the regularization applied on the weights, the regularization parameters is denoted by &lambda;. By default batch normalization (BN) is applied *after* the convolution and *before* the nonlinearities, and will be denoted by *Conv_BN*.
 The following lists summarize the networks evaluated.
-#### CN3D
+#### CLRN3D
 1. Conv(5x5, 32) + LRN + MaxPool(3x3) + Dropout(0.2)
 2. Conv(5x5, 64) + LRN + MaxPool(3x3) + Dropout(0.3)
 3. Conv(3x3, 128) + LRN + MaxPool + Dropout(0.4)
@@ -99,12 +99,39 @@ The same as **CBN6D** with weight regularization parameter &lambda;=0.0001
 4. Residual_layer(blocks=5, filters=64, stride=2)
 5. Global_AvgPool
 6. Dense + SoftMax
-#### ResNet-Bottleneck-20
+#### ResNet-BN-20
 The same as **ResNet-20** but using bottleneck blocks. It has more convolution layers, but i kept the *20* for simplicity.
-#### ResNet-Bottleneck-32
+#### ResNet-BN-32
 The same as **ResNet-32** but using bottleneck blocks. It has more convolution layers, but i kept the *32* for simplicity.
 #### ResNet-20-WD
 The same as **ResNet-20** with weight regularization parameter &lambda;=0.0001
+#### ResNet-ID-20
+The same as **ResNet-20** but with the identity mapping structure.
+
 ### Basic
-Network
+|     Network     | Accuracy |
+|-----------------|----------|
+|           CLRN3D|   0.5258 |
+|            CBN3D|   0.8260 |
+|         C3D-SELU|   0.6423 |
+|    C3D-SELU-DROP|   0.6417 |
+|            CBN6D|   0.8657 |
+|        ResNet-20|   0.8208 |
+|        ResNet-32|   0.8323 |
+|     ResNet-BN-20|   0.8063 |
+|     ResNet-BN-32|   0.8237 |
+|     ResNet-IM-20|   0.8283 |
+|       ResNeXt-29|   0.8718 |
+|      DenseNet-40|   0.8794 |
+|  DenseNet-BN-100|   0.8791 |
+|     SE-ResNet-20|   0.8313 |
+|    SE-ResNeXt-29|   0.8670 |
+|     Inception-v1|   0.7676 |
+|  BN-Inception-v1|   0.9005 |
+|     Inception-v2|   0.8873 |
+|     Inception-v3|   0.9244 |
+|     Inception-v4|   0.8935 |
+|         Xception|   0.8512 |
+|        MobileNet|   0.8271 |
+|       ShuffleNet|   0.8748 |
 ### Author
