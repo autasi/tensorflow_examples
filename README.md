@@ -64,10 +64,22 @@ The following lists summarize the networks evaluated.
 3. Conv(3x3, 128) + LRN + MaxPool + Dropout(0.4)
 4. Dense + SoftMax
 #### CBN3D
-Similar to **CN3D** however LRN is dropped and BN is applied. Everything else remains the same.
+Similar to **CLRN3D** however LRN is dropped and BN is applied. Everything else remains the same.
 1. Conv_BN(5x5, 32) + MaxPool(3x3) + Dropout(0.2)
 2. Conv_BN(5x5, 64) + MaxPool(3x3) + Dropout(0.3)
 3. Conv_BN(3x3, 128) + MaxPool + Dropout(0.4)
+4. Dense + SoftMax
+#### C3D-SELU
+Similar to **CLRN3D** however LRN and Dropout is dropped. Moreover, SELU activation is used instead of ReLU.
+1. Conv(5x5, 32, SELU) + MaxPool(3x3)
+2. Conv(5x5, 64, SELU) + MaxPool(3x3)
+3. Conv(3x3, 128, SELU) + MaxPool
+4. Dense + SoftMax
+#### C3D-SELU-Drop
+Similar to **C3D-SELU** however &alpha;-dropout is used after the last convolutional layer.
+1. Conv(5x5, 32, SELU) + MaxPool(3x3)
+2. Conv(5x5, 64, SELU) + MaxPool(3x3)
+3. Conv(3x3, 128, SELU) + MaxPool + &alpha;-Dropout(0.05)
 4. Dense + SoftMax
 #### CBN6D
 This network uses blocks of Conv + ReLU + BN as
@@ -114,7 +126,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |           CLRN3D|   0.5258 |
 |            CBN3D|   0.8260 |
 |         C3D-SELU|   0.6423 |
-|    C3D-SELU-DROP|   0.6417 |
+|    C3D-SELU-Drop|   0.6417 |
 |            CBN6D|   0.8657 |
 |        ResNet-20|   0.8208 |
 |        ResNet-32|   0.8323 |
@@ -139,7 +151,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |-----------------|----------|
 |        CLRN5D-WD|   0.8318 |
 |         CBN5D-WD|   0.8271 |
-| C5D-SELU-DROP-WD|   0.8332 |
+| C5D-SELU-Drop-WD|   0.8332 |
 |         CBN6D-WD|   0.8896 |
 |     AllConv-C-WD|   0.8893 |
 |     ResNet-20-WD|   0.9150 |
