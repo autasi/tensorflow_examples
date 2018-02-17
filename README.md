@@ -108,7 +108,7 @@ The same as **ResNet-20** with weight regularization parameter &lambda;=0.0001
 #### ResNet-ID-20
 The same as **ResNet-20** but with the identity mapping structure.
 
-### Basic
+### Basic settings
 |     Network     | Accuracy |
 |-----------------|----------|
 |           CLRN3D|   0.5258 |
@@ -118,12 +118,12 @@ The same as **ResNet-20** but with the identity mapping structure.
 |            CBN6D|   0.8657 |
 |        ResNet-20|   0.8208 |
 |        ResNet-32|   0.8323 |
-|     ResNet-BN-20|   0.8063 |
-|     ResNet-BN-32|   0.8237 |
-|     ResNet-IM-20|   0.8283 |
+|      ResNetBN-20|   0.8063 |
+|      ResNetBN-32|   0.8237 |
+|      ResNetIM-20|   0.8283 |
 |       ResNeXt-29|   0.8718 |
 |      DenseNet-40|   0.8794 |
-|  DenseNet-BN-100|   0.8791 |
+|   DenseNetBN-100|   0.8791 |
 |     SE-ResNet-20|   0.8313 |
 |    SE-ResNeXt-29|   0.8670 |
 |     Inception-v1|   0.7676 |
@@ -134,4 +134,21 @@ The same as **ResNet-20** but with the identity mapping structure.
 |         Xception|   0.8512 |
 |        MobileNet|   0.8271 |
 |       ShuffleNet|   0.8748 |
-### Author
+### Author settings
+|     Network     | Accuracy |
+|-----------------|----------|
+|        CLRN5D-WD|   0.8318 |
+|         CBN5D-WD|   0.8271 |
+| C5D-SELU-DROP-WD|   0.8332 |
+|         CBN6D-WD|   0.8896 |
+|     AllConv-C-WD|   0.8893 |
+|     ResNet-20-WD|   0.9150 |
+|     ResNet-32-WD|   0.9115 |
+|   ResNetBN-20-WD|   0.8955 |
+|   ResNetBN-32-WD|   0.9118 |
+|   ResNetIM-20-WD|   0.9228 |
+|   RestNeXt-29-WD|   0.9444 |
+|   DenseNet-40-WD|   0.9402 |
+|  SE-ResNet-20-WD|   0.9173 |
+| SE-ResNeXt-29-WD|   0.9418 |
+|    ShuffleNet-WD|   0.8702 |
