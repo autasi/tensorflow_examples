@@ -126,7 +126,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |          CLRN3D*|   0.7346 |
 |            CBN3D|   0.8260 |
 |        C3D-SELU*|   0.7596 |
-|    C3D-SELU-Drop|   0.7723 |
+|   C3D-SELU-Drop*|   0.7723 |
 |            CBN6D|   0.8657 |
 |        ResNet-20|   0.8208 |
 |        ResNet-32|   0.8323 |
