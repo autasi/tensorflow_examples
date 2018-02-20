@@ -123,7 +123,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 ### Basic settings
 |     Network     | Accuracy |
 |-----------------|----------|
-|           CLRN3D|   0.5258 |
+|          CLRN3D*|   0.7346 |
 |            CBN3D|   0.8260 |
 |         C3D-SELU|   0.6423 |
 |    C3D-SELU-Drop|   0.6417 |
