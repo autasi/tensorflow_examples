@@ -150,7 +150,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |     Network     | Accuracy |
 |-----------------|----------|
 |        CLRN5D-WD|   0.8318 |
-|         CBN5D-WD|   0.8271 |
+|         CBN5D-WD|   0.8347 |
 | C5D-SELU-Drop-WD|   0.8418 |
 |         CBN6D-WD|   0.8896 |
 |     AllConv-C-WD|   0.8893 |
