@@ -133,6 +133,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |      ResNetBN-20|   0.8063 |
 |      ResNetBN-32|   0.8237 |
 |      ResNetIM-20|   0.8283 |
+|      ResNetIM-32|   0.8430 |
 |       ResNeXt-29|   0.8718 |
 |      DenseNet-40|   0.8794 |
 |   DenseNetBN-100|   0.8791 |
