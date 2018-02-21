@@ -160,6 +160,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |   ResNetBN-20-WD|   0.8955 |
 |   ResNetBN-32-WD|   0.9118 |
 |   ResNetIM-20-WD|   0.9228 |
+|   ResNetIM-32-WD|   0.9277 |
 |   RestNeXt-29-WD|   0.9444 |
 |   DenseNet-40-WD|   0.9402 |
 |  SE-ResNet-20-WD|   0.9173 |
