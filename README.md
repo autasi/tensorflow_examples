@@ -141,7 +141,7 @@ The same as **ResNet-20** but with the identity mapping structure.
 |     Inception-v1|   0.7676 |
 |  BN-Inception-v1|   0.9005 |
 |     Inception-v2|   0.8873 |
-|     Inception-v3|   0.9244 |
+|     Inception-v3|   0.9082 |
 |     Inception-v4|   0.8935 |
 |         Xception|   0.8512 |
 |        MobileNet|   0.8271 |
