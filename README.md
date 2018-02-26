@@ -121,49 +121,55 @@ The same as **ResNet-20** with weight regularization parameter &lambda;=0.0001
 The same as **ResNet-20** but with the identity mapping structure.
 
 ### Basic settings
-|     Network     | Accuracy |
-|-----------------|----------|
-|          CLRN3D*|   0.7346 |
-|            CBN3D|   0.8260 |
-|        C3D-SELU*|   0.7596 |
-|   C3D-SELU-Drop*|   0.8116 |
-|            CBN6D|   0.8657 |
-|       AllConv-C*|   0.8022 |
-|        ResNet-20|   0.8208 |
-|        ResNet-32|   0.8323 |
-|      ResNetBN-20|   0.8063 |
-|      ResNetBN-32|   0.8237 |
-|      ResNetIM-20|   0.8283 |
-|      ResNetIM-32|   0.8430 |
-|       ResNeXt-29|   0.8718 |
-|      DenseNet-40|   0.8794 |
-|   DenseNetBN-100|   0.8791 |
-|     SE-ResNet-20|   0.8313 |
-|    SE-ResNeXt-29|   0.8670 |
-|     Inception-v1|   0.7676 |
-|  BN-Inception-v1|   0.9005 |
-|     Inception-v2|   0.8873 |
-|     Inception-v3|   0.9082 |
-|     Inception-v4|   0.8935 |
-|         Xception|   0.8512 |
-|        MobileNet|   0.8271 |
-|       ShuffleNet|   0.8748 |
+|      Network     | Accuracy |
+|------------------|----------|
+|           CLRN3D*|   0.7346 |
+|             CBN3D|   0.8260 |
+|         C3D-SELU*|   0.7596 |
+|    C3D-SELU-Drop*|   0.8116 |
+|             CBN6D|   0.8657 |
+|        AllConv-C*|   0.8022 |
+|         ResNet-20|   0.8208 |
+|         ResNet-32|   0.8323 |
+|       ResNetBN-20|   0.8063 |
+|       ResNetBN-32|   0.8237 |
+|       ResNetIM-20|   0.8283 |
+|       ResNetIM-32|   0.8430 |
+|        ResNeXt-29|   0.8718 |
+|       DenseNet-40|   0.8794 |
+|    DenseNetBN-100|   0.8791 |
+|      SE-ResNet-20|   0.8313 |
+|     SE-ResNeXt-29|   0.8670 |
+|      Inception-v1|   0.7676 |
+|   BN-Inception-v1|   0.9005 |
+|      Inception-v2|   0.8873 |
+|      Inception-v3|   0.9082 |
+|      Inception-v4|   0.8935 |
+|          Xception|   0.8512 |
+|         MobileNet|   0.8271 |
+|        ShuffleNet|   0.8748 |
 ### Author settings
-|     Network     | Accuracy |
-|-----------------|----------|
-|        CLRN5D-WD|   0.8318 |
-|         CBN5D-WD|   0.8347 |
-| C5D-SELU-Drop-WD|   0.8418 |
-|         CBN6D-WD|   0.8896 |
-|     AllConv-C-WD|   0.8893 |
-|     ResNet-20-WD|   0.9150 |
-|     ResNet-32-WD|   0.9115 |
-|   ResNetBN-20-WD|   0.8955 |
-|   ResNetBN-32-WD|   0.9118 |
-|   ResNetIM-20-WD|   0.9228 |
-|   ResNetIM-32-WD|   0.9277 |
-|   RestNeXt-29-WD|   0.9444 |
-|   DenseNet-40-WD|   0.9402 |
-|  SE-ResNet-20-WD|   0.9173 |
-| SE-ResNeXt-29-WD|   0.9418 |
-|    ShuffleNet-WD|   0.8702 |
+|      Network     | Accuracy |
+|------------------|----------|
+|         CLRN5D-WD|   0.8318 |
+|          CBN5D-WD|   0.8347 |
+|  C5D-SELU-Drop-WD|   0.8418 |
+|          CBN6D-WD|   0.8896 |
+|      AllConv-C-WD|   0.8893 |
+|      ResNet-20-WD|   0.9150 |
+|      ResNet-32-WD|   0.9115 |
+|    ResNetBN-20-WD|   0.8955 |
+|    ResNetBN-32-WD|   0.9118 |
+|    ResNetIM-20-WD|   0.9228 |
+|    ResNetIM-32-WD|   0.9277 |
+|    RestNeXt-29-WD|   0.9444 |
+|    DenseNet-40-WD|   0.9402 |
+|   SE-ResNet-20-WD|   0.9173 |
+|  SE-ResNeXt-29-WD|   0.9418 |
+|   Inception-v1-WD|   0.8920 |
+|BN-Inception-v1-WD|   0.8910 |
+|   Inception-v2-WD|   0.9329 |
+|   Inception-v3-WD|   0.9423 |
+|   Inception-v4-WD|   0.9405 |
+|       Xception-WD|   0.8751 |
+|     ShuffleNet-WD|   0.8702 |
