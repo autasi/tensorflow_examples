@@ -194,3 +194,24 @@ class DecayValue(object):
             self.value = self.value*self.decay_rate
         self.steps = self.steps+1
         return self.value    
+
+
+class ExponentialDecayValue(object):
+    
+    def __init__(self, start=0.1, decay_rate=0.96, decay_steps=10):
+        self.start = start
+        self.decay_rate = decay_rate
+        self.decay_steps = decay_steps
+        self.steps = 0
+        
+    def __iter__(self):
+        # Method required for iterator objects. Returns itself.
+        return self
+    
+    def next(self):
+        return self.__next__()
+    
+    def __next__(self):
+        value = self.start*(self.decay_rate**(self.steps/float(self.decay_steps)))
+        self.steps = self.steps+1
+        return value 

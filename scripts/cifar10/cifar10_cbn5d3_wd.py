@@ -7,6 +7,7 @@ from util.eval import load_cifar10_data, eval_net_custom
 from util.normalization import global_mean_std
 from arch.misc import FixValue
 import tensorflow as tf
+from functools import partial
 
 
 def main():
@@ -14,7 +15,7 @@ def main():
     tr_x, te_x = global_mean_std(tr_x, te_x)
     mean_acc, max_acc, min_acc = eval_net_custom(
             tr_x, tr_y, te_x, te_y,
-            net_func = cifar10_sequential_cbn5d3_wd,
+            net_func = partial(cifar10_sequential_cbn5d3_wd, drop_rate = 0.3),
             optimizer = tf.train.AdamOptimizer,
             optimizer_args = None,
             n_epochs = 100,
@@ -27,9 +28,9 @@ def main():
     print("Min accuracy: ", min_acc)
 #Epoch:  99
 #Learning rate:  0.0001
-#Test accuracy:  0.82714844
-#Train accuracy:  0.9155174
-#Mean accuracy:  0.82714844    
+#Test accuracy:  0.834668
+#Train accuracy:  0.9429767
+#Mean accuracy:  0.834668  
    
 
 if __name__ == "__main__":

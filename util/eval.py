@@ -34,6 +34,7 @@ def _eval_net_custom(
         weight_decay = 0.0,
         aux_loss_weight = None,
         label_smoothing = None,
+        augmentation = True,
         seed = 42):
     height = tr_x.shape[1]
     width = tr_x.shape[2]
@@ -104,16 +105,19 @@ def _eval_net_custom(
     accuracy = tf.reduce_mean(tf.cast(corr, tf.float32))
     
     # apply random affine transformations to training images
-    transformer = RandomizedTransformer(
-            transformer_class = Affine,
-            params = [('shape', (height, width, n_chans)),
-                      ('scale', 1.0)],
-            rand_params = [('r', [-3.0, 3.0]),
-                           ('tx', [-3.0, 3.0]),
-                           ('ty', [-3.0, 3.0]),
-                           ('reflect_y', [False, True])],
-            mode = 'each',
-            random_seed = seed)    
+    if augmentation:
+        transformer = RandomizedTransformer(
+                transformer_class = Affine,
+                params = [('shape', (height, width, n_chans)),
+                          ('scale', 1.0)],
+                rand_params = [('r', [-3.0, 3.0]),
+                               ('tx', [-3.0, 3.0]),
+                               ('ty', [-3.0, 3.0]),
+                               ('reflect_y', [False, True])],
+                mode = 'each',
+                random_seed = seed)
+    else:
+        transformer = None
     
     acc_final = None
     session = tf.Session()
@@ -124,9 +128,12 @@ def _eval_net_custom(
             lr = next(lr_decay_func)
             # training via random batches
             for (xb, yb) in random_batch_generator(batch_size, tr_x, tr_y, seed = seed+i):
-                xbtr = np.zeros_like(xb)
-                for j in range(len(xb)):
-                    xbtr[j] = transformer.transform(xb[j])                
+                if augmentation:
+                    xbtr = np.zeros_like(xb)
+                    for j in range(len(xb)):
+                        xbtr[j] = transformer.transform(xb[j])
+                else:
+                    xbtr = xb
                 session.run(train_step, feed_dict = {x: xbtr,
                                                      gt: yb,
                                                      training: True,
@@ -168,6 +175,7 @@ def eval_net_custom(
         weight_decay = 0.0,
         aux_loss_weight = None,
         label_smoothing = None,
+        augmentation = True,
         n_repeat = 1,
         seed = 42):
 
@@ -175,15 +183,16 @@ def eval_net_custom(
     for n in range(n_repeat):
         acc = _eval_net_custom(
                 tr_x, tr_y, te_x, te_y,
-                net_func,
-                n_epochs,
-                batch_size,
-                lr_decay_func,
-                optimizer,
-                optimizer_args,
+                net_func = net_func,
+                n_epochs = n_epochs,
+                batch_size = batch_size,
+                lr_decay_func = lr_decay_func,
+                optimizer = optimizer,
+                optimizer_args = optimizer_args,
                 weight_decay = weight_decay,
                 aux_loss_weight = aux_loss_weight,
                 label_smoothing = label_smoothing,
+                augmentation = augmentation,
                 seed = seed+n)
         accs.append(acc)
     return np.mean(accs), np.max(accs), np.min(accs)
@@ -293,7 +302,7 @@ def eval_net_basic(
         acc = _eval_net_basic(
                 tr_x, tr_y, te_x, te_y,
                 net_func,
-                n_epochs = 50,
+                n_epochs = n_epochs,
                 batch_size = batch_size,
                 seed = seed+n)
         accs.append(acc)

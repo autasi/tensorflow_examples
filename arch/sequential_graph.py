@@ -758,6 +758,100 @@ def cifar10_sequential_c5d3_selu_drop_wd(
     
     return layers, variables
 
+# Springenberg et al. Striving for Simplicity: The All Convolutional Net
+#https://arxiv.org/pdf/1412.6806.pdf
+#https://github.com/MateLabs/All-Conv-Keras
+#referred as ALL-CNN-C in the paper
+# change to glorot uniform
+def cifar10_sequential_allconvC(
+        x,
+        drop_rate = 0.5,
+        drop_rate_input = 0.2,
+        seed = 42):
+    layers = []
+    variables = []
+
+    training = tf.placeholder(tf.bool, name = "training")
+    variables.append(("training", training))
+    
+    dropout_in = tf.layers.dropout(
+            x, rate = drop_rate_input, training = training,
+            seed = seed+0, name = "dropout_input")
+    layers.append(("dropout_in", dropout_in))    
+
+    conv1 = conv2d_relu(
+            dropout_in, size = 3, n_filters = 96,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+1),
+            name = "conv_1")
+    layers.append(("conv_1", conv1))    
+
+    conv2 = conv2d_relu(
+            conv1, size = 3, n_filters = 96,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+2),
+            name = "conv_2")
+    layers.append(("conv_2", conv2))
+
+    conv3 = conv2d_relu(
+            conv2, stride = 2, size = 3, n_filters = 96,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+3),
+            name = "conv_3")
+    layers.append(("conv_3", conv3))
+    
+    dropout1 = tf.layers.dropout(
+            conv3, rate = drop_rate, training = training,
+            seed = seed+3, name = "dropout_1")
+    layers.append(("dropout_1", dropout1))
+    
+    conv4 = conv2d_relu(
+            dropout1, size = 3, n_filters = 192,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+4),
+            name = "conv_4")
+    layers.append(("conv_4", conv4))
+
+    conv5 = conv2d_relu(
+            conv4, size = 3, n_filters = 192,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+5),
+            name = "conv_5")
+    layers.append(("conv_5", conv5))
+
+    conv6 = conv2d_relu(
+            conv5, stride = 2, size = 3, n_filters = 192,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+6),
+            name = "conv_6")
+    layers.append(("conv_6", conv6))
+
+    dropout2 = tf.layers.dropout(
+            conv6, rate = drop_rate, training = training,
+            seed = seed+6, name = "dropout_2")
+    layers.append(("dropout_2", dropout2))
+
+    conv7 = conv2d_relu(
+            dropout2, size = 3, n_filters = 192,
+            padding = "VALID",
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+7),
+            name = "conv_7")
+    layers.append(("conv_7", conv7))
+    
+    conv8 = conv2d_relu(
+            conv7, size = 1, n_filters = 192,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+8),
+            name = "conv_8")
+    layers.append(("conv_8", conv8))
+
+    conv9 = conv2d_relu(
+            conv8, size = 1, n_filters = 10,
+            kernel_init = tf.contrib.layers.xavier_initializer(seed = seed+9),
+            name = "conv_9")
+    layers.append(("conv_9", conv9))
+
+    pool = global_avg_pool2d(conv9)    
+    layers.append(("logit", pool))
+    
+    prob = tf.nn.softmax(pool, name = "prob")
+    layers.append(("prob", prob))
+    
+    return layers, variables
+
 
 # Springenberg et al. Striving for Simplicity: The All Convolutional Net
 #https://arxiv.org/pdf/1412.6806.pdf

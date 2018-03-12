@@ -22,16 +22,17 @@ def main():
             aux_loss_weight = 0.3,
             label_smoothing = 0.1,
             lr_decay_func = ExponentialDecay(start=0.01, stop=0.001, max_steps=50),
-            weight_decay = None
+            weight_decay = None,
+            augmentation = False
             )
     print("Mean accuracy: ", mean_acc)
     print("Max accuracy: ", max_acc)
     print("Min accuracy: ", min_acc)
 #Epoch:  49
 #Learning rate:  0.0010471285480508996
-#Test accuracy:  0.92441404
-#Train accuracy:  0.9998007
-#Mean accuracy:  0.92441404
+#Test accuracy:  0.9081055
+#Train accuracy:  1.0
+#Mean accuracy:  0.9081055
 
 if __name__ == "__main__":
     main()

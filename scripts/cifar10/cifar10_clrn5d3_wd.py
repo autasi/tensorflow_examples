@@ -7,6 +7,7 @@ from util.eval import load_cifar10_data, eval_net_custom
 from util.normalization import global_mean_std
 from arch.misc import FixValue
 import tensorflow as tf
+from functools import partial
 
 
 def main():
@@ -14,7 +15,7 @@ def main():
     tr_x, te_x = global_mean_std(tr_x, te_x)
     mean_acc, max_acc, min_acc = eval_net_custom(
             tr_x, tr_y, te_x, te_y,
-            net_func = cifar10_sequential_clrn5d3_wd,
+            net_func = partial(cifar10_sequential_clrn5d3_wd, drop_rate = 0.3),
             optimizer = tf.train.AdamOptimizer,
             optimizer_args = None,
             n_epochs = 100,

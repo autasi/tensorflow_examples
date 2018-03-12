@@ -7,7 +7,7 @@ from util.eval import load_cifar10_data, eval_net_basic
 from util.normalization import global_mean_std
 
 
-# https://arxiv.org/pdf/1512.00567.pdf
+# https://arxiv.org/pdf/1610.02357.pdf
 def main():
     tr_x, tr_y, te_x, te_y = load_cifar10_data()
     tr_x, te_x = global_mean_std(tr_x, te_x)

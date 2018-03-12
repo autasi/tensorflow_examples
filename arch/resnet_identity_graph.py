@@ -73,6 +73,7 @@ def cifar10_resnet_identity(x, n_blocks = 3, seed = 42):
     return layers, variables
 
 cifar10_resnet_identity_20 = partial(cifar10_resnet_identity, n_blocks = 3)
+cifar10_resnet_identity_32 = partial(cifar10_resnet_identity, n_blocks = 5)
 
 
 def cifar10_resnet_identity_wd(x, n_blocks = 3, weight_decay = 0.0001, seed = 42):
@@ -147,5 +148,6 @@ def cifar10_resnet_identity_wd(x, n_blocks = 3, weight_decay = 0.0001, seed = 42
     return layers, variables
 
 cifar10_resnet_identity_20_wd = partial(cifar10_resnet_identity_wd, n_blocks = 3)
+cifar10_resnet_identity_32_wd = partial(cifar10_resnet_identity_wd, n_blocks = 5)
 
 
