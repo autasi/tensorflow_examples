@@ -9,3 +9,5 @@ mnist_data_folder = os.path.join(base_folder, "mnist", "data")
 mnist_net_folder = os.path.join(base_folder, "mnist", "network")
 cifar10_data_folder = os.path.join(base_folder, "cifar10", "data")
 cifar10_net_folder = os.path.join(base_folder, "cifar10", "network")
+temp_folder = os.path.join(base_folder, "tmp")
+

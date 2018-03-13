@@ -5,7 +5,7 @@ import os
 import pickle
 import tensorflow as tf
 import numpy as np
-from config import cifar10_data_folder
+from config import cifar10_data_folder, mnist_data_folder
 from util.misc import tuple_list_find
 from arch.misc import ExponentialDecay
 from util.batch import random_batch_generator, batch_generator
@@ -13,6 +13,18 @@ from util.transform import RandomizedTransformer, Affine
 
 def load_cifar10_data():
     data_path = os.path.join(cifar10_data_folder, "data_nhwc.pkl")
+    data = pickle.load(open(data_path, "rb"))
+    tr = data['train']
+    tr_x = tr[0]
+    tr_y = tr[1]
+    te = data['test']
+    te_x = te[0]
+    te_y = te[1]
+    return tr_x, tr_y, te_x, te_y
+
+
+def load_mnist_data():
+    data_path = os.path.join(mnist_data_folder, "data_nhwc.pkl")
     data = pickle.load(open(data_path, "rb"))
     tr = data['train']
     tr_x = tr[0]
