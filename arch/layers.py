@@ -647,10 +647,22 @@ def avg_pool2d(
             name = name)
 
 
+def global_max_pool2d(
+        inputs,
+        name = "global_max_pool2d"):
+    return tf.reduce_max(inputs, axis = [1, 2], name = name)
+
+
 def global_avg_pool2d(
         inputs,
         name = "global_avg_pool2d"):
     return tf.reduce_mean(inputs, axis = [1, 2], name = name)
+
+
+def global_sum_pool2d(
+        inputs,
+        name = "global_sum_pool2d"):
+    return tf.reduce_sum(inputs, axis = [1, 2], name = name)
 
 
 def flatten(inputs, name = "flatten"):
@@ -862,5 +874,21 @@ def crop2d(x, crop = 1, name = "crop2d"):
               :]
     x = tf.identity(x, name = name)
     return x
+    
+
+# spatial softmax operator
+def spatial_softmax(x, name = "spatial_softmax"):
+    h = x.shape[1].value
+    w = x.shape[2].value
+    with tf.variable_scope(name):
+        xc = tf.unstack(x, axis=3)
+        outputs = []
+        for _xc in xc:
+            _r = tf.reshape(_xc, [-1, h*w])
+            _r = tf.nn.softmax(_r)
+            _r = tf.reshape(_r, [-1, h, w])
+            outputs.append(_r)
+        outputs = tf.stack(outputs, axis=3)
+    return outputs
     
 

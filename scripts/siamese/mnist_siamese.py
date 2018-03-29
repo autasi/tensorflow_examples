@@ -22,16 +22,18 @@ from util.transform import RandomizedTransformer, Affine
 from config import temp_folder
 
 
+#https://github.com/ppwwyyxx/tensorpack/blob/master/examples/SimilarityLearning/mnist-embeddings.py
+#https://github.com/ardiya/siamesenetwork-tensorflow/blob/master/model.py
 
-def contrastive_loss(out1, out2, y, margin):
+def contrastive_loss(x1, x2, y, margin=0.2, eps=1e-12):
     #http://yann.lecun.com/exdb/publis/pdf/hadsell-chopra-lecun-06.pdf
-    Dw = tf.sqrt(tf.reduce_sum(tf.pow(out1-out2, 2), axis=1, keepdims=True)) # euclidean distance, eq 1
+    y = tf.cast(y, tf.float32)
+    Dw = tf.sqrt(tf.reduce_sum(tf.pow(x1-x2, 2), axis=1, keepdims=True)+eps) # euclidean distance, eq 1
     Ls = tf.square(Dw)*0.5 # loss for similar images, eq 4
     Ld = tf.square(tf.maximum(0.0, margin-Dw))*0.5 # loss for dissimilar images, eq 4
-    pair_loss = (1.0-y)*Ls + y*(Ld) # eq 3
+    pair_loss = (1.0-y)*Ls + y*Ld # eq 3
     loss = tf.reduce_mean(pair_loss) # eq 2
     return loss
-
 
 
 def generate_pair_indices(x, y, max_pos = 100, max_neg = 100, seed = 42):

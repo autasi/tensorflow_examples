@@ -100,7 +100,8 @@ class Affine(object):
     """    
     def __init__(self, shape,
                        r=0.0, tx=0.0, ty=0.0, scale=1.0, reflect_y=False,
-                       data_format="channels_last"):
+                       data_format="channels_last",
+                       borderMode = cv2.BORDER_REPLICATE):
         self.shape = shape
         self.r = r
         self.tx = tx
@@ -108,6 +109,7 @@ class Affine(object):
         self.scale = scale
         self.reflect_y = reflect_y
         self.data_format = data_format
+        self.borderMode = borderMode
         self.tr_mat = None        
         self._init_tranformation_matrix()
         
@@ -147,7 +149,7 @@ class Affine(object):
         """        
         warp = partial(cv2.warpAffine, M = self.tr_mat[:2, :],
                                        flags = (cv2.WARP_INVERSE_MAP + cv2.INTER_LINEAR),
-                                       borderMode = cv2.BORDER_REPLICATE)
+                                       borderMode = self.borderMode)
         if self.data_format == "channels_last":
             nchan = self.shape[2]
         else:
